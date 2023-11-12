@@ -27,6 +27,7 @@ public class TablaDeSimbolos {
     public Token tokenEof;
     public static ArrayList<NodoBloque> bloques;
     public static ArrayList<String> listaInstrucciones;
+    public int numeroEtiqueta;
 
 
     public TablaDeSimbolos() {
@@ -357,5 +358,9 @@ public class TablaDeSimbolos {
 
     public static void gen(String intruccion) {
         listaInstrucciones.add(intruccion);
+    }
+
+    public String getNumeroEtiqueta() {
+        return "E" + numeroEtiqueta++;
     }
 }

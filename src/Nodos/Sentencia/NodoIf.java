@@ -5,13 +5,13 @@ import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Expresion.NodoExpresion;
 import TablaDeSimbolos.TablaDeSimbolos;
 import Tipo.*;
-public class NodoIf extends NodoSentencia{
+public class NodoIf extends NodoSentencia {
     Token tokenIf;
     NodoExpresion condicion;
     NodoSentencia sentenciaThen;
     NodoSentencia sentenciaElse;
-    int numEtiquetaThen = 0;
-    int numEtiquetaElse = 0;
+    String numEtiquetaThen;
+    String numEtiquetaElse;
 
     public NodoIf(Token token, NodoExpresion ne, NodoSentencia ns, NodoSentencia nodoElse) {
         tokenIf = token;
@@ -56,13 +56,13 @@ public class NodoIf extends NodoSentencia{
 
     private String nuevaEtiquetaThen() {
         String nuevaEtiqueta = "labelThen" + numEtiquetaThen;
-        numEtiquetaThen++;
+        numEtiquetaThen = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
         return nuevaEtiqueta;
     }
 
     private String nuevaEtiquetaElse() {
         String nuevaEtiqueta = "labelElse" + numEtiquetaElse;
-        numEtiquetaElse++;
+        numEtiquetaElse = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
         return nuevaEtiqueta;
     }
 }

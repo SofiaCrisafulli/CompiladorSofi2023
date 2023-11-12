@@ -19,9 +19,11 @@ public class Main {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
-        if (args.length > 0) {
-            fileName = args[0];
-            archivoDeSalida = args[1];
+        if (true || args.length > 0) {
+            //fileName = args[0];
+            fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-02.java";
+            //archivoDeSalida = args[1];
+            archivoDeSalida = "Test.java";
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];
             if (args.length > 1)
@@ -33,9 +35,9 @@ public class Main {
                 AnalizadorLexico analizadorLexico = new AnalizadorLexico(new GestorDeArchivo(fileName));
                 analizador = new AnalizadorSemantico(analizadorLexico);
                 analizador.start();
-                System.out.println("Compilación Exitosa" + System.lineSeparator() + "[SinErrores]");
                 TablaDeSimbolos.getInstance().generar();
                 crearArchivo(file);
+                System.out.println("Compilación Exitosa" + System.lineSeparator() + "[SinErrores]");
             } catch (FileNotFoundException e) {
                 System.out.println("ERROR: no se encontró el archivo");
             } catch (Exception e) {

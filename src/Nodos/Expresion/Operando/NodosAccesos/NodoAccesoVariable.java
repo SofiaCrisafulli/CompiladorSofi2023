@@ -23,9 +23,9 @@ public class NodoAccesoVariable extends NodoAcceso {
         if (esLlamada() || esAsignable()) {
             System.out.println("Operador: " + operador.getLexema());
             NodoVarLocal nodoVarLocal = TablaDeSimbolos.getInstance().getVarLocal(operador.getLexema());
-            System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
+            //System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
             if (nodoVarLocal != null) {
-                System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
+                //System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
                 tipo = nodoVarLocal.getTipo();
             } else {
                 Parametro parametro = TablaDeSimbolos.getClaseActual().getMetodoActual().getParametro(operador);
