@@ -3,14 +3,15 @@ package Nodos.Sentencia;
 import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Expresion.NodoExpresionCompuesta;
+import Nodos.Expresion.Operando.NodosAccesos.NodoAcceso;
 import TablaDeSimbolos.TablaDeSimbolos;
 import Tipo.*;
 
 public class NodoSentenciaAcceso extends NodoSentencia {
-    NodoExpresionCompuesta nodoAcceso;
+    NodoAcceso nodoAcceso;
     Tipo tipo;
 
-    public NodoSentenciaAcceso(Token tk, NodoExpresionCompuesta na) {
+    public NodoSentenciaAcceso(Token tk, NodoAcceso na) {
         tokenSentencia = tk;
         nodoAcceso = na;
     }
@@ -27,5 +28,9 @@ public class NodoSentenciaAcceso extends NodoSentencia {
         nodoAcceso.generar();
         if(!tipo.mismoTipo(new TipoVoid(tokenSentencia)))
         TablaDeSimbolos.gen("POP");
+    }
+
+    public void setNodoAcceso(NodoAcceso nodoAcceso) {
+        this.nodoAcceso = nodoAcceso;
     }
 }

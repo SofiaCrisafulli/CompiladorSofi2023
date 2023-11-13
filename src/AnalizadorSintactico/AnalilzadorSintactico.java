@@ -356,6 +356,11 @@ public class AnalilzadorSintactico {
             nodoSentencia = metWhile();
         } else if (primerosBloque(tokenActual)) {
             nodoSentencia = bloque();
+        } else if (primerosPrimario(tokenActual)) {
+            NodoAcceso nodoAcceso = acceso();
+            NodoLlamadaOAsignacion asignacion = asignacionOLlamada();
+            if (asignacion == null)
+                nodoSentencia = new NodoSentenciaAcceso(tokenActual, nodoAcceso); 
         } else
             throw new ExcepcionSintactica(tokenActual, "; | + | - | ! | null | true | false |  initLiteral | charLiteral | " +
                     "stringLiteral | return | if | while |  {");
