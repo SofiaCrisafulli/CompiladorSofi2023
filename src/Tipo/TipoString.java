@@ -23,6 +23,6 @@ public class TipoString extends Tipo {
         return true;
     }
     public boolean soySubtipo(TipoNull tipoNull) {
-        return false;
+        return true;
     }
 }

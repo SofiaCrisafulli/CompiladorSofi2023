@@ -1,6 +1,6 @@
-
+///metodo 1 gana&exitosamente
 class A{
-    private String s;
+     String s;
 
     void m1(){
         s = "metodo 1 gana";

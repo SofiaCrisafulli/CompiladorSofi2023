@@ -1,6 +1,6 @@
-
+///exitosamente
 class A {
-    public int a;
+     int a;
 
     void m1(){
         a=7;

@@ -5,11 +5,9 @@ PUSH main@Init
 CALL
 HALT
 
-simple_heap_init:
-RET 0
+simple_heap_init: RET 0
 
-simple_malloc:
-LOADFP ; Inicialización unidad
+simple_malloc: LOADFP ; Inicialización unidad
 LOADSP
 STOREFP ; Finaliza inicialización del RA
 LOADHL ; hl

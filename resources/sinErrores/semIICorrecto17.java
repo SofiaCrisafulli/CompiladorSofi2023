@@ -1,4 +1,4 @@
-
+///IGUALDAD&MENOR&MAYOR&MAIGUALDAD&MEIGUALDAD&MENOS&MAS&AND&or&negacion&DIV&modulo&MUL&Negativo&exitosamente
 
 
 

@@ -49,6 +49,7 @@ public abstract class Tipo {
         return false;
     }
 
+
     public Token getTokenTipo() {
         return tokenTipo;
     }

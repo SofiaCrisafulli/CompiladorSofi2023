@@ -1,9 +1,10 @@
+///exitosamente
 interface D{
 
     int m2();
 }
 
-interface C{
+interface E {
 
     int m2();
 }
@@ -18,7 +19,7 @@ class C {
     }
 }
 
-class B extends C implements A{
+class B extends C {
 
     void m1(){
         System.printI(12);

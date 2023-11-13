@@ -5,7 +5,7 @@ import Tipo.*;
 
 public abstract class NodoEncadenado {
 
-    public NodoEncadenado nodoEncadenado;
+    protected NodoEncadenado nodoEncadenado;
     protected boolean esAsignacion = false;
     protected Token nombre;
     protected boolean esLadoIzq = false;
