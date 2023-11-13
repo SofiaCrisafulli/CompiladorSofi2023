@@ -52,7 +52,6 @@ public class NodoAccesoVariable extends NodoAcceso {
 
     @Override
     public void generar() {
-        System.out.println("Estoy en generar de nodo acceso variable");
         if (atributo != null) {
             TablaDeSimbolos.gen("LOAD 3");
             if (!esLadoIzq || nodoEncadenado != null)

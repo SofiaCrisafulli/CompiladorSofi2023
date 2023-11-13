@@ -21,6 +21,7 @@ public class Main {
         TablaEstatica.startTabla();
         if (true || args.length > 0) {
             fileName = args[0];
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\semIICorrecto07.java";
             //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
             //archivoDeSalida = args[1];
             archivoDeSalida = "Test.java";

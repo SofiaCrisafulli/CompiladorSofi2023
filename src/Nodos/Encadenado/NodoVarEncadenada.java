@@ -61,7 +61,7 @@ public class NodoVarEncadenada extends NodoEncadenado {
     @Override
     public boolean esAsignacion() {
         if(nodoEncadenado == null)
-            return true;
+            return false;
         else
             return nodoEncadenado.esAsignacion();
     }

@@ -6,7 +6,7 @@ import Tipo.*;
 public abstract class NodoEncadenado {
 
     public NodoEncadenado nodoEncadenado;
-    protected boolean esAsignacion = true;
+    protected boolean esAsignacion = false;
     protected Token nombre;
     protected boolean esLadoIzq = false;
     public abstract Tipo chequear(Tipo t, Token token) throws ExcepcionSemantica;
