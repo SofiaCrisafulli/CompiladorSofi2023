@@ -7,7 +7,9 @@ import TablaDeSimbolos.*;
 import Tipo.*;
 
 public class NodoAccesoVariable extends NodoAcceso {
-
+    Atributo atributo;
+    NodoVarLocal nodoVarLocal;
+    Parametro parametro;
 
     public NodoAccesoVariable(Token token) {
         operador = token;
@@ -21,21 +23,18 @@ public class NodoAccesoVariable extends NodoAcceso {
             throw new ExcepcionSemantica(operador, "no es posible realizar una asignacion");
         Tipo tipo = null;
         if (esLlamada() || esAsignable()) {
-            System.out.println("Operador: " + operador.getLexema());
-            NodoVarLocal nodoVarLocal = TablaDeSimbolos.getInstance().getVarLocal(operador.getLexema());
-            //System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
+            nodoVarLocal = TablaDeSimbolos.getInstance().getVarLocal(operador.getLexema());
             if (nodoVarLocal != null) {
-                //System.out.println("Nodo var local: " + nodoVarLocal.getTipo().getTokenTipo().getLexema());
                 tipo = nodoVarLocal.getTipo();
             } else {
-                Parametro parametro = TablaDeSimbolos.getClaseActual().getMetodoActual().getParametro(operador);
+                parametro = TablaDeSimbolos.getClaseActual().getMetodoActual().getParametro(operador);
                 if (parametro != null)
                     tipo = parametro.getTipo();
                 else {
-                    Atributo atributo = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema()).getAtributos().get(operador.getLexema());
+                    atributo = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema()).getAtributos().get(operador.getLexema());
                     if (atributo != null) {
                         ClaseConcreta clase = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema());
-                        if(clase.getMetodoActual().getMetodoEstatico() && !atributo.isEsEstatico())
+                        if (clase.getMetodoActual().getMetodoEstatico() && !atributo.isEsEstatico())
                             throw new ExcepcionSemantica(operador, "no es posible acceder a una variable de instancia en un metodo estatico");
                         tipo = atributo.getTipo();
                     } else
@@ -53,10 +52,8 @@ public class NodoAccesoVariable extends NodoAcceso {
 
     @Override
     public void generar() {
-        Atributo atributo = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema()).getAtributos().get(operador.getLexema());
-        Parametro parametro = TablaDeSimbolos.getClaseActual().getMetodoActual().getParametro(operador);
+        System.out.println("Estoy en generar de nodo acceso variable");
         System.out.println("Operador: " + operador.getLexema());
-        NodoVarLocal nodoVarLocal = TablaDeSimbolos.getInstance().getVarLocal(operador.getLexema());
         if (atributo != null) {
             TablaDeSimbolos.gen("LOAD 3");
             if (!esLadoIzq || nodoEncadenado != null)

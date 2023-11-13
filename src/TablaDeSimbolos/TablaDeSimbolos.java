@@ -39,6 +39,7 @@ public class TablaDeSimbolos {
     }
 
     public static void limpiar() {
+        System.out.println("Limpiar");
         clases = new HashMap<String, ClaseConcreta>();
         interfaces = new HashMap<String, Interface>();
         metodos = new HashMap<String, Metodo>();

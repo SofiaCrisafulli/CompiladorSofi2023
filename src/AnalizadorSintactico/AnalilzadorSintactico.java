@@ -175,6 +175,7 @@ public class AnalilzadorSintactico {
             if (!TablaDeSimbolos.getInstance().getClaseActual().addMetodo(m))
                 throw new ExcepcionSemantica(token, "el método esta repetido");
         } else {
+            System.out.println("Else de atributoOMetodoFactorizada");
             Atributo a = new Atributo(token, tipo, TablaDeSimbolos.getClaseActual(), es);
             match(";", TipoDeToken.simb_punto_y_coma);
             TablaDeSimbolos.getInstance().getClaseActual().addAtributo(a);
@@ -360,7 +361,7 @@ public class AnalilzadorSintactico {
             NodoAcceso nodoAcceso = acceso();
             NodoLlamadaOAsignacion asignacion = asignacionOLlamada();
             if (asignacion == null)
-                nodoSentencia = new NodoSentenciaAcceso(tokenActual, nodoAcceso); 
+                nodoSentencia = new NodoSentenciaAcceso(tokenActual, nodoAcceso); //TODO verificar si esta bien 
         } else
             throw new ExcepcionSintactica(tokenActual, "; | + | - | ! | null | true | false |  initLiteral | charLiteral | " +
                     "stringLiteral | return | if | while |  {");

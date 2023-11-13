@@ -49,7 +49,6 @@ public class NodoBloque extends NodoSentencia {
     }
 
     public NodoVarLocal getVarLocal(String lexema) {
-        System.out.println("Cant variables locales: " + varLocales.size());
         return varLocales.get(lexema);
     }
 

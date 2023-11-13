@@ -36,7 +36,7 @@ class Main {
 
         debugPrint(p1);
         debugPrint(p2);
-        a.x=3;
+        a.x = 3;
         debugPrint(a.x);
     }
 }

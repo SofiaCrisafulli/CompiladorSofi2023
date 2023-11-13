@@ -45,6 +45,7 @@ public abstract class Clase {
     }
 
     public void addAtributo(Atributo a) throws ExcepcionSemantica {
+        System.out.println("addAtributo");
         if(atributos.get(a.getNombre()) == null)
             atributos.put(a.getNombre(), a);
         else
