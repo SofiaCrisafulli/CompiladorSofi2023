@@ -131,6 +131,7 @@ public class TablaDeSimbolos {
     }
 
     private static void crearObject() {
+        System.out.println("crearObject");
         ClaseConcreta objeto = new ClaseConcreta(new Token(TipoDeToken.id_clase, "Object", 0));
         TablaDeSimbolos.setClaseActual(objeto);
         ArrayList<Parametro> parametrosDebugPrint = new ArrayList<>();

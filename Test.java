@@ -24,9 +24,40 @@ STOREFP
 RET 1 ; Retorna eliminando el parámetro
 
 .DATA
-VT_A: NOP
+VT_B: NOP
 
 .CODE
+m1@B:
+LOADFP
+LOADSP
+STOREFP
+PUSH VT_System
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
+CALL
+FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
+STOREFP
+RET 0
+m2@B:
+LOADFP
+LOADSP
+STOREFP
+PUSH VT_System
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
+CALL
+FMEM 0
+PUSH 24; apilo entero
+STORE 4
+STOREFP
+RET 1
+FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
+STOREFP
+RET 0
 
 
 
@@ -38,6 +69,7 @@ main@Init:
 LOADFP
 LOADSP
 STOREFP
+RMEM 1 ; guardo lugar para la variable local a
 RMEM 1 ; reservo para el malloc
 PUSH 01; apilo los atributos
 PUSH simple_malloc ; rutina de heap
@@ -45,7 +77,16 @@ CALL
 DUP ; no perder el nuevo CiR
 PUSH VT_System; apilo el comienzo de la vt
 STOREREF 0 
-FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
+STORE -1
+LOAD -1 ; apilo variable local
+POP ; como es estatico no me sirve la referencia anterior
+PUSH main@Init; etiqueta
+CALL
+LOAD -1 ; apilo variable local
+POP ; como es estatico no me sirve la referencia anterior
+PUSH main@Init; etiqueta
+CALL
+FMEM 1 ; libero el espacio para las variables locles, se liberaron 1espacios de memoria
 STOREFP
 RET 1
 

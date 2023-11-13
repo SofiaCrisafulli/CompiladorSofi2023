@@ -25,7 +25,7 @@ public abstract class NodoExpresion {
     }
 
     public void setOperador(Token operador) {
-        System.out.println("Operador en ne" + operador.getLexema());
+        System.out.println("Operador en ne: " + operador.getLexema());
         this.operador = operador;
     }
 }
