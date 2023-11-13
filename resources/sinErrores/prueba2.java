@@ -1,6 +1,6 @@
 ///&exitosamente
 class A{
-    static void main(){}
+
     public A(){
         debugPrint(1234);
     }
@@ -12,6 +12,7 @@ class A{
     }
 }
 class B extends A{
+    static void main(){}
     int metodoB(){
         imprimir();
     }

@@ -20,9 +20,9 @@ public class Main {
         String archivoDeSalida;
         TablaEstatica.startTabla();
         if (true || args.length > 0) {
-            //fileName = args[0];
+            fileName = args[0];
             //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\prueba12.java";
-            fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
             //archivoDeSalida = args[1];
             archivoDeSalida = "Test.java";
             String[] nameIntermedio = fileName.split("/");
