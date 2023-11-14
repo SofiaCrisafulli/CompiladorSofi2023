@@ -20,14 +20,15 @@ public class Main {
         String archivoDeSalida;
         TablaEstatica.startTabla();
         if (true || args.length > 0) { //true ||
-            fileName = args[0];
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-01.java";
-            archivoDeSalida = args[1];
-            //archivoDeSalida = "archivoDeSalida.java";
+            //fileName = args[0];
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\semIICorrecto01.java";
+            fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-02.java";
+            //archivoDeSalida = args[1];
+            archivoDeSalida = "[gen-02.java]";
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];
-            if (args.length > 1)
-                name = args[1];
+            //if (args.length > 1)
+            //    name = args[1];
             File file = new File(archivoDeSalida);
             AnalizadorSemantico analizador = null;
 

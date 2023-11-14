@@ -31,10 +31,10 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH 1234 ; Apila el entero 1234
-PUSH main@Init ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 

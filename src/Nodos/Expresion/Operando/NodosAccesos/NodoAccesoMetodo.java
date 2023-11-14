@@ -13,6 +13,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
 
     ArrayList<NodoExpresion> parametros;
     ArrayList<NodoExpresion> parametrosInvertidos;
+    Metodo metodo;
 
     public NodoAccesoMetodo(Token token) {
         operador = token;
@@ -25,7 +26,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
             throw new ExcepcionSemantica(operador, "no es posible realizar una llamada a un metodo");
         Tipo tipoMetodo = null;
         if (esLlamada() || esAsignable()) {
-            Metodo metodo = TablaDeSimbolos.getClaseActual().getMetodo(operador.getLexema());
+            metodo = TablaDeSimbolos.getClaseActual().getMetodo(operador.getLexema());
             if (metodo == null)
                 throw new ExcepcionSemantica(operador, "el metodo es nulo");
             Metodo metodoActual = TablaDeSimbolos.claseActual.getMetodoActual();
@@ -43,31 +44,29 @@ public class NodoAccesoMetodo extends NodoAcceso {
 
     @Override
     public void generar() {
-        Metodo metodo = TablaDeSimbolos.getClaseActual().getMetodoActual();
-        if(metodo.getMetodoEstatico()) {
-            if(!metodo.getTipo().mismoTipo(new TipoVoid(operador)))
+        if (metodo.getMetodoEstatico()) {
+            if (!metodo.getTipo().mismoTipo(new TipoVoid(operador)))
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
-            for(NodoExpresion ne : parametrosInvertidos)
+            for (NodoExpresion ne : parametrosInvertidos)
                 ne.generar();
             TablaDeSimbolos.gen("PUSH " + metodo.etiquetaMetodo());
             TablaDeSimbolos.gen("CALL ; Llama al método en el tope de la pila");
-        }
-        else {
+        } else {
             TablaDeSimbolos.gen("LOAD 3");
-            if(!metodo.getTipo().mismoTipo(new TipoVoid(operador))) {
+            if (!metodo.getTipo().mismoTipo(new TipoVoid(operador))) {
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
                 TablaDeSimbolos.gen("SWAP");
             }
-            for(NodoExpresion ne: parametrosInvertidos) {
+            for (NodoExpresion ne : parametrosInvertidos) {
                 ne.generar();
                 TablaDeSimbolos.gen("SWAP");
             }
             TablaDeSimbolos.gen("DUP");
             TablaDeSimbolos.gen("LOADREF 0 ; Cargo la VT");
-            TablaDeSimbolos.gen("LOADREF "+ metodo.getOffset());
+            TablaDeSimbolos.gen("LOADREF " + metodo.getOffset());
             TablaDeSimbolos.gen("CALL");
         }
-        if(nodoEncadenado != null) {
+        if (nodoEncadenado != null) {
             nodoEncadenado.setMismoLado(esLadoIzq);
             nodoEncadenado.generar();
         }

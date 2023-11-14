@@ -33,5 +33,6 @@ public class NodoLlamadaOAsignacion extends NodoSentencia {
     @Override
     public void generar() {
         nodoExpresion.generar();
+        //TODO liberar la memoria en caso de no guardar el valor de retorno
     }
 }
