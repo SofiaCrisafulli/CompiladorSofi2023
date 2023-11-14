@@ -40,21 +40,9 @@ public class Metodo {
             offsetParametros = 4;
     }
 
-    public Metodo(Token token, Tipo tipoT, ArrayList<Parametro> listaP, Clase miClase) {
-        tokenMetodo = token;
-        tipoRetorno = tipoT;
-        claseAsociada = new Token(tokenMetodo.getTipoDeToken(), tokenMetodo.getLexema(), 0);
-        listaParametros = listaP;
-        bloque = new NodoBloque(tokenMetodo);
-        this.miClase = miClase;
-    }
-
     public void estaBienDeclarado() throws ExcepcionSemantica {
-        for (Parametro p : listaParametros) {
+        for (Parametro p : listaParametros)
             p.checkExistencia();
-
-        }
-
         if (tipoRetorno.getTokenTipo().getTipoDeToken() == TipoDeToken.id_clase) {
             if ((TablaDeSimbolos.getInstance().getInterfaz(tipoRetorno.getTokenTipo().getLexema()) == null) && (TablaDeSimbolos.getInstance().getClase(tipoRetorno.getTokenTipo().getLexema()) == null))
                 throw new ExcepcionSemantica(tipoRetorno.getTokenTipo(), tipoRetorno.getNombreTipo() + " no existe");
@@ -65,7 +53,6 @@ public class Metodo {
         return metodoHeredado.getTipoRetorno().getNombreTipo().equals(tipoRetorno.getNombreTipo()) &&
                 (metodoHeredado.getMetodoEstatico() == metodoEstatico) && (comprobarParametros(metodoHeredado.getListaParametros()));
     }
-
 
     private boolean comprobarParametros(ArrayList<Parametro> parametros) {
         boolean correcto = parametros.size() == listaParametros.size();
@@ -208,16 +195,13 @@ public class Metodo {
         TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
-        TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
+        TablaDeSimbolos.gen("STOREFP ;AF Almacena el tope de la pila en el registro fp");
         System.out.println("generar metodo");
         if (metodoEstatico) {
-            System.out.println("Size de lista de parametros 1 " + listaParametros.size());
             TablaDeSimbolos.gen("RET " + listaParametros.size());
-        }
-        else {
-            System.out.println("Size de lista de parametros 2 " + listaParametros.size());
+            System.out.println("Size de lista de parametros: " + listaParametros.size());
+        } else
             TablaDeSimbolos.gen("RET " + (listaParametros.size()) + 1);
-        }
     }
 
     public String etiquetaMetodo() {

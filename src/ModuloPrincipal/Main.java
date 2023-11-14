@@ -19,11 +19,11 @@ public class Main {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
-        if (args.length > 0) { //true ||
+        if (true || args.length > 0) { //true ||
             fileName = args[0];
             //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-01.java";
             archivoDeSalida = args[1];
-            //archivoDeSalida = "[gen-01.java].out";
+            //archivoDeSalida = "archivoDeSalida.java";
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];
             if (args.length > 1)

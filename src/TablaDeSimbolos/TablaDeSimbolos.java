@@ -146,6 +146,7 @@ public class TablaDeSimbolos {
         parametrosDebugPrint.add(new Parametro(new Token(TipoDeToken.id_met_var, "debugPrint", 0), new TipoInt(new Token(TipoDeToken.pr_int, "int", 0))));
         Metodo met = new MetodoDebugPrint(new Token(TipoDeToken.id_met_var, "debugPrint", 0), parametrosDebugPrint, new TipoVoid(new Token(TipoDeToken.id_met_var, "debugPrint", 0)), true, new Token(TipoDeToken.id_met_var, "debugPrint", 0), claseActual);
         met.setListaParametros(parametrosDebugPrint);
+        System.out.println("Cant de parametros de debugPrint: " + parametrosDebugPrint.size());
         met.setMetodoEstatico(true);
         objeto.addMetodo(met);
         clases.put(objeto.getToken().getLexema(), objeto);
