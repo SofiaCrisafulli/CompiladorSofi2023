@@ -36,7 +36,7 @@ public class NodoBloque extends NodoSentencia {
         for (NodoSentencia nodoSentencia : listaSentencias)
             nodoSentencia.generar();
         TablaDeSimbolos.removeBloque();
-        TablaDeSimbolos.gen("FMEM " + varLocales.size() + " ; libero el espacio para las variables locles, se liberaron " + varLocales.size() + "espacios de memoria");
+        TablaDeSimbolos.gen("FMEM " + varLocales.size());
     }
 
 

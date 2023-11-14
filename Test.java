@@ -5,21 +5,55 @@ PUSH main@Init
 CALL
 HALT
 
-simple_heap_init: RET 0
+simple_heap_init:
+RET 0 ; Retorna inmediatamente
 
-simple_malloc: LOADFP ; Inicialización unidad
+simple_malloc:
+LOADFP ; Inicialización unidad
 LOADSP
 STOREFP ; Finaliza inicialización del RA
 LOADHL ; hl
 DUP ; hl
 PUSH 1 ; 1
 ADD ; hl + 1
-STORE 4 ; Guarda resultado (puntero a base del bloque)
+STORE 4 ; Guarda el resultado (un puntero a la primer celda de la región de memoria)
 LOAD 3 ; Carga cantidad de celdas a alojar (parámetro)
 ADD
 STOREHL ; Mueve el heap limit (hl)
 STOREFP
 RET 1 ; Retorna eliminando el parámetro
+
+.DATA
+VT_A: NOP
+
+.CODE
+mc@A:
+LOADFP
+LOADSP
+STOREFP
+LOAD 3
+PUSH 1234; apilo entero
+SWAP
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF -1
+CALL
+LOAD 3
+LOADREF-1
+PUSH 33; apilo entero
+LOAD 3
+LOAD 3
+LOADREF-1
+SWAP
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF -1
+CALL
+FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
+STOREFP
+RET 0
+
+
 
 .DATA
 VT_Init: NOP
@@ -30,21 +64,6 @@ LOADFP
 LOADSP
 STOREFP
 RMEM 1 ; guardo lugar para la variable local a
-PUSH VT_System
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
-CALL
-STORE -1
-RMEM 1 ; guardo lugar para la variable local b
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
-CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-STORE -1
-RMEM 1 ; guardo lugar para la variable local c
 RMEM 1 ; reservo para el malloc
 PUSH 01; apilo los atributos
 PUSH simple_malloc ; rutina de heap
@@ -54,43 +73,12 @@ PUSH VT_System; apilo el comienzo de la vt
 STOREREF 0 
 STORE -1
 LOAD -1 ; apilo variable local
-PUSH 5; apilo entero
-LT
-BF labelElsenull ; salta a la condicion else
-LOAD -1 ; apilo variable local
-LOADREF -1
-PUSH 7; apilo entero
-FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
-JUMP labelThennull ; salteo al else
-labelElsenull:
-LOAD -1 ; apilo variable local
-LOADREF -1
-PUSH 5; apilo entero
-FMEM 0 ; libero el espacio para las variables locles, se liberaron 0espacios de memoria
-labelThennull: NOP
-PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
-LOAD -1 ; apilo variable local
-LOADREF -1
 PUSH main@Init; etiqueta
 CALL
-FMEM 3 ; libero el espacio para las variables locles, se liberaron 3espacios de memoria
+FMEM 1 ; libero el espacio para las variables locles, se liberaron 1espacios de memoria
 STOREFP
 RET 1
-
-
-
-.DATA
-VT_B: NOP
-
-.CODE
-
-
-
-.DATA
-VT_C: NOP
-
-.CODE
 
 
 

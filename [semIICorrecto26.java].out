@@ -23,29 +23,34 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
 .DATA
-VT_A: NOP
+VT_B: NOP
 
 .CODE
-m1$int@A:
+m1@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOAD -1 ; parametrop1
-SWAP
-DUP
-LOADREF 0 ; Cargo la VT
-LOADREF -1
+PUSH VT_System
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
 CALL
 FMEM 0
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 11
-m2@A:
+RET 01
+m2@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+PUSH VT_System
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
+CALL
 FMEM 0
-PUSH 33 ; Apila el entero 33
+PUSH 24 ; Apila el entero 24
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
@@ -63,7 +68,7 @@ main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local x
+RMEM 1 ; guardo lugar para la variable local a
 RMEM 1 ; reservo para el malloc
 PUSH 01; apilo los atributos
 PUSH simple_malloc ; rutina de heap
@@ -80,8 +85,6 @@ LOAD -1 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Init; etiqueta
 CALL
-PUSH main@Init ; Apila el método 
-CALL ; Llama al método en el tope de la pila
 FMEM 1
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 0

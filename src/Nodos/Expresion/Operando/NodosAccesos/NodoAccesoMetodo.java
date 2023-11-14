@@ -50,7 +50,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
             for(NodoExpresion ne : parametrosInvertidos)
                 ne.generar();
             TablaDeSimbolos.gen("PUSH " + metodo.etiquetaMetodo());
-            TablaDeSimbolos.gen("CALL");
+            TablaDeSimbolos.gen("CALL ; Llama al método en el tope de la pila");
         }
         else {
             TablaDeSimbolos.gen("LOAD 3");

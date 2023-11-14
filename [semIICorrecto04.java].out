@@ -26,32 +26,20 @@ RET 1 ; Retorna eliminando el parámetro
 VT_A: NOP
 
 .CODE
-m1$int@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOAD -1 ; parametrop1
-SWAP
-DUP
-LOADREF 0 ; Cargo la VT
-LOADREF -1
-CALL
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 11
-m2@A:
+m1$int$int@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-PUSH 33 ; Apila el entero 33
-STORE 4
+LOAD -1 ; parametroa
+LOAD -1 ; parametrob
+ADD
+STORE 6
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
+RET 3
 FMEM 0
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+RET 21
 
 
 
@@ -63,7 +51,7 @@ main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local x
+RMEM 1 ; guardo lugar para la variable local v1
 RMEM 1 ; reservo para el malloc
 PUSH 01; apilo los atributos
 PUSH simple_malloc ; rutina de heap
@@ -72,17 +60,20 @@ DUP ; no perder el nuevo CiR
 PUSH VT_System; apilo el comienzo de la vt
 STOREREF 0 
 STORE -1
+RMEM 1 ; guardo lugar para la variable local c
 LOAD -1 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
+PUSH 6 ; Apila el entero 6
+PUSH 3 ; Apila el entero 3
 PUSH main@Init; etiqueta
 CALL
-LOAD -1 ; apilo variable local
+STORE -1
+PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
+LOAD -1 ; apilo variable local
 PUSH main@Init; etiqueta
 CALL
-PUSH main@Init ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-FMEM 1
+FMEM 2
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 0
 

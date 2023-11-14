@@ -26,29 +26,67 @@ RET 1 ; Retorna eliminando el parámetro
 VT_A: NOP
 
 .CODE
-m1$int@A:
+getv@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+LOAD 3
+LOADREF-1
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+FMEM 0
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 01
+m1@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOAD -1 ; parametrop1
+LOADREF-1
+PUSH 7 ; Apila el entero 7
+FMEM 0
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 01
+
+
+
+.DATA
+VT_B: NOP
+
+.CODE
+m1@B:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD 3
+LOADREF-1
+RMEM 1 ; reservo para el malloc
+PUSH 01; apilo los atributos
+PUSH simple_malloc ; rutina de heap
+CALL
+DUP ; no perder el nuevo CiR
+PUSH VT_System; apilo el comienzo de la vt
+STOREREF 0 
+LOAD 3
+LOADREF-1
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
+CALL
+LOAD 3
+LOAD 3
+LOADREF-1
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF-1
+CALL
 SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF -1
 CALL
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 11
-m2@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-PUSH 33 ; Apila el entero 33
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
 FMEM 0
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 01
@@ -63,7 +101,7 @@ main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local x
+RMEM 1 ; guardo lugar para la variable local b
 RMEM 1 ; reservo para el malloc
 PUSH 01; apilo los atributos
 PUSH simple_malloc ; rutina de heap
@@ -76,12 +114,6 @@ LOAD -1 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Init; etiqueta
 CALL
-LOAD -1 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
-CALL
-PUSH main@Init ; Apila el método 
-CALL ; Llama al método en el tope de la pila
 FMEM 1
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 0

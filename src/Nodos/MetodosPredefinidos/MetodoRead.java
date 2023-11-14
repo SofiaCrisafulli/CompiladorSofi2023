@@ -14,14 +14,14 @@ public class MetodoRead extends Metodo {
     public void generar() {
         TablaDeSimbolos.gen("LOADFP");
         TablaDeSimbolos.gen("LOADSP");
-        TablaDeSimbolos.gen("STOREFP");
+        TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
 
         TablaDeSimbolos.gen("READ ; lectura de un digito entero");
         TablaDeSimbolos.gen("PUSH 48 ; apilo el 48 para restarselo al ASCII del digito paa obtener el numero");
         TablaDeSimbolos.gen("SUB");
         TablaDeSimbolos.gen("STORE 3 ; pongo el tope de la pila en la locacion reservada");
 
-        TablaDeSimbolos.gen("STOREFP");
+        TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         TablaDeSimbolos.gen("RET " + 0 + "; +0");
         TablaDeSimbolos.gen("\n");
     }

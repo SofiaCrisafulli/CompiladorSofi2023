@@ -43,12 +43,14 @@ public class NodoReturn extends NodoSentencia {
         TablaDeSimbolos.gen("FMEM " + cantVarLocales);
         Metodo m = TablaDeSimbolos.getClaseActual().getMetodoActual();
         if (m.getTipo().mismoTipo(new TipoVoid(tokenReturn))) {
-            TablaDeSimbolos.gen("STOREFP");
+            TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
+            System.out.println("nodo return");
+            System.out.println("Offset de lineaa" + m.getOffsetLinea());
             TablaDeSimbolos.gen("RET " + m.getOffsetLinea());
         } else {
             retorno.generar();
             TablaDeSimbolos.gen("STORE " + m.getOffsetRetorno());
-            TablaDeSimbolos.gen("STOREFP");
+            TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
             TablaDeSimbolos.gen("RET " + m.getOffsetLinea());
         }
     }

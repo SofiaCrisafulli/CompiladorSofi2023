@@ -7,6 +7,7 @@ import Nodos.Sentencia.NodoBloque;
 import Tipo.Tipo;
 import Tipo.Utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -64,6 +65,7 @@ public class Metodo {
         return metodoHeredado.getTipoRetorno().getNombreTipo().equals(tipoRetorno.getNombreTipo()) &&
                 (metodoHeredado.getMetodoEstatico() == metodoEstatico) && (comprobarParametros(metodoHeredado.getListaParametros()));
     }
+
 
     private boolean comprobarParametros(ArrayList<Parametro> parametros) {
         boolean correcto = parametros.size() == listaParametros.size();
@@ -202,15 +204,20 @@ public class Metodo {
 
     public void generar() {
         TablaDeSimbolos.getClaseActual().setMetodoActual(this);
-        TablaDeSimbolos.gen("LOADFP");
-        TablaDeSimbolos.gen("LOADSP");
-        TablaDeSimbolos.gen("STOREFP");
+        TablaDeSimbolos.gen("LOADFP ; Apila el valor del registro fp");
+        TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");
+        TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
-        TablaDeSimbolos.gen("STOREFP");
-        if (!metodoEstatico)
+        TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
+        System.out.println("generar metodo");
+        if (metodoEstatico) {
+            System.out.println("Size de lista de parametros 1 " + listaParametros.size());
             TablaDeSimbolos.gen("RET " + listaParametros.size());
-        else
-            TablaDeSimbolos.gen("RET " + (listaParametros.size() + 1));
+        }
+        else {
+            System.out.println("Size de lista de parametros 2 " + listaParametros.size());
+            TablaDeSimbolos.gen("RET " + (listaParametros.size()) + 1);
+        }
     }
 
     public String etiquetaMetodo() {
@@ -219,16 +226,12 @@ public class Metodo {
             etiqueta = etiqueta + p.getTipo().getTokenTipo().getLexema() + "$";
         if (etiqueta.contains("$"))
             etiqueta = etiqueta.substring(0, etiqueta.length() - 1);
-        etiqueta = etiqueta + "@" + miClase.getToken().getLexema();
+        etiqueta = etiqueta + "@" + miClase.getToken().getLexema() + " ; Apila el método ";
         return etiqueta;
     }
 
     public int getOffset() {
         return offset;
-    }
-
-    public int getOffsetParametros() {
-        return offsetParametros;
     }
 
     public String stringLabel() {
@@ -239,5 +242,9 @@ public class Metodo {
             labels = labels.substring(0, labels.length() - 1);
         labels = labels + "@" + miClase.getToken().getLexema();
         return labels;
+    }
+
+    public void setListaParametros(ArrayList<Parametro> listaParametros) {
+        this.listaParametros = listaParametros;
     }
 }

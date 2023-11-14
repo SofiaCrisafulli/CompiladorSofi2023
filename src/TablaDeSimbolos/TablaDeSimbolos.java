@@ -75,24 +75,28 @@ public class TablaDeSimbolos {
         ArrayList<Parametro> parametrosBoolean = new ArrayList<>();
         parametrosBoolean.add(new Parametro(new Token(TipoDeToken.pr_boolean, "boolean", 0), new TipoBoolean(new Token(TipoDeToken.pr_boolean, "boolean", 0))));
         met = new MetodoPrintB(new Token(TipoDeToken.id_met_var, "printB", 0), parametrosBoolean, new TipoVoid(new Token(TipoDeToken.id_met_var, "printB", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosBoolean);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosChar = new ArrayList<>();
         parametrosChar.add(new Parametro(new Token(TipoDeToken.pr_char, "char", 0), new TipoBoolean((new Token(TipoDeToken.pr_boolean, "boolean", 0)))));
         met = new MetodoPrintC(new Token(TipoDeToken.id_met_var, "printC", 0), parametrosChar, new TipoVoid(new Token(TipoDeToken.id_met_var, "printC", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosChar);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosInt = new ArrayList<>();
         parametrosInt.add(new Parametro(new Token(TipoDeToken.pr_int, "int", 0), new TipoInt(new Token(TipoDeToken.num_int, "int", 0))));
         met = new MetodoPrintI(new Token(TipoDeToken.id_met_var, "printI", 0), parametrosInt, new TipoVoid(new Token(TipoDeToken.id_met_var, "printI", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosInt);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosString = new ArrayList<>();
         parametrosString.add(new Parametro(new Token(TipoDeToken.stringLiteral, "string", 0), new TipoString(new Token(TipoDeToken.stringLiteral, "string", 0))));
         met = new MetodoPrintS(new Token(TipoDeToken.id_met_var, "printS", 0), parametrosString, new TipoVoid(new Token(TipoDeToken.id_met_var, "printS", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosString);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
@@ -104,24 +108,28 @@ public class TablaDeSimbolos {
         ArrayList<Parametro> parametrosBln = new ArrayList<>();
         parametrosBln.add(new Parametro(new Token(TipoDeToken.pr_boolean, "boolean", 0), new TipoBoolean((new Token(TipoDeToken.pr_boolean, "boolean", 0)))));
         met = new MetodoPrintBln(new Token(TipoDeToken.id_met_var, "printBln", 0), parametrosBln, new TipoVoid(new Token(TipoDeToken.id_met_var, "printBln", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosBln);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosPrintCln = new ArrayList<Parametro>();
         parametrosPrintCln.add(new Parametro(new Token(TipoDeToken.pr_char, "char", 0), new TipoChar((new Token(TipoDeToken.pr_char, "char", 0)))));
         met = new MetodoPrintCln(new Token(TipoDeToken.id_met_var, "printCln", 0), parametrosPrintCln, new TipoVoid(new Token(TipoDeToken.id_met_var, "printCln", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosPrintCln);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosPrintIln = new ArrayList<Parametro>();
         parametrosPrintIln.add(new Parametro(new Token(TipoDeToken.pr_int, "printIln", 0), new TipoInt(new Token(TipoDeToken.num_int, "int", 0))));
         met = new MetodoPrintIln(new Token(TipoDeToken.id_met_var, "printIln", 0), parametrosPrintIln, new TipoVoid(new Token(TipoDeToken.id_met_var, "printIln", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosPrintIln);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosPrintSln = new ArrayList<>();
         parametrosPrintSln.add(new Parametro(new Token(TipoDeToken.id_met_var, "string", 0), new TipoString(new Token(TipoDeToken.stringLiteral, "string", 0))));
         met = new MetodoPrintSln(new Token(TipoDeToken.id_met_var, "printSln", 0), parametrosPrintSln, new TipoVoid(new Token(TipoDeToken.id_met_var, "printSln", 0)), true, system.getToken(), system);
+        met.setListaParametros(parametrosPrintSln);
         met.setMetodoEstatico(true);
         system.addMetodo(met);
 
@@ -137,6 +145,7 @@ public class TablaDeSimbolos {
         ArrayList<Parametro> parametrosDebugPrint = new ArrayList<>();
         parametrosDebugPrint.add(new Parametro(new Token(TipoDeToken.id_met_var, "debugPrint", 0), new TipoInt(new Token(TipoDeToken.pr_int, "int", 0))));
         Metodo met = new MetodoDebugPrint(new Token(TipoDeToken.id_met_var, "debugPrint", 0), parametrosDebugPrint, new TipoVoid(new Token(TipoDeToken.id_met_var, "debugPrint", 0)), true, new Token(TipoDeToken.id_met_var, "debugPrint", 0), claseActual);
+        met.setListaParametros(parametrosDebugPrint);
         met.setMetodoEstatico(true);
         objeto.addMetodo(met);
         clases.put(objeto.getToken().getLexema(), objeto);
@@ -319,12 +328,14 @@ public class TablaDeSimbolos {
 
 
     public void generar() throws ExcepcionSemantica {
+        System.out.println("generar ts");
         generarInicial();
         for (ClaseConcreta clase : clases.values())
             clase.generar();
     }
 
     public static void generarInicial() {
+        System.out.println("generarInicial ts");
         // Code
         listaInstrucciones.add(".CODE");
         listaInstrucciones.add("PUSH simple_heap_init");
@@ -335,8 +346,7 @@ public class TablaDeSimbolos {
         listaInstrucciones.add("");
 
 
-        listaInstrucciones.add("simple_heap_init:");
-        listaInstrucciones.add("RET 0");
+        listaInstrucciones.add("simple_heap_init: RET 0 ; Retorna inmediatamente");
         listaInstrucciones.add("");
 
         //malloc
@@ -348,11 +358,11 @@ public class TablaDeSimbolos {
         listaInstrucciones.add("DUP ; hl");
         listaInstrucciones.add("PUSH 1 ; 1");
         listaInstrucciones.add("ADD ; hl + 1");
-        listaInstrucciones.add("STORE 4 ; Guarda resultado (puntero a base del bloque)");
+        listaInstrucciones.add("STORE 4 ; Guarda el resultado (un puntero a la primer celda de la región de memoria)");
         listaInstrucciones.add("LOAD 3 ; Carga cantidad de celdas a alojar (parámetro)");
         listaInstrucciones.add("ADD");
         listaInstrucciones.add("STOREHL ; Mueve el heap limit (hl)");
-        listaInstrucciones.add("STOREFP");
+        listaInstrucciones.add("STOREFP ; Almacena el tope de la pila en el registro fp");
         listaInstrucciones.add("RET 1 ; Retorna eliminando el parámetro");
         listaInstrucciones.add("");
     }

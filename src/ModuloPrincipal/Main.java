@@ -19,10 +19,11 @@ public class Main {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
-        if (true || args.length > 0) {
+        if (args.length > 0) { //true ||
             fileName = args[0];
-            //archivoDeSalida = args[1];
-            archivoDeSalida = "Test.java";
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-01.java";
+            archivoDeSalida = args[1];
+            //archivoDeSalida = "[gen-01.java].out";
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];
             if (args.length > 1)
@@ -38,6 +39,7 @@ public class Main {
                 crearArchivo(file);
                 System.out.println("Compilación Exitosa" + System.lineSeparator() + "[SinErrores]");
             } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
                 System.out.println("ERROR: no se encontró el archivo");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -47,6 +49,7 @@ public class Main {
 
 
     private static void crearArchivo(File file) throws IOException {
+        System.out.println("crearArchivo");
         ArrayList<String> instrucciones = TablaDeSimbolos.listaInstrucciones;
         FileWriter fileWriter = new FileWriter(file);
         for (String s : instrucciones)

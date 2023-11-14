@@ -16,7 +16,7 @@ public class NodoLiteralInt extends NodoLiteral {
     }
 
     public void generar() {
-        TablaDeSimbolos.gen("PUSH " + operador.getLexema() + "; apilo entero");
+        TablaDeSimbolos.gen("PUSH " + operador.getLexema() + " ; Apila el entero "  + operador.getLexema());
     }
 
     @Override

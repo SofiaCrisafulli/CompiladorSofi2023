@@ -46,11 +46,7 @@ public class Parametro {
         return offset;
     }
 
-
-    /*public void addParametro(Parametro p) throws ExcepcionSemantica {
-        for(Parametro p1: parametros)
-            if(p1.getTokenParametro().equals(p.getTokenParametro()))
-                throw new ExcepcionSemantica(p.getTokenParametro(), "Ya existe un parámetro con ese nombre");
-        parametros.add(p);
-    }*/
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
 }

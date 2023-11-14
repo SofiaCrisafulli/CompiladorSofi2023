@@ -267,6 +267,7 @@ public class ClaseConcreta extends Clase {
 
     @Override
     public void generar() {
+        System.out.println("generar clase concreta");
         TablaDeSimbolos.gen(".DATA");
         String labels;
         if(metodosOffset.size() > 0) {
