@@ -1,16 +1,12 @@
 package Nodos.Sentencia;
 
-import AnalilzadorLexico.TipoDeToken;
 import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Expresion.NodoExpresion;
-import Nodos.Expresion.NodoExpresionCompuesta;
-import TablaDeSimbolos.Metodo;
 import TablaDeSimbolos.*;
 import Tipo.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class NodoLlamadaOAsignacion extends NodoSentencia {
     Token nombre;
@@ -33,6 +29,8 @@ public class NodoLlamadaOAsignacion extends NodoSentencia {
     @Override
     public void generar() {
         nodoExpresion.generar();
-        //TODO liberar la memoria en caso de no guardar el valor de retorno
+        Tipo tipo = TablaDeSimbolos.getInstance().getClaseActual().getMetodoActual().getTipo();
+        if(!tipo.mismoTipo(new TipoVoid(nombre)))
+            TablaDeSimbolos.gen("POP");
     }
 }

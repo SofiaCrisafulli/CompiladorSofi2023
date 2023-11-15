@@ -1,3 +1,4 @@
+///exitosamente
 interface D{
 
     int m2();
@@ -7,18 +8,18 @@ interface C{
 
     int m2();
 }
-interface A extends D{
+interface A extends C {
 
     void m1();
 }
 
-class C {
+class E {
     void m3(){
         System.printS("HOLAS");
     }
 }
 
-class B extends C implements A{
+class B implements A{
 
     void m1(){
         System.printI(12);
@@ -30,12 +31,16 @@ class B extends C implements A{
     }
 }
 
+class D{
+    static A c(){
+        return new B();
+    }
+}
+
 class Init{
-    static void main(){
-        var a = new B();
-        a.m1();
+    static void main(){     //no anda bien pero me quede sin ideas
+        var a= D.c();
         a.m2();
-        a.m3();
     }
 }
 

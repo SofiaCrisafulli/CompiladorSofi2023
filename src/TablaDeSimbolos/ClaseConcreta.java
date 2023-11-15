@@ -67,7 +67,6 @@ public class ClaseConcreta extends Clase {
         return ancestros;
     }
 
-
     public Map<String, Metodo> getMetodos() {
         return metodos;
     }
@@ -94,7 +93,6 @@ public class ClaseConcreta extends Clase {
                 for (Metodo metodo : metodos.values()) {
                     metodo.estaBienDeclarado();
                     metodo.chequearMetodos(hereda);
-                    chequearMisMetodos();
                 }
                 for (Atributo atributo : atributos.values())
                     atributo.estaBienDeclarado();
@@ -104,9 +102,6 @@ public class ClaseConcreta extends Clase {
         }
     }
 
-    private void chequearMisMetodos() {
-
-    }
 
     private void chequearExtends() throws ExcepcionSemantica {
         for (ClaseConcreta c : TablaDeSimbolos.getInstance().clases.values())
@@ -177,7 +172,7 @@ public class ClaseConcreta extends Clase {
             }
         }
         offsetCiR = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
-        offsetVT = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
+        offsetVT = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetVt();
         setMetodosOffset(clasePadre);
         setAtributoOffset(clasePadre);
     }
@@ -191,6 +186,7 @@ public class ClaseConcreta extends Clase {
             else
                 throw new ExcepcionSemantica(atributos.get(atributoHeredado.getNombre()).getToken(), "Ya existe un atributo con ese nombre");
         }
+        genOffsetAtributos();
     }
 
 
@@ -275,9 +271,10 @@ public class ClaseConcreta extends Clase {
         TablaDeSimbolos.gen(".DATA");
         String labels;
         if (metodosOffset.size() > 0) {
-            labels = "VT_" + tokenClase.getLexema() + ": DW";
-            for (int i = 0; i < metodosOffset.size(); i++) {
+            labels = "VT_" + tokenClase.getLexema() + ": DW ";
+            for (int i = 0; i != metodosOffset.size(); i++) {
                 Metodo metodo = metodosOffset.get(i);
+                System.out.println("metodosOffset.get(i): " + metodosOffset.get(i));
                 labels = labels + metodo.stringLabel() + ",";
             }
             labels = labels.substring(0, labels.length() - 1);
@@ -297,14 +294,16 @@ public class ClaseConcreta extends Clase {
         TablaDeSimbolos.gen("\n\n");
     }
 
+
     public void setMetodosOffset(ClaseConcreta claseConcreta) {
-        offsetVT = claseConcreta.offsetVT;
+        offsetVT = TablaDeSimbolos.getClase(hereda.getLexema()).getOffsetVt();
         for (Metodo m : metodos.values()) {
-            if (m.getMetodoEstatico())
+            if (!m.getMetodoEstatico()) {
+                if (m.getOffset() == -1) {
+                    m.setOffset(offsetVT);
+                    offsetVT++;
+                }
                 metodosOffset.put(m.getOffset(), m);
-            if (m.getOffset() == -1) {
-                m.setOffset(offsetVT);
-                offsetVT++;
             }
         }
     }
@@ -316,7 +315,7 @@ public class ClaseConcreta extends Clase {
                 a.setOffset(offsetCiR);
                 offsetCiR++;
             }
-            atributoOffset.put(a.getOffset(),a);
+            atributoOffset.put(a.getOffset(), a);
         }
     }
 
@@ -326,5 +325,9 @@ public class ClaseConcreta extends Clase {
 
     public String labelVT() {
         return "VT_" + tokenClase.getLexema();
+    }
+
+    private int getOffsetVt() {
+        return offsetVT;
     }
 }

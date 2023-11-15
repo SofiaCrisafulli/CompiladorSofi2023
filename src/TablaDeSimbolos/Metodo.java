@@ -5,9 +5,7 @@ import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Sentencia.NodoBloque;
 import Tipo.Tipo;
-import Tipo.Utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -235,4 +233,5 @@ public class Metodo {
     public void setOffset(int offsetVT) {
         offset = offsetVT;
     }
+
 }

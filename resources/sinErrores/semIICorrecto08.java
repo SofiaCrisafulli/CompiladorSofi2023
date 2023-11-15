@@ -1,4 +1,4 @@
-///exitosamente
+
 interface E{
     void m1();
 }
