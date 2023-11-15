@@ -21,8 +21,8 @@ public class ClaseConcreta extends Clase {
     private Constructor constructorClase;
     private int offsetCiR;
     private int offsetVT;
-    private HashMap<Integer,Atributo> atributoOffset;
-    private HashMap<Integer,Metodo> metodosOffset;
+    private HashMap<Integer, Atributo> atributoOffset;
+    private HashMap<Integer, Metodo> metodosOffset;
 
     public ClaseConcreta(Token idClase) {
         tokenClase = idClase;
@@ -176,6 +176,10 @@ public class ClaseConcreta extends Clase {
                     throw new ExcepcionSemantica(metodos.get(metodoHeredado.getTokenMetodo().getLexema()).getTokenMetodo(), "El metodo " + metodoHeredado.getTokenMetodo().getLexema() + " no coincide con el metodo de tu padre");
             }
         }
+        offsetCiR = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
+        offsetVT = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
+        setMetodosOffset(clasePadre);
+        setAtributoOffset(clasePadre);
     }
 
 
@@ -250,14 +254,14 @@ public class ClaseConcreta extends Clase {
         constructorClase.chequear();
     }
 
-    private void genOffsetAtributos(){
+    private void genOffsetAtributos() {
         offsetCiR = TablaDeSimbolos.getClase(hereda.getLexema()).getOffsetCiR();
-        for(Atributo atributo: atributos.values()){
-            if(atributo.getOffset() == -1) {
+        for (Atributo atributo : atributos.values()) {
+            if (atributo.getOffset() == -1) {
                 atributo.setOffset(offsetCiR);
                 offsetCiR++;
             }
-            atributoOffset.put(atributo.getOffset(),atributo);
+            atributoOffset.put(atributo.getOffset(), atributo);
         }
     }
 
@@ -270,21 +274,20 @@ public class ClaseConcreta extends Clase {
         System.out.println("generar clase concreta");
         TablaDeSimbolos.gen(".DATA");
         String labels;
-        if(metodosOffset.size() > 0) {
+        if (metodosOffset.size() > 0) {
             labels = "VT_" + tokenClase.getLexema() + ": DW";
-            for(int i = 0; i != metodosOffset.size(); i++) {
+            for (int i = 0; i < metodosOffset.size(); i++) {
                 Metodo metodo = metodosOffset.get(i);
                 labels = labels + metodo.stringLabel() + ",";
             }
-            labels = labels.substring(0, labels.length() -1);
-        }
-        else
+            labels = labels.substring(0, labels.length() - 1);
+        } else
             labels = "VT_" + tokenClase.getLexema() + ": NOP";
         TablaDeSimbolos.gen(labels + "\n");
         TablaDeSimbolos.gen(".CODE");
         labels = "";
-        for(Metodo m : metodos.values()) {
-            if(m.getMiClase() == this) {
+        for (Metodo m : metodos.values()) {
+            if (m.getMiClase() == this) {
                 labels = m.stringLabel() + ":";
                 TablaDeSimbolos.gen(labels);
                 metodoActual = m;
@@ -292,6 +295,29 @@ public class ClaseConcreta extends Clase {
             }
         }
         TablaDeSimbolos.gen("\n\n");
+    }
+
+    public void setMetodosOffset(ClaseConcreta claseConcreta) {
+        offsetVT = claseConcreta.offsetVT;
+        for (Metodo m : metodos.values()) {
+            if (m.getMetodoEstatico())
+                metodosOffset.put(m.getOffset(), m);
+            if (m.getOffset() == -1) {
+                m.setOffset(offsetVT);
+                offsetVT++;
+            }
+        }
+    }
+
+    public void setAtributoOffset(ClaseConcreta claseConcreta) {
+        offsetCiR = claseConcreta.offsetCiR;
+        for (Atributo a : atributos.values()) {
+            if (a.getOffset() == -1) {
+                a.setOffset(offsetCiR);
+                offsetCiR++;
+            }
+            atributoOffset.put(a.getOffset(),a);
+        }
     }
 
     public void setConstructorClase(Constructor constructorClase) {

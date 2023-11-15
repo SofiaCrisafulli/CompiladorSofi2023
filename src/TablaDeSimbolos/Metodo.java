@@ -231,4 +231,8 @@ public class Metodo {
     public void setListaParametros(ArrayList<Parametro> listaParametros) {
         this.listaParametros = listaParametros;
     }
+
+    public void setOffset(int offsetVT) {
+        offset = offsetVT;
+    }
 }
