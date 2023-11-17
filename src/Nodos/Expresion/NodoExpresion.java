@@ -9,6 +9,7 @@ public abstract class NodoExpresion {
     public Token operador;
 
     protected boolean esAsignacion = true;
+    protected boolean esLadoIzq = false;
     public abstract Tipo chequear() throws ExcepcionSemantica;
 
     public abstract void generar();
@@ -25,7 +26,11 @@ public abstract class NodoExpresion {
     }
 
     public void setOperador(Token operador) {
-        System.out.println("Operador en ne: " + operador.getLexema());
         this.operador = operador;
     }
+
+    public void setEsLadoIzq(boolean li) {
+        esLadoIzq = li;
+    }
+
 }

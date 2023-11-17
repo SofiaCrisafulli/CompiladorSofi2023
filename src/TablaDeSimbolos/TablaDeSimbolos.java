@@ -369,8 +369,8 @@ public class TablaDeSimbolos {
     }
 
 
-    public static void gen(String intruccion) {
-        listaInstrucciones.add(intruccion);
+    public static void gen(String instruccion) {
+        listaInstrucciones.add(instruccion);
     }
 
     public String getNumeroEtiqueta() {

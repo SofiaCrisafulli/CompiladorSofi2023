@@ -59,4 +59,8 @@ public class NodoBloque extends NodoSentencia {
     public boolean getEsRetornante() {
         return esRetornante;
     }
+
+    public Map<String, NodoVarLocal> getVarLocales() {
+        return varLocales;
+    }
 }

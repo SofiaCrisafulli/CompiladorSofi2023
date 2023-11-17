@@ -3,6 +3,7 @@ package Nodos.Expresion;
 import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Expresion.Operando.NodosAccesos.NodoAcceso;
+import TablaDeSimbolos.TablaDeSimbolos;
 import Tipo.Tipo;
 
 public class NodoExpresionAsignacion extends NodoExpresion {
@@ -10,7 +11,7 @@ public class NodoExpresionAsignacion extends NodoExpresion {
     Token operador;
     NodoExpresionCompuesta ladoIzq;
     NodoExpresion ladoDer;
-    NodoAcceso acceso;
+
     public NodoExpresionAsignacion(Token token, NodoExpresionCompuesta li) {
         operador = token;
         ladoIzq = li;
@@ -33,14 +34,15 @@ public class NodoExpresionAsignacion extends NodoExpresion {
 
     @Override
     public void generar() {
-        ladoIzq.generar();
         ladoDer.generar();
+        TablaDeSimbolos.gen("DUP");
+        ladoIzq.generar();
     }
 
 
     @Override
     public boolean esAsignable() {
-        if(ladoIzq.esAsignable())
+        if (ladoIzq.esAsignable())
             return true;
         else
             return false;

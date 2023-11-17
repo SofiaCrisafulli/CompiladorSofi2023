@@ -149,6 +149,7 @@ public class ClaseConcreta extends Clase {
         return esta;
     }
 
+
     public void consolidarMetodos() throws ExcepcionSemantica, ExcepcionSintactica {
         verificarHerenciaCircular(new ArrayList<ClaseConcreta>());
         if (hayHerenciaCircualar)
@@ -173,7 +174,7 @@ public class ClaseConcreta extends Clase {
         }
         offsetCiR = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
         offsetVT = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetVt();
-        setMetodosOffset(clasePadre);
+        setMetodosOffset();
         setAtributoOffset(clasePadre);
     }
 
@@ -267,20 +268,9 @@ public class ClaseConcreta extends Clase {
 
     @Override
     public void generar() {
-        System.out.println("generar clase concreta");
         TablaDeSimbolos.gen(".DATA");
-        String labels;
-        if (metodosOffset.size() > 0) {
-            labels = "VT_" + tokenClase.getLexema() + ": DW ";
-            for (int i = 0; i != metodosOffset.size(); i++) {
-                Metodo metodo = metodosOffset.get(i);
-                System.out.println("metodosOffset.get(i): " + metodosOffset.get(i));
-                labels = labels + metodo.stringLabel() + ",";
-            }
-            labels = labels.substring(0, labels.length() - 1);
-        } else
-            labels = "VT_" + tokenClase.getLexema() + ": NOP";
-        TablaDeSimbolos.gen(labels + "\n");
+        String labels = "VT_" + tokenClase.getLexema() + ": DW ";
+        TablaDeSimbolos.gen(labels);
         TablaDeSimbolos.gen(".CODE");
         labels = "";
         for (Metodo m : metodos.values()) {
@@ -291,11 +281,13 @@ public class ClaseConcreta extends Clase {
                 m.generar();
             }
         }
+        if (constructor != null)
+            constructor.generar();
         TablaDeSimbolos.gen("\n\n");
     }
 
 
-    public void setMetodosOffset(ClaseConcreta claseConcreta) {
+    public void setMetodosOffset() {
         offsetVT = TablaDeSimbolos.getClase(hereda.getLexema()).getOffsetVt();
         for (Metodo m : metodos.values()) {
             if (!m.getMetodoEstatico()) {

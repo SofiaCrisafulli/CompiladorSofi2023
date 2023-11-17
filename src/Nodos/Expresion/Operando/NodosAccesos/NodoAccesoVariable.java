@@ -13,6 +13,7 @@ public class NodoAccesoVariable extends NodoAcceso {
 
     public NodoAccesoVariable(Token token) {
         operador = token;
+        esLadoIzq = true;
     }
 
     @Override
@@ -58,17 +59,17 @@ public class NodoAccesoVariable extends NodoAcceso {
                 TablaDeSimbolos.gen("LOADREF " + atributo.getOffset());
             else {
                 TablaDeSimbolos.gen("SWAP");
-                TablaDeSimbolos.gen("STOREREF " + atributo.getOffset());
+                TablaDeSimbolos.gen("STOREREF " + atributo.getOffset()); //TODO: esta mal el offset da 0 y tiene que dar 1
             }
         } else if (parametro != null) {
             if (!esLadoIzq || nodoEncadenado != null)
                 TablaDeSimbolos.gen("LOAD " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
             else
                 TablaDeSimbolos.gen("STORE " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
-        } else if (!esLadoIzq || nodoEncadenado != null)
+        } else if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null) {
             TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");
-        else
             TablaDeSimbolos.gen("STORE " + nodoVarLocal.getOffset() + " ; apilo variable local");
+        }
         if (nodoEncadenado != null) {
             nodoEncadenado.setMismoLado(esLadoIzq);
             nodoEncadenado.generar();
@@ -77,6 +78,7 @@ public class NodoAccesoVariable extends NodoAcceso {
 
     @Override
     public boolean esAsignable() {
+        esLadoIzq = true;
         boolean asignable = true;
         if (nodoEncadenado != null)
             asignable = nodoEncadenado.esAsignable();

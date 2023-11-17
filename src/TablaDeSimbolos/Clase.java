@@ -12,7 +12,7 @@ public abstract class Clase {
 
     protected Token tokenClase;
     protected Map<String, Metodo> metodos;
-    protected ArrayList<Metodo> metodosDeclaradosEnClase;
+
     protected Map<String, Atributo> atributos;
     protected Metodo metodoActual;
     protected Metodo metodoChequeado;

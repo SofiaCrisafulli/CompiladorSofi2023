@@ -194,12 +194,10 @@ public class Metodo {
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
         TablaDeSimbolos.gen("STOREFP ;AF Almacena el tope de la pila en el registro fp");
-        System.out.println("generar metodo");
-        if (metodoEstatico) {
+        if (metodoEstatico)
             TablaDeSimbolos.gen("RET " + listaParametros.size());
-            System.out.println("Size de lista de parametros: " + listaParametros.size());
-        } else
-            TablaDeSimbolos.gen("RET " + (listaParametros.size()) + 1);
+        else
+            TablaDeSimbolos.gen("RET " + listaParametros.size() + 1);
     }
 
     public String etiquetaMetodo() {

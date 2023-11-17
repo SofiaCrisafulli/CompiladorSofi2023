@@ -361,7 +361,7 @@ public class AnalilzadorSintactico {
             NodoAcceso nodoAcceso = acceso();
             NodoLlamadaOAsignacion asignacion = asignacionOLlamada();
             if (asignacion == null)
-                nodoSentencia = new NodoSentenciaAcceso(tokenActual, nodoAcceso); //TODO verificar si esta bien 
+                nodoSentencia = new NodoSentenciaAcceso(tokenActual, nodoAcceso);
         } else
             throw new ExcepcionSintactica(tokenActual, "; | + | - | ! | null | true | false |  initLiteral | charLiteral | " +
                     "stringLiteral | return | if | while |  {");

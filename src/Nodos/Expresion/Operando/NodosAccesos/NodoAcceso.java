@@ -6,7 +6,6 @@ import Nodos.Expresion.Operando.NodoOperando;
 
 public abstract class NodoAcceso extends NodoOperando {
     NodoEncadenado nodoEncadenado;
-    boolean esLadoIzq;
 
     public abstract boolean esAsignable();
 
@@ -19,10 +18,6 @@ public abstract class NodoAcceso extends NodoOperando {
             this.nodoEncadenado.setNodoEncadenado(nodoEncadenado);
         else
             this.nodoEncadenado = nodoEncadenado;
-    }
-
-    public void setEsLadoIzq() {
-        esLadoIzq = true;
     }
 
 }

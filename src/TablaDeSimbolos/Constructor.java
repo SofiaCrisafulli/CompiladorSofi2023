@@ -52,13 +52,12 @@ public class Constructor {
     }
 
     public void generar() {
-        //TablaDeSimbolos.getClaseActual().setMetodoActual(this);
         TablaDeSimbolos.gen("LOADFP ; Apila el valor del registro fp");
         TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
+        TablaDeSimbolos.gen("FMEM " + bloque.getVarLocales().size());
         TablaDeSimbolos.gen("STOREFP ;AF Almacena el tope de la pila en el registro fp");
-        System.out.println("generar metodo");
         TablaDeSimbolos.gen("RET " + (parametros.size()) + 1);
     }
 }
