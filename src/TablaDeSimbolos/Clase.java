@@ -6,6 +6,7 @@ import AnalizadorSintactico.ExcepcionSintactica;
 import Tipo.Tipo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Clase {
@@ -21,14 +22,11 @@ public abstract class Clase {
     protected Constructor constructor;
 
     protected Token tipo;
+    //protected HashMap<String, String>
 
     public Token getToken() {
         return tokenClase;
     }
-
-    public abstract void guardarAtributo(Atributo atributo) throws ExcepcionSemantica;
-
-    public abstract void guardarMetodo(Metodo metodo) throws ExcepcionSemantica ;
 
     public abstract void estaBienDeclarada() throws ExcepcionSemantica, ExcepcionSintactica;
 

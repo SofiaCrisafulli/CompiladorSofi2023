@@ -102,16 +102,6 @@ public class Interface extends Clase {
 
     }
 
-    @Override
-    public void guardarMetodo(Metodo metodo) throws ExcepcionSemantica {
-
-    }
-
-    @Override
-    public void guardarAtributo(Atributo atributo) throws ExcepcionSemantica {
-
-    }
-
     public Token getExtiende() {
         return extiende;
     }

@@ -70,24 +70,17 @@ DUP
 PUSH lblConstructor@C
 CALL
 STORE -2
-LOAD 0 ; apilo variable local
 PUSH 5 ; Apila el entero 5
 LT
 BF labelElsenull ; salta a la condicion else
 PUSH 7 ; Apila el entero 7
 DUP
-LOAD -1 ; apilo variable local
-SWAP
-STOREREF1
 POP
 FMEM 0
 JUMP labelThennull ; salteo al else
 labelElsenull:
 PUSH 5 ; Apila el entero 5
 DUP
-LOAD -1 ; apilo variable local
-SWAP
-STOREREF1
 POP
 FMEM 0
 labelThennull: NOP
@@ -96,8 +89,6 @@ labelThennull: NOP
 
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
-LOAD -1 ; apilo variable local
-LOADREF 1
 PUSH printIln$int@System; etiqueta
 CALL
 FMEM 3

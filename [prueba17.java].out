@@ -99,11 +99,6 @@ DUP
 PUSH lblConstructor@Rec
 CALL
 STORE 0
-LOAD 0 ; apilo variable local
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
 FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0

@@ -22,8 +22,11 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
-VT_B: NOP
+VT_B: DW m1@B,m2@B
 
 .CODE
 m1@B:
@@ -31,32 +34,44 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH VT_System
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF-1
+POP ; como es estatico no me sirve la referencia anterior
+PUSH 12 ; Apila el entero 12
+PUSH printI$int@System; etiqueta
 CALL
 FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 m2@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH VT_System
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF-1
+POP ; como es estatico no me sirve la referencia anterior
+PUSH 50 ; Apila el entero 50
+PUSH printI$int@System; etiqueta
 CALL
 FMEM 0
 PUSH 24 ; Apila el entero 24
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
+
+
+
 FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+lblConstructor@B:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -69,24 +84,23 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
 CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-STORE -1
-LOAD -1 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
+DUP
+PUSH VT_Init; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@B
 CALL
-LOAD -1 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
-CALL
+STORE 0
+POP
 FMEM 1
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -223,8 +237,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

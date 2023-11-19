@@ -42,7 +42,7 @@ public class NodoVarLocal extends NodoSentencia {
 
     @Override
     public void generar() {
-        TablaDeSimbolos.listaInstrucciones.add("RMEM 1 ; guardo lugar para la variable local " + tokenSentencia.getLexema());
+        TablaDeSimbolos.gen("RMEM 1 ; guardo lugar para la variable local " + tokenSentencia.getLexema());
         if(nodoExpresion != null) {
             nodoExpresion.generar();
             TablaDeSimbolos.gen("STORE " + offset);

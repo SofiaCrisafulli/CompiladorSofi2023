@@ -131,23 +131,8 @@ DUP
 PUSH lblConstructor@A
 CALL
 STORE 0
-LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 2 ; Apila el entero 2
-PUSH setX$int@A; etiqueta
-CALL
 RMEM 1 ; guardo lugar para la variable local p2
-LOAD 0 ; apilo variable local
-LOADREF -1
 STORE -1
-LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
 PUSH VT_A
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 3 ; Apila el entero 3
@@ -157,7 +142,6 @@ PUSH VT_A
 POP ; como es estatico no me sirve la referencia anterior
 PUSH printX@A; etiqueta
 CALL
-LOAD -1 ; apilo variable local
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 2

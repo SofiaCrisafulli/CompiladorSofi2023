@@ -71,20 +71,6 @@ public class ClaseConcreta extends Clase {
         return metodos;
     }
 
-    public void guardarMetodo(Metodo metodo) throws ExcepcionSemantica {
-        if (metodos.get(metodo.getTokenMetodo().getLexema()) == null) {
-            metodos.put(metodo.getTokenMetodo().getLexema(), metodo);
-        } else
-            throw new ExcepcionSemantica(metodo.getTokenMetodo(), "ya existe un metodo con el mismo nombre -->" + tokenClase.getLexema());
-    }
-
-    public void guardarAtributo(Atributo atributo) throws ExcepcionSemantica {
-        if (atributos.get(atributo.getNombre()) == null)
-            atributos.put(atributo.getNombre(), atributo);
-        else
-            throw new ExcepcionSemantica(atributo.getToken(), "ya existe un atributo con el mismo nombre --> " + "'" + atributo.getNombre() + "'" + " dentro de la misma clase --> " + tokenClase.getLexema());
-    }
-
     public void estaBienDeclarada() throws ExcepcionSemantica {
         if (TablaDeSimbolos.getInstance().clases.containsValue(tokenClase.getLexema()))
             throw new ExcepcionSemantica(tokenClase, "La clase ya existe");

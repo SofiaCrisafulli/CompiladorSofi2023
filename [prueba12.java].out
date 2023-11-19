@@ -134,47 +134,16 @@ PUSH lblConstructor@A
 CALL
 STORE 0
 RMEM 1 ; guardo lugar para la variable local p1
-LOAD 0 ; apilo variable local
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
 STORE -1
-LOAD 0 ; apilo variable local
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 2
-CALL
-LOAD 0 ; apilo variable local
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 1
-CALL
 RMEM 1 ; guardo lugar para la variable local p2
-LOAD 0 ; apilo variable local
-LOADREF 1
 STORE -2
-LOAD 0 ; apilo variable local
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 2
-CALL
-LOAD -1 ; apilo variable local
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-LOAD -2 ; apilo variable local
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 PUSH 3 ; Apila el entero 3
 DUP
-LOAD 0 ; apilo variable local
-SWAP
-STOREREF1
 POP
-LOAD 0 ; apilo variable local
-LOADREF 1
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 3

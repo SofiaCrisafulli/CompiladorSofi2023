@@ -34,6 +34,7 @@ public class NodoExpresionUnaria extends NodoExpresionCompuesta {
     }
 
     public void generar() {
+        operando.generar();
         if (operador.equals("-"))
             TablaDeSimbolos.gen("NEG ; menos unario");
         else if (operador.equals("!"))

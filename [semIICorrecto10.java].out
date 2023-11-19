@@ -100,18 +100,8 @@ STOREREF 1
 POP
 LOAD 3
 LOADREF 1
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 1
-CALL
 LOAD 3
 LOADREF 1
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
@@ -154,11 +144,6 @@ DUP
 PUSH lblConstructor@B
 CALL
 STORE 0
-LOAD 0 ; apilo variable local
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
 FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0

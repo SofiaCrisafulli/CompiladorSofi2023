@@ -83,11 +83,6 @@ CALL
 STORE 0
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
-LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-RMEM 1 ; reservo lugar para el return
-PUSH m1@A; etiqueta
-CALL
 PUSH printI$int@System; etiqueta
 CALL
 FMEM 1

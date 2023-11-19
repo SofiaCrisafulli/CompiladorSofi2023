@@ -40,12 +40,11 @@ public class NodoReturn extends NodoSentencia {
 
     @Override
     public void generar() {
+        //TODO revisar
         TablaDeSimbolos.gen("FMEM " + cantVarLocales);
         Metodo m = TablaDeSimbolos.getClaseActual().getMetodoActual();
         if (m.getTipo().mismoTipo(new TipoVoid(tokenReturn))) {
             TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
-            System.out.println("nodo return");
-            System.out.println("Offset de lineaa" + m.getOffsetLinea());
             TablaDeSimbolos.gen("RET " + m.getOffsetLinea());
         } else {
             retorno.generar();

@@ -65,13 +65,16 @@ public class NodoAccesoVariable extends NodoAcceso {
                 TablaDeSimbolos.gen("LOAD " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
             else
                 TablaDeSimbolos.gen("STORE " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
-        } else if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null)
-            TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");
-        else
-            TablaDeSimbolos.gen("STORE " + nodoVarLocal.getOffset() + " ; apilo variable local");
-        if (nodoEncadenado != null) {
-            nodoEncadenado.setMismoLado(esLadoIzq);
-            nodoEncadenado.generar();
+        } else if (atributo != null && atributo.getOffset() == -1) {
+            TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClaseActual().labelVT());
+            if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null)
+                TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");
+            else
+                TablaDeSimbolos.gen("STORE " + nodoVarLocal.getOffset() + " ; apilo variable local");
+            if (nodoEncadenado != null) {
+                nodoEncadenado.setMismoLado(esLadoIzq);
+                nodoEncadenado.generar();
+            }
         }
     }
 

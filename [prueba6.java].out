@@ -44,9 +44,6 @@ CALL ; Llama al método en el tope de la pila
 FMEM 0
 JUMPlabelThennull
 labelFinnull: NOP
-
-
-
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1

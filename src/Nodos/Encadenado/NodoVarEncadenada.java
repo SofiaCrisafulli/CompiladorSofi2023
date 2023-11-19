@@ -9,6 +9,7 @@ import jdk.jshell.execution.Util;
 public class NodoVarEncadenada extends NodoEncadenado {
 
     Atributo atributoEnTs;
+    Clase clase;
 
     public NodoVarEncadenada(Token token, NodoEncadenado nodo) {
         nombre = token;
@@ -18,13 +19,13 @@ public class NodoVarEncadenada extends NodoEncadenado {
     @Override
     public Tipo chequear(Tipo t, Token token) throws ExcepcionSemantica {
         Tipo tipo = null;
-        if(!esAsignacion && esAsignacion())
+        if (!esAsignacion && esAsignacion())
             throw new ExcepcionSemantica(getUltimoToken(), "no es posible tener una asignacion en una variable encadenada");
         if (!esLlamada() && !esAsignable())
             throw new ExcepcionSemantica(nombre, "no es posible tener una variable encadenada");
         if (!esAsignable() && esAsignacion())
             throw new ExcepcionSemantica(nombre, "no es posible hacer una asignacion en una variable encadenada");
-        Clase clase = TablaDeSimbolos.getClase(t.getNombreTipo());
+        clase = TablaDeSimbolos.getClase(t.getNombreTipo());
         if (clase != null) {
             ClaseConcreta claseConcreta = TablaDeSimbolos.getClase(clase.getToken().getLexema());
             atributoEnTs = claseConcreta.getAtributos().get(nombre.getLexema());
@@ -60,7 +61,7 @@ public class NodoVarEncadenada extends NodoEncadenado {
 
     @Override
     public boolean esAsignacion() {
-        if(nodoEncadenado == null)
+        if (nodoEncadenado == null)
             return false;
         else
             return nodoEncadenado.esAsignacion();
@@ -68,13 +69,23 @@ public class NodoVarEncadenada extends NodoEncadenado {
 
     @Override
     public void generar() {
-        if(!esLadoIzq || nodoEncadenado != null)
+        if (atributoEnTs.getOffset() == -1) {
+            TablaDeSimbolos.gen("POP");
+            TablaDeSimbolos.gen("PUSH " + clase.getAtributo(atributoEnTs.getNombre()));
+            TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClase(clase.getToken().getLexema()).labelVT());
+            if (!esLadoIzq || nodoEncadenado != null) {
+                TablaDeSimbolos.gen("LOADREF 0");
+            } else {
+                TablaDeSimbolos.gen("SWAP");
+                TablaDeSimbolos.gen("STOREREF 0");
+            }
+        } else if (!esLadoIzq || nodoEncadenado != null)
             TablaDeSimbolos.gen("LOADREF " + atributoEnTs.getOffset());
         else {
             TablaDeSimbolos.gen("SWAP");
             TablaDeSimbolos.gen("STOREREF" + atributoEnTs.getOffset());
         }
-        if(nodoEncadenado != null) {
+        if (nodoEncadenado != null) {
             nodoEncadenado.setEsLadoIzq(esLadoIzq);
             nodoEncadenado.generar();
         }
