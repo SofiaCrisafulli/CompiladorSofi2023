@@ -12,6 +12,7 @@ public class NodoLlamadaOAsignacion extends NodoSentencia {
     Token nombre;
     NodoExpresion nodoExpresion;
     ArrayList<NodoExpresion> parametros;
+    Tipo tipo;
 
     public NodoLlamadaOAsignacion(Token n, NodoExpresion ne) {
         nombre = n;
@@ -21,7 +22,7 @@ public class NodoLlamadaOAsignacion extends NodoSentencia {
 
     @Override
     public void chequear() throws ExcepcionSemantica {
-        nodoExpresion.chequear();
+        tipo = nodoExpresion.chequear();
         if (!nodoExpresion.esAsignacion() && !nodoExpresion.esLlamada())
             throw new ExcepcionSemantica(nombre, "debe ser una asignación o una llamada");
     }
@@ -29,7 +30,6 @@ public class NodoLlamadaOAsignacion extends NodoSentencia {
     @Override
     public void generar() {
         nodoExpresion.generar();
-        Tipo tipo = TablaDeSimbolos.getInstance().getClaseActual().getMetodoActual().getTipo();
         if(!tipo.mismoTipo(new TipoVoid(nombre)))
             TablaDeSimbolos.gen("POP");
     }

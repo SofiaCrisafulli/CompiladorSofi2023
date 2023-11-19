@@ -3,6 +3,7 @@ package Nodos.Sentencia;
 import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import Nodos.Expresion.NodoExpresion;
+import TablaDeSimbolos.TablaDeSimbolos;
 
 public class NodoSentenciaConExpresion extends NodoSentencia{
     NodoExpresion nodoExpresion;
@@ -20,5 +21,6 @@ public class NodoSentenciaConExpresion extends NodoSentencia{
     @Override
     public void generar() {
         nodoExpresion.generar();
+        TablaDeSimbolos.gen("\n\n");
     }
 }

@@ -22,6 +22,9 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
 VT_Init: NOP
 
@@ -32,29 +35,32 @@ LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
 PUSH 11 ; Apila el entero 11
-STORE -1
+STORE 0
 labelThennull:
-LOAD -1 ; apilo variable local
+LOAD 0 ; apilo variable local
 PUSH 0 ; Apila el entero 0
 NE
 BFlabelFinnull
 RMEM 1 ; guardo lugar para la variable local b
 PUSH 32 ; Apila el entero 32
-STORE -1
-LOAD -1 ; apilo variable local
-LOAD -1 ; apilo variable local
+STORE 0
+LOAD 0 ; apilo variable local
 PUSH 1 ; Apila el entero 1
 SUB
+DUP
+STORE 0 ; apilo variable local
+POP
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
-LOAD -1 ; apilo variable local
+LOAD 0 ; apilo variable local
 PUSH main@Init; etiqueta
 CALL
-FMEM 1
 JUMPlabelThennull
 labelFinnull: NOP
-FMEM 1
-STOREFP ; Almacena el tope de la pila en el registro fp
+
+
+
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -191,8 +197,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

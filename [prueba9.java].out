@@ -22,10 +22,23 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
 VT_A: NOP
 
 .CODE
+
+
+
+lblConstructor@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
 
 
 
@@ -37,15 +50,23 @@ main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
+RMEM 1
+PUSH 2; apilo los atributos
+PUSH simple_malloc
 CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+DUP
+PUSH VT_Init; apilo el comienzo de la vt
+STOREREF 0
+DUP
+PUSH 1234 ; Apila el entero 1234
+SWAP
+
+
+
+PUSH lblConstructor@A
+CALL
+POP
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -182,8 +203,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

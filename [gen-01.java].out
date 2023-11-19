@@ -26,29 +26,6 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW imprimir@B,igual@A
-
-.CODE
-igual@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOADREF 2
-LOAD 3
-LOADREF 1
-EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
-labelElsenull: NOP
-
-
-
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
 VT_Init: NOP
 
 .CODE
@@ -56,33 +33,11 @@ main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 0
-
-
-
-.DATA
-VT_B: DW imprimir@B
-
-.CODE
-imprimir@B:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOADREF 1
-PUSH 0 ; Apila el entero 0
-GT
-BF labelThennull ; salta afuera del if si la condicion es falsa
 PUSH 1234 ; Apila el entero 1234
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-labelElsenull: NOP
-
-
-
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
+RET 0
 
 
 

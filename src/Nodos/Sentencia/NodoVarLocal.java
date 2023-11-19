@@ -38,7 +38,6 @@ public class NodoVarLocal extends NodoSentencia {
             throw new ExcepcionSemantica(tokenSentencia, "la variable esta repetida");
         if (!nodoVarLocal.getTipo().esSubtipo(tipo))
             throw new ExcepcionSemantica(tokenSentencia, nodoVarLocal.getTipo().getNombreTipo() + " no es subtipo de " + tipo.getTokenTipo().getLexema());
-
     }
 
     @Override
@@ -49,7 +48,6 @@ public class NodoVarLocal extends NodoSentencia {
             TablaDeSimbolos.gen("STORE " + offset);
         }
     }
-
 
     public Tipo getTipo() throws ExcepcionSemantica {
         Tipo toRet = tipo;

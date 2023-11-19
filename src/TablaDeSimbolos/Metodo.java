@@ -197,7 +197,7 @@ public class Metodo {
         if (metodoEstatico)
             TablaDeSimbolos.gen("RET " + listaParametros.size());
         else
-            TablaDeSimbolos.gen("RET " + listaParametros.size() + 1);
+            TablaDeSimbolos.gen("RET " + (listaParametros.size() + 1));
     }
 
     public String etiquetaMetodo() {

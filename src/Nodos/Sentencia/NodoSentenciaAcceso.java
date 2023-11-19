@@ -28,6 +28,7 @@ public class NodoSentenciaAcceso extends NodoSentencia {
         nodoAcceso.generar();
         if(!tipo.mismoTipo(new TipoVoid(tokenSentencia)))
         TablaDeSimbolos.gen("POP");
+        TablaDeSimbolos.gen("\n\n");
     }
 
     public void setNodoAcceso(NodoAcceso nodoAcceso) {

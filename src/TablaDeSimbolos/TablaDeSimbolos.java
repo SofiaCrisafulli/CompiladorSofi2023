@@ -28,6 +28,7 @@ public class TablaDeSimbolos {
     public static ArrayList<NodoBloque> bloques;
     public static ArrayList<String> listaInstrucciones;
     public int numeroEtiqueta;
+    public static int cantStrings;
 
 
     public TablaDeSimbolos() {
@@ -46,6 +47,7 @@ public class TablaDeSimbolos {
         hayMain = false;
         bloques = new ArrayList<>();
         listaInstrucciones = new ArrayList<>();
+        cantStrings = 0;
         crearObject();
         crearSystem();
         crearString();
@@ -146,6 +148,7 @@ public class TablaDeSimbolos {
         parametrosDebugPrint.add(new Parametro(new Token(TipoDeToken.id_met_var, "debugPrint", 0), new TipoInt(new Token(TipoDeToken.pr_int, "int", 0))));
         Metodo met = new MetodoDebugPrint(new Token(TipoDeToken.id_met_var, "debugPrint", 0), parametrosDebugPrint, new TipoVoid(new Token(TipoDeToken.id_met_var, "debugPrint", 0)), true, new Token(TipoDeToken.id_met_var, "debugPrint", 0), claseActual);
         met.setListaParametros(parametrosDebugPrint);
+        objeto.setOffsetCiR(1);
         System.out.println("Cant de parametros de debugPrint: " + parametrosDebugPrint.size());
         met.setMetodoEstatico(true);
         objeto.addMetodo(met);
@@ -203,7 +206,10 @@ public class TablaDeSimbolos {
     }
 
     public static NodoBloque getBloqueActual() {
-        return bloques.get(0);
+        NodoBloque toReturn = null;
+        if(bloques.size() > 0)
+            toReturn = bloques.get(0);
+        return toReturn;
     }
 
     public void eliminarBloque() {
@@ -331,8 +337,10 @@ public class TablaDeSimbolos {
     public void generar() throws ExcepcionSemantica {
         System.out.println("generar ts");
         generarInicial();
-        for (ClaseConcreta clase : clases.values())
+        for (ClaseConcreta clase : clases.values()) {
+            claseActual = clase;
             clase.generar();
+        }
     }
 
     public static void generarInicial() {

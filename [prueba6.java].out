@@ -22,6 +22,9 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
 VT_A: NOP
 
@@ -36,13 +39,14 @@ PUSH 0 ; Apila el entero 0
 GT
 BFlabelFinnull
 PUSH 1234 ; Apila el entero 1234
-PUSH imprimir$int@A ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
 JUMPlabelThennull
 labelFinnull: NOP
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+
+
+
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
 
@@ -60,8 +64,7 @@ POP ; como es estatico no me sirve la referencia anterior
 PUSH 0 ; Apila el entero 0
 PUSH main@Init; etiqueta
 CALL
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -198,8 +201,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

@@ -29,8 +29,8 @@ public class NodoAccesoNew extends NodoAcceso {
             Clase clase = TablaDeSimbolos.getInstance().getClase(operador.getLexema());
             if (clase == null)
                 throw new ExcepcionSemantica(operador, "la clase no existe");
-           Constructor constructor = clase.getConstructor();
-           chequerParametros(constructor);
+            Constructor constructor = clase.getConstructor();
+            chequerParametros(constructor);
             tipo = new TipoClase(operador);
             if (nodoEncadenado != null) {
                 nodoEncadenado.setEsAsignacion(esAsignacion);
@@ -43,17 +43,40 @@ public class NodoAccesoNew extends NodoAcceso {
     @Override
     public void generar() {
         ClaseConcreta claseConcreta = TablaDeSimbolos.getClaseActual();
-        TablaDeSimbolos.gen("RMEM 1 ; reservo para el malloc");
-        TablaDeSimbolos.gen("PUSH " + claseConcreta.getAtributos().size() + 1  + "; apilo los atributos");
+        /*TablaDeSimbolos.gen("RMEM 1 ; reservo para el malloc");
+        TablaDeSimbolos.gen("PUSH " + (TablaDeSimbolos.getClase(operador.getLexema()).getAtributos().size() + 1)  + "; apilo los atributos");
         TablaDeSimbolos.gen("PUSH simple_malloc ; rutina de heap");
         TablaDeSimbolos.gen("CALL");
         TablaDeSimbolos.gen("DUP ; no perder el nuevo CiR");
         TablaDeSimbolos.gen("PUSH " + claseConcreta.labelVT() + "; apilo el comienzo de la vt");
         TablaDeSimbolos.gen("STOREREF 0 ");
+        TablaDeSimbolos.gen("DUP");*/
 
-        if(nodoEncadenado != null) {
-            nodoEncadenado.setEsLadoIzq(esLadoIzq);
-            nodoEncadenado.generar();
+        if (claseConcreta.getToken().getLexema().equals("String")) {
+            TablaDeSimbolos.gen(".DATA");
+            int cantS = TablaDeSimbolos.cantStrings;
+            cantS++;
+            String label = "string" + cantS;
+            TablaDeSimbolos.gen(": NOP");
+            TablaDeSimbolos.gen("DW 0");
+            TablaDeSimbolos.gen(".CODE");
+            TablaDeSimbolos.gen("PUSH " + label);
+        } else {
+            TablaDeSimbolos.gen("RMEM 1");
+            TablaDeSimbolos.gen("PUSH " + (TablaDeSimbolos.getClase(operador.getLexema()).getAtributos().size() + 1)  + "; apilo los atributos");
+            TablaDeSimbolos.gen("PUSH simple_malloc");
+            TablaDeSimbolos.gen("CALL");
+            TablaDeSimbolos.gen("DUP");
+            TablaDeSimbolos.gen("PUSH " + claseConcreta.labelVT() + "; apilo el comienzo de la vt");
+            TablaDeSimbolos.gen("STOREREF 0");
+            TablaDeSimbolos.gen("DUP");
+            for (NodoExpresion ne : parametros) {
+                ne.generar();
+                TablaDeSimbolos.gen("SWAP");
+            }
+            TablaDeSimbolos.gen("\n\n");
+            TablaDeSimbolos.gen("PUSH lblConstructor@" + operador.getLexema());
+            TablaDeSimbolos.gen("CALL");
         }
     }
 

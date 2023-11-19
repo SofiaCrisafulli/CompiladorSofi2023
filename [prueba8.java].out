@@ -22,6 +22,9 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
 VT_Init: NOP
 
@@ -31,25 +34,25 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD -1 ; parametrox
-PUSH mc$int@Init ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-LOAD -1 ; parametrox
 PUSH 33 ; Apila el entero 33
+DUP
+STORE -1 ; parametrox
+POP
 LOAD -1 ; parametrox
-PUSH mc$int@Init ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH 1234 ; Apila el entero 1234
-PUSH main@Init ; Apila el método 
+PUSH mc$int@Init ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -186,8 +189,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

@@ -22,8 +22,11 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
-VT_Rec: NOP
+VT_Rec: DW rec$int@Rec
 
 .CODE
 rec$int@Rec:
@@ -37,14 +40,16 @@ BF labelThennull ; salta afuera del if si la condicion es falsa
 FMEM 0
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 2
+
+
+
 labelElsenull: NOP
-LOAD 3
+
+
+
 LOAD -1 ; parametron
-SWAP
-DUP
-LOADREF 0 ; Cargo la VT
-LOADREF -1
-CALL
+PUSH debugPrint$int@Object ; Apila el método 
+CALL ; Llama al método en el tope de la pila
 LOAD 3
 LOAD -1 ; parametron
 PUSH 1 ; Apila el entero 1
@@ -52,11 +57,20 @@ SUB
 SWAP
 DUP
 LOADREF 0 ; Cargo la VT
-LOADREF -1
+LOADREF 0
 CALL
-FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
+
+
+
+lblConstructor@Rec:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 11
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -69,21 +83,26 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local r
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
 CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-STORE -1
-LOAD -1 ; apilo variable local
+DUP
+PUSH VT_Init; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@Rec
+CALL
+STORE 0
+LOAD 0 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 5 ; Apila el entero 5
 PUSH main@Init; etiqueta
 CALL
-FMEM 1
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -220,8 +239,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

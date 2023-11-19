@@ -22,6 +22,9 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
 VT_Init: NOP
 
@@ -35,26 +38,28 @@ PUSH 4 ; Apila el entero 4
 LT
 BF labelElsenull ; salta a la condicion else
 PUSH 12 ; Apila el entero 12
-PUSH main@Init ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
 JUMP labelThennull ; salteo al else
 labelElsenull:
 PUSH 4 ; Apila el entero 4
-PUSH main@Init ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
 labelThennull: NOP
+
+
+
 PUSH 3 ; Apila el entero 3
 PUSH 5 ; Apila el entero 5
 LT
 PUSH 1 ; apilo true
 AND
 BF labelThennull ; salta afuera del if si la condicion es falsa
-FMEM 0
 labelElsenull: NOP
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+
+
+
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -191,8 +196,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

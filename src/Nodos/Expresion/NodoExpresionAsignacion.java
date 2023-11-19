@@ -29,6 +29,7 @@ public class NodoExpresionAsignacion extends NodoExpresion {
             throw new ExcepcionSemantica(operador, "el tipo izquierdo no es asignable");
         if (!(tipoDer.esSubtipo(tipoIzq)))
             throw new ExcepcionSemantica(operador, "el lado derecho tiene que ser subtipo del lado izquierdo");
+        ladoIzq.setEsLadoIzq(true);
         return tipoIzq;
     }
 

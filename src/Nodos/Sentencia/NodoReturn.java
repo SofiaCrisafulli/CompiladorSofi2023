@@ -53,6 +53,7 @@ public class NodoReturn extends NodoSentencia {
             TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
             TablaDeSimbolos.gen("RET " + m.getOffsetLinea());
         }
+        TablaDeSimbolos.gen("\n\n");
     }
 
     public boolean esRetornante() {

@@ -52,12 +52,15 @@ public class Constructor {
     }
 
     public void generar() {
-        TablaDeSimbolos.gen("LOADFP ; Apila el valor del registro fp");
+        TablaDeSimbolos.gen("\n\n");
+        String label = "lblConstructor@" + TablaDeSimbolos.getClaseActual().getToken().getLexema() + ":";
+        TablaDeSimbolos.gen(label);
+        TablaDeSimbolos.gen( "LOADFP ; Apila el valor del registro fp");
         TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
         TablaDeSimbolos.gen("FMEM " + bloque.getVarLocales().size());
         TablaDeSimbolos.gen("STOREFP ;AF Almacena el tope de la pila en el registro fp");
-        TablaDeSimbolos.gen("RET " + (parametros.size()) + 1);
+        TablaDeSimbolos.gen("RET " + (parametros.size() + 1));
     }
 }

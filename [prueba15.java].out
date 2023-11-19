@@ -22,8 +22,11 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
-VT_A: NOP
+VT_A: DW getInt@A,method@A
 
 .CODE
 getInt@A:
@@ -35,21 +38,35 @@ PUSH 1 ; Apila el entero 1
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+
+
+
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 method@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
+RMEM 1 ; reservo lugar para el return
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
-LOADREF -1
+LOADREF 0
 CALL
-FMEM 0
+POP
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+lblConstructor@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -62,20 +79,25 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
 CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-STORE -1
-LOAD -1 ; apilo variable local
+DUP
+PUSH VT_Init; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@A
+CALL
+STORE 0
+LOAD 0 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Init; etiqueta
 CALL
-FMEM 1
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -212,8 +234,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

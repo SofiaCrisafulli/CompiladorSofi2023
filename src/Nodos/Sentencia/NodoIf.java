@@ -52,6 +52,7 @@ public class NodoIf extends NodoSentencia {
             sentenciaElse.generar();
             TablaDeSimbolos.gen(etiquetaThen + ": NOP");
         }
+        TablaDeSimbolos.gen("\n\n");
     }
 
     private String nuevaEtiquetaThen() {

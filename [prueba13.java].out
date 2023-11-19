@@ -22,8 +22,11 @@ STOREHL ; Mueve el heap limit (hl)
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1 ; Retorna eliminando el parámetro
 
+
+
+
 .DATA
-VT_A: NOP
+VT_A: DW getX@A
 
 .CODE
 getX@A:
@@ -32,34 +35,47 @@ LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 LOAD 3
-LOADREF-1
+LOADREF -1
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 01
+
+
+
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 setX$int@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOADREF-1
 LOAD -1 ; parametronewX
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+DUP
+LOAD 3
+SWAP
+STOREREF -1
+POP
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 printX@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOADREF-1
-PUSH printX@A ; Apila el método 
+LOADREF -1
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 0
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
+
+
+
+lblConstructor@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -97,28 +113,34 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
-RMEM 1 ; reservo para el malloc
-PUSH 01; apilo los atributos
-PUSH simple_malloc ; rutina de heap
+RMEM 1
+PUSH 2; apilo los atributos
+PUSH simple_malloc
 CALL
-DUP ; no perder el nuevo CiR
-PUSH VT_System; apilo el comienzo de la vt
-STOREREF 0 
-STORE -1
-LOAD -1 ; apilo variable local
+DUP
+PUSH VT_Main; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@A
+CALL
+STORE 0
+LOAD 0 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Main; etiqueta
 CALL
-LOAD -1 ; apilo variable local
+LOAD 0 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 2 ; Apila el entero 2
 PUSH main@Main; etiqueta
 CALL
 RMEM 1 ; guardo lugar para la variable local p2
-LOAD -1 ; apilo variable local
+LOAD 0 ; apilo variable local
 LOADREF -1
 STORE -1
-LOAD -1 ; apilo variable local
+LOAD 0 ; apilo variable local
 POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Main; etiqueta
 CALL
@@ -132,10 +154,9 @@ POP ; como es estatico no me sirve la referencia anterior
 PUSH main@Main; etiqueta
 CALL
 LOAD -1 ; apilo variable local
-PUSH main@Main ; Apila el método 
+PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
-FMEM 2
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
@@ -247,8 +268,5 @@ BPRINT
 PRNLN
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
-
-
-
 
 

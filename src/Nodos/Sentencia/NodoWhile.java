@@ -43,6 +43,7 @@ public class NodoWhile extends NodoSentencia {
         sentencia.generar();
         TablaDeSimbolos.gen("JUMP" + etiquetaThen);
         TablaDeSimbolos.gen(etiquetaFinWhile + ": NOP");
+        TablaDeSimbolos.gen("\n\n");
     }
 
     private String nuevaEtiquetaThen() {

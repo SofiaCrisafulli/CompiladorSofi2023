@@ -12,6 +12,7 @@ public class NodoBloque extends NodoSentencia {
 
     ArrayList<NodoSentencia> listaSentencias;
     Map<String, NodoVarLocal> varLocales;
+    int offset;
 
     public NodoBloque(Token token) {
         tokenSentencia = token;
@@ -21,6 +22,7 @@ public class NodoBloque extends NodoSentencia {
 
     @Override
     public void chequear() throws ExcepcionSemantica {
+        establecerOffset();
         TablaDeSimbolos.getInstance().addBloqueIni(this);
         for (NodoSentencia nodoSentencia : listaSentencias) {
             nodoSentencia.chequear();
@@ -30,13 +32,20 @@ public class NodoBloque extends NodoSentencia {
         TablaDeSimbolos.getInstance().eliminarBloque();
     }
 
+    private void establecerOffset() {
+        if(TablaDeSimbolos.getInstance().getBloqueActual() == null)
+            offset = 0;
+        else
+            offset = TablaDeSimbolos.getInstance().getBloqueActual().offset;
+    }
+
     @Override
     public void generar() {
         TablaDeSimbolos.addBloqueIni(this);
         for (NodoSentencia nodoSentencia : listaSentencias)
             nodoSentencia.generar();
         TablaDeSimbolos.removeBloque();
-        TablaDeSimbolos.gen("FMEM " + varLocales.size());
+        //TablaDeSimbolos.gen("FMEM " + varLocales.size());
     }
 
 
@@ -45,6 +54,8 @@ public class NodoBloque extends NodoSentencia {
         NodoVarLocal nodo = varLocales.put(nodoVarLocal.tokenSentencia.getLexema(), nodoVarLocal);
         if (nodo != null)
             esta = true;
+        nodoVarLocal.setOffset(offset);
+        offset--;
         return esta;
     }
 
