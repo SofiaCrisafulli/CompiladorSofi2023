@@ -59,6 +59,7 @@ DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
 CALL
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 2
 
@@ -68,6 +69,7 @@ lblConstructor@Rec:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
@@ -98,10 +100,11 @@ PUSH lblConstructor@Rec
 CALL
 STORE 0
 LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 5 ; Apila el entero 5
-PUSH main@Init; etiqueta
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 0
 CALL
+FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

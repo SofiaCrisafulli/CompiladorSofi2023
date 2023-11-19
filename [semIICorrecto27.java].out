@@ -34,10 +34,11 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH VT_System
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF0
+POP ; como es estatico no me sirve la referencia anterior
+PUSH 12 ; Apila el entero 12
+PUSH printI$int@System; etiqueta
 CALL
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 m2@B:
@@ -45,11 +46,9 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH VT_System
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF1
+POP ; como es estatico no me sirve la referencia anterior
+PUSH 50 ; Apila el entero 50
+PUSH printI$int@System; etiqueta
 CALL
 FMEM 0
 PUSH 24 ; Apila el entero 24
@@ -59,6 +58,7 @@ RET 1
 
 
 
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
@@ -68,6 +68,7 @@ lblConstructor@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
@@ -98,14 +99,19 @@ PUSH lblConstructor@B
 CALL
 STORE 0
 LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 0
 CALL
 LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 1
 CALL
 POP
+FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

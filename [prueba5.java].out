@@ -40,11 +40,13 @@ BF labelElsenull ; salta a la condicion else
 PUSH 12 ; Apila el entero 12
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
+FMEM 0
 JUMP labelThennull ; salteo al else
 labelElsenull:
 PUSH 4 ; Apila el entero 4
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
+FMEM 0
 labelThennull: NOP
 
 
@@ -55,10 +57,12 @@ LT
 PUSH 1 ; apilo true
 AND
 BF labelThennull ; salta afuera del if si la condicion es falsa
+FMEM 0
 labelElsenull: NOP
 
 
 
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

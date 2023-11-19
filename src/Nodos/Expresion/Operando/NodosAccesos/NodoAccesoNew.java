@@ -43,15 +43,6 @@ public class NodoAccesoNew extends NodoAcceso {
     @Override
     public void generar() {
         ClaseConcreta claseConcreta = TablaDeSimbolos.getClaseActual();
-        /*TablaDeSimbolos.gen("RMEM 1 ; reservo para el malloc");
-        TablaDeSimbolos.gen("PUSH " + (TablaDeSimbolos.getClase(operador.getLexema()).getAtributos().size() + 1)  + "; apilo los atributos");
-        TablaDeSimbolos.gen("PUSH simple_malloc ; rutina de heap");
-        TablaDeSimbolos.gen("CALL");
-        TablaDeSimbolos.gen("DUP ; no perder el nuevo CiR");
-        TablaDeSimbolos.gen("PUSH " + claseConcreta.labelVT() + "; apilo el comienzo de la vt");
-        TablaDeSimbolos.gen("STOREREF 0 ");
-        TablaDeSimbolos.gen("DUP");*/
-
         if (claseConcreta.getToken().getLexema().equals("String")) {
             TablaDeSimbolos.gen(".DATA");
             int cantS = TablaDeSimbolos.cantStrings;

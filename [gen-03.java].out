@@ -36,6 +36,7 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD -1 ; parametrop1
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 2
 m2@A:
@@ -50,6 +51,7 @@ RET 1
 
 
 
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
@@ -59,6 +61,7 @@ lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
@@ -89,16 +92,23 @@ PUSH lblConstructor@A
 CALL
 STORE 0
 LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 1
 CALL
 POP
 LOAD 0 ; apilo variable local
-POP ; como es estatico no me sirve la referencia anterior
-PUSH main@Init; etiqueta
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 1
 CALL
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
+FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

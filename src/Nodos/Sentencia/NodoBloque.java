@@ -45,7 +45,7 @@ public class NodoBloque extends NodoSentencia {
         for (NodoSentencia nodoSentencia : listaSentencias)
             nodoSentencia.generar();
         TablaDeSimbolos.removeBloque();
-        //TablaDeSimbolos.gen("FMEM " + varLocales.size());
+        TablaDeSimbolos.gen("FMEM " + varLocales.size());
     }
 
 

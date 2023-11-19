@@ -37,6 +37,7 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 2
 
@@ -66,6 +67,7 @@ SWAP
 PUSH lblConstructor@A
 CALL
 POP
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

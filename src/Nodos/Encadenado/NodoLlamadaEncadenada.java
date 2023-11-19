@@ -13,19 +13,20 @@ import java.util.Iterator;
 public class NodoLlamadaEncadenada extends NodoEncadenado {
 
     ArrayList<NodoExpresion> parametros;
-    ArrayList<NodoExpresion> parramParaCodigo;
+    ArrayList<NodoExpresion> paramParaCodigo;
+    Clase clase;
 
     public NodoLlamadaEncadenada(Token token, ArrayList<NodoExpresion> p, NodoEncadenado nodo) {
         nombre = token;
         parametros = p;
         nodoEncadenado = nodo;
-        parramParaCodigo = new ArrayList<>();
+        paramParaCodigo = new ArrayList<>();
     }
 
     public NodoLlamadaEncadenada(Token token, ArrayList<NodoExpresion> p) {
         nombre = token;
         parametros = p;
-        parramParaCodigo = new ArrayList<>();
+        paramParaCodigo = new ArrayList<>();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
             throw new ExcepcionSemantica(getUltimoToken(), "no es posible tener una asignacion en una llamada encadenada");
         if (esAsignable() && !esAsignacion())
             throw new ExcepcionSemantica(new Token(TipoDeToken.op_asignacion, "=", nombre.getNroLinea()), "no es posible hacer una asignacion");
-        Clase clase = TablaDeSimbolos.getClase(t.getNombreTipo());
+        clase = TablaDeSimbolos.getClase(t.getNombreTipo());
         if (clase == null)
             clase = TablaDeSimbolos.getInterface(t.getNombreTipo());
         if (clase != null) {
@@ -64,7 +65,7 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
                 Parametro p = iterator.next();
                 NodoExpresion ne = iteradorNodoEx.next();
                 fallo = !(ne.chequear().esSubtipo(p.getTipo()));
-                parramParaCodigo.add(0, ne);
+                paramParaCodigo.add(0, ne);
             }
         } else
             fallo = true;
@@ -99,12 +100,12 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
 
     @Override
     public void generar() {
-        Metodo metodo = TablaDeSimbolos.getClaseActual().getMetodoActual();
+        Metodo metodo = clase.getMetodo(nombre.getLexema());
         if (metodo.getMetodoEstatico()) {
             TablaDeSimbolos.gen("POP ; como es estatico no me sirve la referencia anterior");
             if (!metodo.getTipo().mismoTipo(new TipoVoid(new Token(TipoDeToken.pr_void, "", 0))))
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
-            for (NodoExpresion ne : parramParaCodigo)
+            for (NodoExpresion ne : paramParaCodigo)
                 ne.generar();
             TablaDeSimbolos.gen("PUSH " + metodo.stringLabel() + "; etiqueta");
             TablaDeSimbolos.gen("CALL");
@@ -115,7 +116,7 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
             }
             TablaDeSimbolos.gen("DUP ; no perder el this");
             TablaDeSimbolos.gen("LOADREF 0 ; cargo la vt");
-            TablaDeSimbolos.gen("LOADREF" + metodo.getOffset());
+            TablaDeSimbolos.gen("LOADREF " + metodo.getOffset());
             TablaDeSimbolos.gen("CALL");
         }
         if (nodoEncadenado != null) {

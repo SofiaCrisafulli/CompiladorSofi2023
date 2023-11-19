@@ -193,6 +193,7 @@ public class Metodo {
         TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         bloque.generar();
+        //TablaDeSimbolos.gen("FMEM ");
         TablaDeSimbolos.gen("STOREFP ;AF Almacena el tope de la pila en el registro fp");
         if (metodoEstatico)
             TablaDeSimbolos.gen("RET " + listaParametros.size());

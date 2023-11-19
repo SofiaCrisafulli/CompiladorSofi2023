@@ -41,11 +41,13 @@ BFlabelFinnull
 PUSH 1234 ; Apila el entero 1234
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
+FMEM 0
 JUMPlabelThennull
 labelFinnull: NOP
 
 
 
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
@@ -62,8 +64,9 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH VT_A
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 0 ; Apila el entero 0
-PUSH main@Init; etiqueta
+PUSH imprimir$int@A; etiqueta
 CALL
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 

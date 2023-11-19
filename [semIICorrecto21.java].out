@@ -46,19 +46,21 @@ STORE -1
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0 ; apilo variable local
-PUSH main@Init; etiqueta
+PUSH printI$int@System; etiqueta
 CALL
+FMEM 1
 JUMP labelThennull ; salteo al else
 labelElsenull:
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0 ; apilo variable local
-PUSH main@Init; etiqueta
+PUSH printI$int@System; etiqueta
 CALL
 labelThennull: NOP
 
 
 
+FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
