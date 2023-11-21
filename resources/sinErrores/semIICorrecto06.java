@@ -1,6 +1,6 @@
 ///exitosamente
 class A {
-    public int a;
+     int a;
 
     static int m1(){
         return 8 / 2;

@@ -1,7 +1,7 @@
 ///exitosamente
 
 class A {
-    private int a1;
+     int a1;
     
      void m1(){
          System.printS("HELLO WORLD");

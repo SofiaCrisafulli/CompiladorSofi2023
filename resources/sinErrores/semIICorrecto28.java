@@ -19,7 +19,7 @@ class C {
     }
 }
 
-class B extends C implements A{
+class B extends C {
 
     void m1(){
         System.printI(12);

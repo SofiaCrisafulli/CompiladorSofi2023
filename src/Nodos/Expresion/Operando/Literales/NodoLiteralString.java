@@ -21,12 +21,12 @@ public class NodoLiteralString extends NodoLiteral {
         TablaDeSimbolos.gen("CALL");
         for(int i = 0; i < string.length(); i++){
             TablaDeSimbolos.gen("DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume");
-            TablaDeSimbolos.gen("PUSH "+'\''+string.charAt(i)+'\'' +" ");
+            TablaDeSimbolos.gen("PUSH " + '\''+string.charAt(i)+'\'' +" ");
             TablaDeSimbolos.gen("STOREREF "+ i +" ; Guardo la letra apilada");
         }
         TablaDeSimbolos.gen("DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume");
-        TablaDeSimbolos.gen("PUSH "+ 0 +" ; Apilo terminador");
-        TablaDeSimbolos.gen("STOREREF "+ string.length());
+        TablaDeSimbolos.gen("PUSH " + 0 + " ; Apilo terminador");
+        TablaDeSimbolos.gen("STOREREF " + string.length());
     }
 
     @Override

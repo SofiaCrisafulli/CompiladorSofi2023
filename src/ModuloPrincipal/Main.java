@@ -19,9 +19,9 @@ public class Main {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
-        if (args.length > 0) { //true ||
-            fileName = args[0];
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-02.java";
+        if (true || args.length > 0) { //true ||
+            //fileName = args[0];
+            fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
             archivoDeSalida = args[1];
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];

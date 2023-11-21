@@ -83,7 +83,7 @@ public class NodoVarEncadenada extends NodoEncadenado {
             TablaDeSimbolos.gen("LOADREF " + atributoEnTs.getOffset());
         else {
             TablaDeSimbolos.gen("SWAP");
-            TablaDeSimbolos.gen("STOREREF" + atributoEnTs.getOffset());
+            TablaDeSimbolos.gen("STOREREF " + atributoEnTs.getOffset());
         }
         if (nodoEncadenado != null) {
             nodoEncadenado.setEsLadoIzq(esLadoIzq);

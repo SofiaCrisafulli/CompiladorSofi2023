@@ -555,22 +555,28 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.pr_null) {
             match("null", TipoDeToken.pr_null);
             literal = new NodoLiteralNull();
+            literal.setOperador(tokenActual);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.pr_true) {
             match("true", TipoDeToken.pr_true);
             literal = new NodoLiteralTrue(tokenActual);
+            literal.setOperador(tokenActual);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.pr_false) {
             match("false", TipoDeToken.pr_false);
             literal = new NodoLiteralFalse(tokenActual);
+            literal.setOperador(tokenActual);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.num_int) {
             Token token = tokenActual;
             match("initLiteral", TipoDeToken.num_int);
             literal = new NodoLiteralInt(token);
+            literal.setOperador(token);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.car_char) {
             match("charLiteral", TipoDeToken.car_char);
             literal = new NodoLiteralChar();
+            literal.setOperador(tokenActual);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.stringLiteral) {
             match("stringLiteral", TipoDeToken.stringLiteral);
             literal = new NodoLiteralString();
+            literal.setOperador(tokenActual);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.pr_float)
             match("float", TipoDeToken.pr_float);
         return literal;

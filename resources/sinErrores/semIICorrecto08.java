@@ -4,7 +4,7 @@ interface E{
 }
 
 class A implements E{
-    public int a;
+     int a;
 
     void m1(){
         a=7;

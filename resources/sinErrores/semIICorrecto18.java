@@ -1,7 +1,7 @@
 ///exitosamente
 class A {
 
-    private B b;
+     B b;
 
     void m1() {
         if(b == null) {
@@ -14,7 +14,7 @@ class A {
 }
 
 class B{
-    public int l;
+     int l;
 }
 
 
