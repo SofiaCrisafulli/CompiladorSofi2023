@@ -33,7 +33,7 @@ m1$int@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD -1 ; parametroy
+LOAD -1
 DUP
 LOAD 3
 SWAP

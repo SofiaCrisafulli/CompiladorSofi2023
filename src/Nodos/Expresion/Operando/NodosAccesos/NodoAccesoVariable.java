@@ -60,22 +60,32 @@ public class NodoAccesoVariable extends NodoAcceso {
                 TablaDeSimbolos.gen("SWAP");
                 TablaDeSimbolos.gen("STOREREF " + atributo.getOffset());
             }
-        } else if (parametro != null) {
+        } else if (parametro != null || nodoVarLocal != null) {
+            int offset = genOffset();
             if (!esLadoIzq || nodoEncadenado != null)
-                TablaDeSimbolos.gen("LOAD " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
+                TablaDeSimbolos.gen("LOAD " + offset);
             else
-                TablaDeSimbolos.gen("STORE " + parametro.getOffset() + " ; parametro" + parametro.getTokenParametro().getLexema());
+                TablaDeSimbolos.gen("STORE " + offset);
         } else if (atributo != null && atributo.getOffset() == -1) {
             TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClaseActual().labelVT());
             if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null)
                 TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");
             else
                 TablaDeSimbolos.gen("STORE " + nodoVarLocal.getOffset() + " ; apilo variable local");
-            if (nodoEncadenado != null) {
-                nodoEncadenado.setMismoLado(esLadoIzq);
-                nodoEncadenado.generar();
-            }
         }
+        if (nodoEncadenado != null) {
+            nodoEncadenado.setMismoLado(esLadoIzq);
+            nodoEncadenado.generar();
+        }
+    }
+
+    private int genOffset() {
+        int i = 0;
+        if (parametro != null)
+            i = parametro.getOffset();
+        else if (nodoVarLocal != null)
+            i = nodoVarLocal.getOffset();
+        return i;
     }
 
     @Override

@@ -335,7 +335,6 @@ public class TablaDeSimbolos {
 
 
     public void generar() throws ExcepcionSemantica {
-        System.out.println("generar ts");
         generarInicial();
         for (ClaseConcreta clase : clases.values()) {
             claseActual = clase;
@@ -344,7 +343,6 @@ public class TablaDeSimbolos {
     }
 
     public static void generarInicial() {
-        System.out.println("generarInicial ts");
         // Code
         listaInstrucciones.add(".CODE");
         listaInstrucciones.add("PUSH simple_heap_init");

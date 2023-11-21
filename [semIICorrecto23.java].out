@@ -42,6 +42,7 @@ ADD
 STORE 0
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
 FMEM 1

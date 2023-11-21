@@ -36,6 +36,7 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
 PUSH 11 ; Apila el entero 11
 STORE 0
+LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
 BF labelElsenull ; salta a la condicion else
@@ -44,6 +45,7 @@ PUSH 12 ; Apila el entero 12
 STORE -1
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
 FMEM 1
@@ -51,6 +53,7 @@ JUMP labelThennull ; salteo al else
 labelElsenull:
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
 labelThennull: NOP

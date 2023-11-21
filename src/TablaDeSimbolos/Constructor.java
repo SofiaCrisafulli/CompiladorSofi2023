@@ -18,14 +18,6 @@ public class Constructor {
         bloque = new NodoBloque(new Token(TipoDeToken.simb_llave_que_abre, "{", 0));
     }
 
-    public Token getTokenConstructor() {
-        return tokenConstructor;
-    }
-
-    public void setTokenConstructor(Token tokenConstructor) {
-        this.tokenConstructor = tokenConstructor;
-    }
-
     public void estaBienDeclarado() throws ExcepcionSemantica {
         if (TablaDeSimbolos.getInstance().getClase(tokenConstructor.getLexema()) == null) {
             throw new ExcepcionSemantica(tokenConstructor, "No existe clase para el constructor " + tokenConstructor.getLexema());

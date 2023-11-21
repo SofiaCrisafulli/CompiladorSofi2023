@@ -14,7 +14,6 @@ public class MetodoDebugPrint extends Metodo {
     }
 
     public void generar() {
-        System.out.println("generar debugPrint");
         TablaDeSimbolos.gen("LOADFP");
         TablaDeSimbolos.gen("LOADSP");
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
@@ -23,6 +22,7 @@ public class MetodoDebugPrint extends Metodo {
         TablaDeSimbolos.gen("IPRINT");
         TablaDeSimbolos.gen("PRNLN");
 
+        //TablaDeSimbolos.gen("FMEM " + TablaDeSimbolos.getBloqueActual().getVarLocales().size());
         TablaDeSimbolos.gen("STOREFP ; Almacena el tope de la pila en el registro fp");
         TablaDeSimbolos.gen("RET " + 1 + "; +1");
         TablaDeSimbolos.gen("\n");

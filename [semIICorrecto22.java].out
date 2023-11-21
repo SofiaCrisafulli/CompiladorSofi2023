@@ -37,18 +37,22 @@ RMEM 1 ; guardo lugar para la variable local a
 PUSH 11 ; Apila el entero 11
 STORE 0
 labelThennull:
+LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
 BFlabelFinnull
 RMEM 1 ; guardo lugar para la variable local b
 PUSH 32 ; Apila el entero 32
 STORE 0
+LOAD 0
 PUSH 1 ; Apila el entero 1
 SUB
 DUP
+STORE 0
 POP
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
 FMEM 1
