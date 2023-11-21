@@ -80,6 +80,7 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.pr_extends) {
             match("extends", TipoDeToken.pr_extends);
             nombre = tokenActual;
+            System.out.println("Token heredaDe: " + nombre.getLexema());
             TablaDeSimbolos.getInstance().claseActual.setHereda(new Token(nombre.getTipoDeToken(), nombre.getLexema(), nombre.getNroLinea()));
             match("id_class", TipoDeToken.id_clase);
             TablaDeSimbolos.getInstance().claseActual.setHereda(nombre);
@@ -134,6 +135,7 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.pr_implements) {
             match("implements", TipoDeToken.pr_implements);
             nombre = tokenActual;
+            System.out.println("Token implementaA: " + nombre.getLexema());
             TablaDeSimbolos.getInstance().claseActual.setImplementa(new Token(nombre.getTipoDeToken(), nombre.getLexema(), nombre.getNroLinea()));
             match("id_class", TipoDeToken.id_clase);
             TablaDeSimbolos.getInstance().claseActual.setImplementa(nombre);
@@ -168,6 +170,7 @@ public class AnalilzadorSintactico {
     private void atributoOMetodoFactorizada(Tipo tipo, Token token, boolean es) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         if (tokenActual.getTipoDeToken() == TipoDeToken.simb_parentesis_que_abre) {
             ArrayList<Parametro> parametros = argsFormales();
+            System.out.println("Token atributoOMetodoFactorizada: " + token.getLexema());
             Metodo m = new Metodo(token, parametros, tipo, es, new Token(token.getTipoDeToken(), token.getLexema(), token.getNroLinea()), TablaDeSimbolos.getClaseActual());
             TablaDeSimbolos.getInstance().getClaseActual().setMetodoActual(m);
             NodoBloque bloque = bloque();
@@ -207,6 +210,7 @@ public class AnalilzadorSintactico {
         Token nombre = tokenActual;
         match("id_met_var", TipoDeToken.id_met_var);
         ArrayList<Parametro> p = argsFormales();
+        System.out.println("Token encabezadoInterfaz: " + tokenActual.getLexema());
         Metodo m = new Metodo(nombre, p, tipo1, false, new Token(tokenActual.getTipoDeToken(), tokenActual.getLexema(), tokenActual.getNroLinea()), TablaDeSimbolos.getClaseActual());
         match(";", TipoDeToken.simb_punto_y_coma);
         if (!TablaDeSimbolos.getInstance().getInterfazActual().addMetodo(m))
@@ -276,6 +280,8 @@ public class AnalilzadorSintactico {
     private ArrayList<Parametro> listaArgsFormales(ArrayList<Parametro> parametros) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         Parametro p = argFormal();
         for (Parametro p1 : parametros) {
+            System.out.println("Token listaArgsFormales1: " + p1.getTokenParametro().getLexema());
+            System.out.println("Token listaArgsFormales2: " + p.getTokenParametro().getLexema());
             if (p1.getTokenParametro().getLexema().equals(p.getTokenParametro().getLexema()))
                 throw new ExcepcionSemantica(p1.getTokenParametro(), "Ya existe otro parámetro con el mismo nombre");
         }
@@ -286,8 +292,10 @@ public class AnalilzadorSintactico {
                 listaArgsFormalesFactorizada(parametros);
             else
                 throw new ExcepcionSintactica(tokenActual, "boolean | char | int | id_clase");
-        } else if (tokenActual.getTipoDeToken() != TipoDeToken.simb_parentesis_que_cierra)
+        } else if (tokenActual.getTipoDeToken() != TipoDeToken.simb_parentesis_que_cierra) {
+            System.out.println("Token listaArgsFormales: " + tokenActual.getLexema());
             throw new ExcepcionSintactica(tokenActual, tokenActual.getLexema());
+        }
         return parametros;
     }
 
