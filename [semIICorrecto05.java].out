@@ -45,6 +45,17 @@ RET 1
 
 
 
+lblConstructor@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_B: DW m1@A
 
@@ -77,7 +88,7 @@ PUSH 2; apilo los atributos
 PUSH simple_malloc
 CALL
 DUP
-PUSH VT_Init; apilo el comienzo de la vt
+PUSH VT_B; apilo el comienzo de la vt
 STOREREF 0
 DUP
 
@@ -101,6 +112,17 @@ RET 0
 
 
 
+lblConstructor@Init:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_Object: NOP
 
@@ -119,10 +141,32 @@ RET 1; +1
 
 
 
+lblConstructor@Object:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_String: NOP
 
 .CODE
+
+
+
+lblConstructor@String:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -235,3 +279,14 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
 
 
+
+
+
+lblConstructor@System:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1

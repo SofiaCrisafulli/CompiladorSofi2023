@@ -170,7 +170,6 @@ public class AnalilzadorSintactico {
     private void atributoOMetodoFactorizada(Tipo tipo, Token token, boolean es) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         if (tokenActual.getTipoDeToken() == TipoDeToken.simb_parentesis_que_abre) {
             ArrayList<Parametro> parametros = argsFormales();
-            System.out.println("Token atributoOMetodoFactorizada: " + token.getLexema());
             Metodo m = new Metodo(token, parametros, tipo, es, new Token(token.getTipoDeToken(), token.getLexema(), token.getNroLinea()), TablaDeSimbolos.getClaseActual());
             TablaDeSimbolos.getInstance().getClaseActual().setMetodoActual(m);
             NodoBloque bloque = bloque();
@@ -178,7 +177,6 @@ public class AnalilzadorSintactico {
             if (!TablaDeSimbolos.getInstance().getClaseActual().addMetodo(m))
                 throw new ExcepcionSemantica(token, "el método esta repetido");
         } else {
-            System.out.println("Else de atributoOMetodoFactorizada");
             Atributo a = new Atributo(token, tipo, TablaDeSimbolos.getClaseActual(), es);
             match(";", TipoDeToken.simb_punto_y_coma);
             TablaDeSimbolos.getInstance().getClaseActual().addAtributo(a);

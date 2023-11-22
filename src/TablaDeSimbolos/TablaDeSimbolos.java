@@ -40,7 +40,6 @@ public class TablaDeSimbolos {
     }
 
     public static void limpiar() {
-        System.out.println("Limpiar");
         clases = new HashMap<String, ClaseConcreta>();
         interfaces = new HashMap<String, Interface>();
         metodos = new HashMap<String, Metodo>();
@@ -141,7 +140,6 @@ public class TablaDeSimbolos {
     }
 
     private static void crearObject() {
-        System.out.println("crearObject");
         ClaseConcreta objeto = new ClaseConcreta(new Token(TipoDeToken.id_clase, "Object", 0));
         TablaDeSimbolos.setClaseActual(objeto);
         ArrayList<Parametro> parametrosDebugPrint = new ArrayList<>();
@@ -149,7 +147,6 @@ public class TablaDeSimbolos {
         Metodo met = new MetodoDebugPrint(new Token(TipoDeToken.id_met_var, "debugPrint", 0), parametrosDebugPrint, new TipoVoid(new Token(TipoDeToken.id_met_var, "debugPrint", 0)), true, new Token(TipoDeToken.id_met_var, "debugPrint", 0), claseActual);
         met.setListaParametros(parametrosDebugPrint);
         objeto.setOffsetCiR(1);
-        System.out.println("Cant de parametros de debugPrint: " + parametrosDebugPrint.size());
         met.setMetodoEstatico(true);
         objeto.addMetodo(met);
         clases.put(objeto.getToken().getLexema(), objeto);

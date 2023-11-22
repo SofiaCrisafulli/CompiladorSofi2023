@@ -59,8 +59,7 @@ public class NodoAccesoNew extends NodoAcceso {
             TablaDeSimbolos.gen("PUSH simple_malloc");
             TablaDeSimbolos.gen("CALL");
             TablaDeSimbolos.gen("DUP");
-            String label = claseConcreta.labelVT();
-            TablaDeSimbolos.gen("PUSH " + claseConcreta.labelVT() + "; apilo el comienzo de la vt");
+            TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClase(operador.getLexema()).labelVT() + "; apilo el comienzo de la vt");
             TablaDeSimbolos.gen("STOREREF 0");
             TablaDeSimbolos.gen("DUP");
             for (NodoExpresion ne : parametros) {

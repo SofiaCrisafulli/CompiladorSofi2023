@@ -71,12 +71,12 @@ public class NodoVarEncadenada extends NodoEncadenado {
     public void generar() {
         if (atributoEnTs.getOffset() == -1) {
             TablaDeSimbolos.gen("POP");
-            String a = clase.getAtributo(atributoEnTs.getNombre()).getToken().getLexema();
-            TablaDeSimbolos.gen("PUSH " + clase.getAtributo(atributoEnTs.getNombre()).getToken().getLexema());
+            //TablaDeSimbolos.gen("PUSH " + clase.getAtributo(atributoEnTs.getNombre()).getToken().getLexema() + "@" + TablaDeSimbolos.getClaseActual());
+            String a = "Label nodo var encadenada: " + TablaDeSimbolos.getClase(clase.getToken().getLexema()).labelVT();
             TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClase(clase.getToken().getLexema()).labelVT());
-            if (!esLadoIzq || nodoEncadenado != null) {
+            if (!esLadoIzq || nodoEncadenado != null)
                 TablaDeSimbolos.gen("LOADREF 0");
-            } else {
+            else {
                 TablaDeSimbolos.gen("SWAP");
                 TablaDeSimbolos.gen("STOREREF 0");
             }

@@ -67,6 +67,7 @@ public class NodoAccesoVariable extends NodoAcceso {
             else
                 TablaDeSimbolos.gen("STORE " + offset);
         } else if (atributo != null && atributo.getOffset() == -1) {
+            System.out.println("Nodo acceso variable: " + TablaDeSimbolos.getClaseActual().labelVT());
             TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClaseActual().labelVT());
             if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null)
                 TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");

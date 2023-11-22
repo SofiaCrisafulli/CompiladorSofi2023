@@ -12,6 +12,7 @@ public class NodoBloque extends NodoSentencia {
 
     ArrayList<NodoSentencia> listaSentencias;
     Map<String, NodoVarLocal> varLocales;
+    int cantVarLocalBloque = 0;
     int offset;
 
     public NodoBloque(Token token) {
@@ -44,8 +45,8 @@ public class NodoBloque extends NodoSentencia {
         TablaDeSimbolos.addBloqueIni(this);
         for (NodoSentencia nodoSentencia : listaSentencias)
             nodoSentencia.generar();
+        TablaDeSimbolos.gen("FMEM " + cantVarLocalBloque);
         TablaDeSimbolos.removeBloque();
-        TablaDeSimbolos.gen("FMEM " + varLocales.size());
     }
 
 
@@ -55,6 +56,7 @@ public class NodoBloque extends NodoSentencia {
         if (nodo != null)
             esta = true;
         nodoVarLocal.setOffset(offset);
+        cantVarLocalBloque++;
         offset--;
         return esta;
     }
