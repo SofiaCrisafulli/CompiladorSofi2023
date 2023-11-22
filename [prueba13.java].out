@@ -143,7 +143,7 @@ CALL
 RMEM 1 ; guardo lugar para la variable local p2
 LOAD 0
 POP
-PUSH null
+PUSH x
 PUSH VT_A
 LOADREF 0
 STORE -1

@@ -18,7 +18,6 @@ public class ClaseConcreta extends Clase {
     private Token hereda;
     private boolean estaConsolidada;
     private boolean hayHerenciaCircular;
-    private Constructor constructorClase;
     private int offsetCiR;
     private int offsetVT;
     private HashMap<Integer, Atributo> atributoOffset;
@@ -31,7 +30,6 @@ public class ClaseConcreta extends Clase {
         parametros = new HashMap<String, Parametro>();
         atributos = new HashMap<>();
         hereda = new Token(TipoDeToken.id_clase, tokenClase.getLexema(), tokenClase.getNroLinea());
-        constructorClase = new Constructor(idClase);
         hayHerenciaCircular = false;
         atributoOffset = new HashMap<Integer, Atributo>();
         metodosOffset = new HashMap<>();
@@ -82,7 +80,7 @@ public class ClaseConcreta extends Clase {
                 }
                 for (Atributo atributo : atributos.values())
                     atributo.estaBienDeclarado();
-                constructorClase.estaBienDeclarado();
+                constructor.estaBienDeclarado();
             } else
                 throw new ExcepcionSemantica(hereda, "La clase " + tokenClase.getLexema() + " intenta heredar de una clase no declarada -->" + hereda.getLexema());
         }
@@ -165,12 +163,6 @@ public class ClaseConcreta extends Clase {
         int offsetClasePadre = clasePadre.getOffsetVt();
         offsetVT = offsetClasePadre;
         setMetodosOffset();
-
-
-        //offsetCiR = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetCiR();
-        //offsetVT = TablaDeSimbolos.getInstance().getClase(hereda.getLexema()).getOffsetVt();
-        //setMetodosOffset();
-        //setAtributoOffset(clasePadre);
     }
 
 
@@ -235,15 +227,15 @@ public class ClaseConcreta extends Clase {
             metodoActual = m;
             m.chequeoSentencias();
         }
-        constructorClase.chequeoSentencias();
+        constructor.chequeoSentencias();
     }
 
     public void chequear() throws ExcepcionSemantica {
-        if (constructorClase == null) {
-            constructorClase = new Constructor(tokenClase);
-            constructorClase.setParametros(new ArrayList<Parametro>());
+        if (constructor == null) {
+            constructor = new Constructor(tokenClase);
+            constructor.setParametros(new ArrayList<Parametro>());
         }
-        constructorClase.chequear();
+        constructor.chequear();
     }
 
     private void genOffsetAtributos() {
@@ -322,9 +314,6 @@ public class ClaseConcreta extends Clase {
         offsetCiR = offset;
     }
 
-    public void setConstructorClase(Constructor constructorClase) {
-        this.constructorClase = constructorClase;
-    }
 
     public String labelVT() {
         return "VT_" + tokenClase.getLexema();

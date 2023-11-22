@@ -41,10 +41,6 @@ public class Atributo {
         return nombre;
     }
 
-    public void setNombre(String n) {
-        nombre = n;
-    }
-
     public Tipo getTipo() {
         return tipo;
     }

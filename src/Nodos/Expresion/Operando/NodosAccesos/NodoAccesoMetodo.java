@@ -49,6 +49,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
             for (NodoExpresion ne : parametrosInvertidos)
                 ne.generar();
+            String label = metodo.etiquetaMetodo();
             TablaDeSimbolos.gen("PUSH " + metodo.etiquetaMetodo());
             TablaDeSimbolos.gen("CALL ; Llama al método en el tope de la pila");
         } else {

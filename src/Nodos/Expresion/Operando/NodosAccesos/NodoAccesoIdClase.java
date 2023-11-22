@@ -34,6 +34,7 @@ public class NodoAccesoIdClase extends NodoAcceso {
     @Override
     public void generar() {
         ClaseConcreta clase = TablaDeSimbolos.getInstance().getClase(operador.getLexema());
+        String label = clase.labelVT();
         TablaDeSimbolos.gen("PUSH " + clase.labelVT());
         if(nodoEncadenado != null) {
             nodoEncadenado.setEsLadoIzq(esLadoIzq);

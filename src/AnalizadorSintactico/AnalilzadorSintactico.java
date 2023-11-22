@@ -190,7 +190,6 @@ public class AnalilzadorSintactico {
         Token nombre = tokenActual;
         match("id_clase", TipoDeToken.id_clase);
         Constructor constructor = new Constructor(nombre);
-        TablaDeSimbolos.getClaseActual().setConstructorClase(constructor);
         TablaDeSimbolos.getInstance().getClaseActual().setConstructor(constructor);
         ArrayList<Parametro> p = argsFormales();
         TablaDeSimbolos.getInstance().getClaseActual().getConstructor().setParametros(p);

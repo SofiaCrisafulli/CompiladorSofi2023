@@ -94,7 +94,7 @@ public abstract class Clase {
     public Atributo getAtributo(String lexema) {
         Atributo atributo = null;
         for(Atributo a: atributos.values())
-            if(a.equals(lexema))
+            if(a.getToken().getLexema().equals(lexema))
                 atributo = a;
         return atributo;
     }
@@ -104,6 +104,7 @@ public abstract class Clase {
             m.chequeoSentencias();
         constructor.chequeoSentencias();
     }
+
 
     public abstract void generar();
 

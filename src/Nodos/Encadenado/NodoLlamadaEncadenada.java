@@ -107,6 +107,7 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
             for (NodoExpresion ne : paramParaCodigo)
                 ne.generar();
+            String label = metodo.stringLabel();
             TablaDeSimbolos.gen("PUSH " + metodo.stringLabel() + "; etiqueta");
             TablaDeSimbolos.gen("CALL");
         } else {
