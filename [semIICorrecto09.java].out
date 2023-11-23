@@ -35,7 +35,7 @@ LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 LOAD 3
-LOADREF 1
+LOADREF 1 ; offset atributo
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
@@ -99,13 +99,13 @@ SWAP
 STOREREF 1
 POP
 LOAD 3
-LOADREF 1
+LOADREF 1 ; offset atributo
 DUP ; no perder el this
 LOADREF 0 ; cargo la vt
 LOADREF 1
 CALL
 LOAD 3
-LOADREF 1
+LOADREF 1 ; offset atributo
 RMEM 1 ; reservo lugar para el return
 SWAP
 DUP ; no perder el this

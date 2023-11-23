@@ -419,9 +419,11 @@ public class AnalilzadorSintactico {
         NodoExpresionAsignacion nea = expresionFactorizada(ne);
         if (nea != null) {
             nea.setLadoIzq(ne);
+            nea.setOperador(token);
             return nea;
         } else {
             NodoExpresionSentencia nodoExpresionSentencia = new NodoExpresionSentencia(tokenActual, ne);
+            nodoExpresionSentencia.setOperador(token);
             return nodoExpresionSentencia;
         }
     }
@@ -567,13 +569,15 @@ public class AnalilzadorSintactico {
             literal = new NodoLiteralInt(token);
             literal.setOperador(token);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.car_char) {
+            Token token = tokenActual;
             match("charLiteral", TipoDeToken.car_char);
             literal = new NodoLiteralChar();
-            literal.setOperador(tokenActual);
+            literal.setOperador(token);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.stringLiteral) {
+            Token token = tokenActual;
             match("stringLiteral", TipoDeToken.stringLiteral);
             literal = new NodoLiteralString();
-            literal.setOperador(tokenActual);
+            literal.setOperador(token);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.pr_float)
             match("float", TipoDeToken.pr_float);
         return literal;

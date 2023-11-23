@@ -55,15 +55,17 @@ public class NodoAccesoVariable extends NodoAcceso {
         if (atributo != null) {
             TablaDeSimbolos.gen("LOAD 3");
             if (!esLadoIzq || nodoEncadenado != null)
-                TablaDeSimbolos.gen("LOADREF " + atributo.getOffset());
+                TablaDeSimbolos.gen("LOADREF " + atributo.getOffset() + " ; offset atributo");
             else {
                 TablaDeSimbolos.gen("SWAP");
                 TablaDeSimbolos.gen("STOREREF " + atributo.getOffset());
             }
         } else if (parametro != null || nodoVarLocal != null) {
             int offset = genOffset();
-            if (!esLadoIzq || nodoEncadenado != null)
+            if (!esLadoIzq || nodoEncadenado != null) {
+                System.out.println("Offset nodo acceso variable: " + offset);
                 TablaDeSimbolos.gen("LOAD " + offset);
+            }
             else
                 TablaDeSimbolos.gen("STORE " + offset);
         } else if (atributo != null && atributo.getOffset() == -1) {

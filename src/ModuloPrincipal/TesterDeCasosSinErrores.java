@@ -60,12 +60,12 @@ public class TesterDeCasosSinErrores {
        
         
     @Test
-    public void testIterado() throws IOException {
+    public void testIterado() throws Exception {
         probarExito(input);
     }
 
 
-    void probarExito(String name) throws IOException {
+    void probarExito(String name) throws Exception {
         String path = testFilesDirectoryPath+name;
         String[] expectedValues = getExpectedValues(path);
 

@@ -37,7 +37,7 @@ RMEM 1 ; guardo lugar para la variable local a
 PUSH 3 ; Apila el entero 3
 STORE 0
 RMEM 1 ; guardo lugar para la variable local b
-PUSH;; apilo caracter
+PUSH'c'; apilo caracter
 STORE -1
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior

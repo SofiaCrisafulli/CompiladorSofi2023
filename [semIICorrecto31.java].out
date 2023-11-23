@@ -1,7 +1,7 @@
 .CODE
 PUSH simple_heap_init
 CALL
-PUSH main@Main
+PUSH main@A
 CALL
 HALT
 
@@ -26,47 +26,142 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW getX@A
+VT_A: NOP
 
 .CODE
-getX@A:
+m1$String$char$int@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
+RMEM 1 ; guardo lugar para la variable local v0
 LOAD 3
-LOADREF -1
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-setX$int@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
+STORE 0
+LOAD 0
+PUSH printSln$string@System ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+RMEM 1 ; guardo lugar para la variable local v1
+LOAD 4
+STORE -1
 LOAD -1
-DUP
-LOAD 3
-SWAP
-STOREREF -1
-POP
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-printX@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOADREF -1
-PUSH debugPrint$int@Object ; Apila el método 
+PUSH printCln$char@System ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
+LOAD 5
+STORE 6
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 3
+
+
+
+FMEM 2
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 3
+main@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local v0
+RMEM 1 ; puntero al String en .HEAP
+PUSH 5
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'H' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'o' 
+STOREREF 1 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'l' 
+STOREREF 2 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'a' 
+STOREREF 3 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 4
+STORE 0
+RMEM 1 ; guardo lugar para la variable local v2
+PUSH'k'; apilo caracter
+STORE -1
+RMEM 1 ; guardo lugar para la variable local v1
+RMEM 1 ; reservo lugar para el return
+PUSH 10 ; Apila el entero 10
+LOAD -1
+LOAD 0
+PUSH m1$String$char$int@A ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+STORE -2
+LOAD -2
+PUSH printIln$int@System ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+RMEM 1 ; reservo lugar para el return
+LOAD -2
+LOAD -1
+RMEM 1 ; puntero al String en .HEAP
+PUSH 3
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'x' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'd' 
+STOREREF 1 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 2
+PUSH m1$String$char$int@A ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+PUSH printIln$int@System ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+RMEM 1 ; reservo lugar para el return
+RMEM 1 ; reservo lugar para el return
+PUSH 20 ; Apila el entero 20
+PUSH'#'; apilo caracter
+RMEM 1 ; puntero al String en .HEAP
+PUSH 5
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'a' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'a' 
+STOREREF 1 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'a' 
+STOREREF 2 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'A' 
+STOREREF 3 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 4
+PUSH m1$String$char$int@A ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+LOAD -1
+RMEM 1 ; puntero al String en .HEAP
+PUSH 4
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'j' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'j' 
+STOREREF 1 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 'j' 
+STOREREF 2 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 3
+PUSH m1$String$char$int@A ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+PUSH printIln$int@System ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+FMEM 3
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
@@ -101,6 +196,17 @@ RET 1; +1
 
 
 
+lblConstructor@Object:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_String: NOP
 
@@ -108,64 +214,14 @@ VT_String: NOP
 
 
 
-.DATA
-VT_Main: NOP
-
-.CODE
-main@Main:
+lblConstructor@String:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local a
-RMEM 1
-PUSH 2; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_Main; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@A
-CALL
-STORE 0
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 2 ; Apila el entero 2
-PUSH setX$int@A; etiqueta
-CALL
-RMEM 1 ; guardo lugar para la variable local p2
-LOAD 0
-POP
-PUSH x
-PUSH VT_A
-LOADREF 0
-STORE -1
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-PUSH VT_A
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 3 ; Apila el entero 3
-PUSH setX$int@A; etiqueta
-CALL
-PUSH VT_A
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-LOAD -1
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-FMEM 2
+FMEM 0
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 0
+RET 1
 
 
 
@@ -278,3 +334,14 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
 
 
+
+
+
+lblConstructor@System:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1

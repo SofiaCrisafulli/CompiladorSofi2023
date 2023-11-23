@@ -34,9 +34,9 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOADREF 2
+LOADREF 2 ; offset atributo
 LOAD 3
-LOADREF 1
+LOADREF 1 ; offset atributo
 EQ
 BF labelThennull ; salta afuera del if si la condicion es falsa
 FMEM 0
@@ -95,7 +95,7 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOADREF 1
+LOADREF 1 ; offset atributo
 PUSH 0 ; Apila el entero 0
 GT
 BF labelThennull ; salta afuera del if si la condicion es falsa

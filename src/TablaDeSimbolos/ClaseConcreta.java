@@ -300,16 +300,6 @@ public class ClaseConcreta extends Clase {
         }
     }
 
-    public void setAtributoOffset(ClaseConcreta claseConcreta) {
-        offsetCiR = claseConcreta.offsetCiR;
-        for (Atributo a : atributos.values()) {
-            if (a.getOffset() == -1) {
-                a.setOffset(offsetCiR);
-                offsetCiR++;
-            }
-            atributoOffset.put(a.getOffset(), a);
-        }
-    }
 
     public void setOffsetCiR(int offset) {
         offsetCiR = offset;

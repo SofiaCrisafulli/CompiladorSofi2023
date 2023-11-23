@@ -36,6 +36,10 @@ public class Metodo {
             offsetParametros = 3;
         else
             offsetParametros = 4;
+        for(Parametro p : listaParametros) {
+            p.setOffset(offsetParametros);
+            offsetParametros++;
+        }
     }
 
     public void estaBienDeclarado() throws ExcepcionSemantica {

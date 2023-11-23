@@ -34,7 +34,7 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 labelThennull:
-LOAD -1
+LOAD 3
 PUSH 0 ; Apila el entero 0
 GT
 BFlabelFinnull

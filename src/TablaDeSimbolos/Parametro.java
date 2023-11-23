@@ -38,10 +38,6 @@ public class Parametro {
         return tipo;
     }
 
-    public void setTokenParametro(Token tokenParametro) {
-        this.tokenParametro = tokenParametro;
-    }
-
     public int getOffset() {
         return offset;
     }

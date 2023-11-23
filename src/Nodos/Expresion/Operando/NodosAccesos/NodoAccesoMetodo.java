@@ -49,7 +49,6 @@ public class NodoAccesoMetodo extends NodoAcceso {
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
             for (NodoExpresion ne : parametrosInvertidos)
                 ne.generar();
-            String label = metodo.etiquetaMetodo();
             TablaDeSimbolos.gen("PUSH " + metodo.etiquetaMetodo());
             TablaDeSimbolos.gen("CALL ; Llama al método en el tope de la pila");
         } else {
@@ -60,7 +59,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
             }
             for (NodoExpresion ne : parametrosInvertidos) {
                 ne.generar();
-                TablaDeSimbolos.gen("SWAP");
+                //TablaDeSimbolos.gen("SWAP");
             }
             TablaDeSimbolos.gen("DUP");
             TablaDeSimbolos.gen("LOADREF 0 ; Cargo la VT");
@@ -83,6 +82,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
                 Parametro p = iterador.next();
                 NodoExpresion nodoExpresion = nodoExpresionIterator.next();
                 fallo = !(nodoExpresion.chequear().esSubtipo(p.getTipo()));
+                System.out.println("Chequeo parametros: " + nodoExpresion.getOperador().getLexema());
                 parametrosInvertidos.add(0, nodoExpresion);
             }
         } else
@@ -90,6 +90,28 @@ public class NodoAccesoMetodo extends NodoAcceso {
         if (fallo)
             throw new ExcepcionSemantica(operador, "error en los parámetros del acceso al metodo");
     }
+
+    /*private void chequeoParametros(Metodo metodo) throws ErrorSemantico {
+        if(paramParaCodigo.size()==0) { //no es lo mas optimo, evito que se chequien parametros por segunda vez, pero solo funciona si hay al menos un param, si no hay parametros chequea de mas
+            boolean fallo = false;
+            List listaParam = metodo.getParametros();
+            if (!(listaParam.size() != listaParametros.size())) {
+                Iterator<Parametro> iterator = listaParam.iterator();
+                Iterator<NodoExpresion> nodoExpresionIterator = listaParametros.iterator();
+                while (iterator.hasNext() && !fallo) {
+                    Parametro param = iterator.next();
+                    NodoExpresion nodoExpresion = nodoExpresionIterator.next();
+                    fallo = !(nodoExpresion.chequear().esSubtipo(Utils.getTipo(param.getToken())));
+                    System.out.println("chequep "+ nodoExpresion.getname());
+                    paramParaCodigo.add(0, nodoExpresion);
+                }
+            } else fallo = true;
+
+            if (fallo) {
+                throw new ErrorSemanticoErrorEnParametros(operador.getLexema(), operador.getNro_Linea());
+            }
+        }
+    }*/
 
     public void setListaParametros(ArrayList<NodoExpresion> args) {
         parametros = args;

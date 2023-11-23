@@ -34,8 +34,8 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-LOAD -1
-LOAD -1
+LOAD 4
+LOAD 5
 ADD
 STORE 6
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -86,6 +86,10 @@ STORE 0
 RMEM 1 ; guardo lugar para la variable local c
 LOAD 0
 RMEM 1 ; reservo lugar para el return
+SWAP
+PUSH 6 ; Apila el entero 6
+SWAP
+PUSH 3 ; Apila el entero 3
 SWAP
 DUP ; no perder el this
 LOADREF 0 ; cargo la vt

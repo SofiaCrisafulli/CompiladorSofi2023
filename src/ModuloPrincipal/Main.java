@@ -15,17 +15,16 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main (String[] args) throws Exception {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
         if (args.length > 0) { //true ||
             fileName = args[0];
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\prueba13.java";
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-02.java";
             //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\prueba10.java";
+
             archivoDeSalida = args[1];
+            //archivoDeSalida = "[gen-04.java].out";
             //archivoDeSalida = "[prueba13.java].out";
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];
@@ -44,8 +43,6 @@ public class Main {
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
                 System.out.println("ERROR: no se encontró el archivo");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
         }
     }

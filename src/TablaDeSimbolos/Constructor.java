@@ -45,7 +45,7 @@ public class Constructor {
 
     public void generar() {
         TablaDeSimbolos.gen("\n\n");
-        String label = "lblConstructor@" + TablaDeSimbolos.getClaseActual().getToken().getLexema() + ":";
+        String label = "lblConstructor@" + tokenConstructor.getLexema() + ":";
         TablaDeSimbolos.gen(label);
         TablaDeSimbolos.gen( "LOADFP ; Apila el valor del registro fp");
         TablaDeSimbolos.gen("LOADSP ; Apila el valor del registro sp");

@@ -115,6 +115,10 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
                 TablaDeSimbolos.gen("RMEM 1 ; reservo lugar para el return");
                 TablaDeSimbolos.gen("SWAP");
             }
+            for (NodoExpresion ne : paramParaCodigo) {
+                ne.generar();
+                TablaDeSimbolos.gen("SWAP");
+            }
             TablaDeSimbolos.gen("DUP ; no perder el this");
             TablaDeSimbolos.gen("LOADREF 0 ; cargo la vt");
             TablaDeSimbolos.gen("LOADREF " + metodo.getOffset());
