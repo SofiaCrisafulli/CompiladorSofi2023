@@ -113,7 +113,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

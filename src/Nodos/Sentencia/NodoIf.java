@@ -10,8 +10,8 @@ public class NodoIf extends NodoSentencia {
     NodoExpresion condicion;
     NodoSentencia sentenciaThen;
     NodoSentencia sentenciaElse;
-    String numEtiquetaThen;
-    String numEtiquetaElse;
+    int numEtiquetaThen;
+    int numEtiquetaElse;
 
     public NodoIf(Token token, NodoExpresion ne, NodoSentencia ns, NodoSentencia nodoElse) {
         tokenIf = token;
@@ -56,14 +56,14 @@ public class NodoIf extends NodoSentencia {
     }
 
     private String nuevaEtiquetaThen() {
-        String nuevaEtiqueta = "labelThen" + numEtiquetaThen;
         numEtiquetaThen = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
+        String nuevaEtiqueta = "labelThen" + numEtiquetaThen;
         return nuevaEtiqueta;
     }
 
     private String nuevaEtiquetaElse() {
-        String nuevaEtiqueta = "labelElse" + numEtiquetaElse;
         numEtiquetaElse = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
+        String nuevaEtiqueta = "labelElse" + numEtiquetaElse;
         return nuevaEtiqueta;
     }
 }

@@ -30,7 +30,7 @@ public class ClaseConcreta extends Clase {
         parametros = new HashMap<String, Parametro>();
         atributos = new HashMap<>();
         hereda = new Token(TipoDeToken.id_clase, tokenClase.getLexema(), tokenClase.getNroLinea());
-        constructor = new Constructor(tokenClase);
+        //constructor = new Constructor(tokenClase);
         hayHerenciaCircular = false;
         atributoOffset = new HashMap<Integer, Atributo>();
         metodosOffset = new HashMap<>();
@@ -64,6 +64,15 @@ public class ClaseConcreta extends Clase {
             }
         }
         return ancestros;
+    }
+
+    @Override
+    public Constructor getConstructor() {
+            if(constructor == null) {
+                constructor = new Constructor(tokenClase);
+                constructor.setParametros(new ArrayList<Parametro>());
+            }
+            return constructor;
     }
 
     public Map<String, Metodo> getMetodos() {
@@ -262,9 +271,12 @@ public class ClaseConcreta extends Clase {
         String labels;
         if (metodosOffset.size() > 0) {
             labels = "VT_" + tokenClase.getLexema() + ": DW ";
-            for (int i = 0; i != metodosOffset.size(); i++) {
+            /*for (int i = 0; i != metodosOffset.size(); i++) {
                 Metodo metodo = metodosOffset.get(i);
                 labels = labels + metodo.stringLabel() + ",";
+            }*/
+            for(Metodo m : metodosOffset.values()) {
+                labels = labels + m.stringLabel() + ",";
             }
             labels = labels.substring(0, labels.length() - 1);
         } else
@@ -293,8 +305,6 @@ public class ClaseConcreta extends Clase {
                     m.setOffset(offsetVT);
                     offsetVT++;
                 }
-                System.out.println("Offset metodo: " + m.getOffset());
-                System.out.println("Metodo: " + m.getTokenMetodo().getLexema());
                 metodosOffset.put(m.getOffset(), m);
             }
         }

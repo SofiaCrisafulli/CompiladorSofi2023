@@ -13,6 +13,7 @@ public class Constructor {
     private NodoBloque bloque;
 
     public Constructor(Token token) {
+        assert token != null;
         tokenConstructor = token;
         parametros = new ArrayList<>();
         bloque = new NodoBloque(new Token(TipoDeToken.simb_llave_que_abre, "{", 0));
@@ -37,6 +38,7 @@ public class Constructor {
             throw new ExcepcionSemantica(tokenConstructor, "no es posible retornar un valor en un constructor");
         if (!tokenConstructor.getLexema().equals(TablaDeSimbolos.getClaseActual().getToken().getLexema()))
             throw new ExcepcionSemantica(tokenConstructor, "el construcutor debe ser del mismo nombre que la clase");
+        bloque.chequear();
     }
 
     public void chequeoSentencias() throws ExcepcionSemantica {

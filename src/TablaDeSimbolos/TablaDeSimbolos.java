@@ -59,14 +59,17 @@ public class TablaDeSimbolos {
     }
 
     private static void crearString() {
-        ClaseConcreta string = new ClaseConcreta(new Token(TipoDeToken.stringLiteral, "String", 0));
+        ClaseConcreta string = new ClaseConcreta(new Token(TipoDeToken.id_clase, "String", 0));
+        string.getConstructor();
+        string.setHereda(new Token(TipoDeToken.id_clase, "Object", 0));
         clases.put(string.getToken().getLexema(), string);
-        string.setConsolidar(true);
+        string.setConsolidar(false);
         string.setHayHerenciaCircular(true);
     }
 
     private static void crearSystem() {
         ClaseConcreta system = new ClaseConcreta(new Token(TipoDeToken.id_clase, "System", 0));
+        system.getConstructor();
         system.setHereda(new Token(TipoDeToken.id_clase, "Object", 0));
         TablaDeSimbolos.setClaseActual(system);
         Metodo met = new MetodoRead(new Token(TipoDeToken.id_met_var, "read", 0), new ArrayList<Parametro>(), new TipoInt(new Token(TipoDeToken.id_met_var, "read", 0)), true, system.getToken(), system);
@@ -81,7 +84,7 @@ public class TablaDeSimbolos {
         system.addMetodo(met);
 
         ArrayList<Parametro> parametrosChar = new ArrayList<>();
-        parametrosChar.add(new Parametro(new Token(TipoDeToken.pr_char, "char", 0), new TipoBoolean((new Token(TipoDeToken.pr_boolean, "boolean", 0)))));
+        parametrosChar.add(new Parametro(new Token(TipoDeToken.pr_char, "char", 0), new TipoChar((new Token(TipoDeToken.pr_char, "char", 0)))));
         met = new MetodoPrintC(new Token(TipoDeToken.id_met_var, "printC", 0), parametrosChar, new TipoVoid(new Token(TipoDeToken.id_met_var, "printC", 0)), true, system.getToken(), system);
         met.setListaParametros(parametrosChar);
         met.setMetodoEstatico(true);
@@ -136,11 +139,12 @@ public class TablaDeSimbolos {
 
         clases.put(system.getToken().getLexema(), system);
         system.setHayHerenciaCircular(true);
-        system.setConsolidar(true);
+        system.setConsolidar(false);
     }
 
     private static void crearObject() {
         ClaseConcreta objeto = new ClaseConcreta(new Token(TipoDeToken.id_clase, "Object", 0));
+        objeto.getConstructor();
         TablaDeSimbolos.setClaseActual(objeto);
         ArrayList<Parametro> parametrosDebugPrint = new ArrayList<>();
         parametrosDebugPrint.add(new Parametro(new Token(TipoDeToken.id_met_var, "debugPrint", 0), new TipoInt(new Token(TipoDeToken.pr_int, "int", 0))));
@@ -376,7 +380,7 @@ public class TablaDeSimbolos {
         listaInstrucciones.add(instruccion);
     }
 
-    public String getNumeroEtiqueta() {
-        return "E" + numeroEtiqueta++;
+    public int getNumeroEtiqueta() {
+        return numeroEtiqueta++;
     }
 }

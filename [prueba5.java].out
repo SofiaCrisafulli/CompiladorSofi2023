@@ -36,18 +36,18 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH 2 ; Apila el entero 2
 PUSH 4 ; Apila el entero 4
 LT
-BF labelElsenull ; salta a la condicion else
+BF labelElse15 ; salta a la condicion else
 PUSH 12 ; Apila el entero 12
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-JUMP labelThennull ; salteo al else
-labelElsenull:
+JUMP labelThen14 ; salteo al else
+labelElse15:
 PUSH 4 ; Apila el entero 4
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-labelThennull: NOP
+labelThen14: NOP
 
 
 
@@ -56,9 +56,9 @@ PUSH 5 ; Apila el entero 5
 LT
 PUSH 1 ; apilo true
 AND
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen16 ; salta afuera del if si la condicion es falsa
 FMEM 0
-labelElsenull: NOP
+labelElse17: NOP
 
 
 
@@ -130,7 +130,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

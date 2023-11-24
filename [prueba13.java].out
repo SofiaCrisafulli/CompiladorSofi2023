@@ -35,7 +35,7 @@ LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 LOAD 3
-LOADREF -1
+LOADREF -1 ; offset atributo
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
@@ -49,7 +49,7 @@ setX$int@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD -1
+LOAD 3
 DUP
 LOAD 3
 SWAP
@@ -63,7 +63,7 @@ LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOADREF -1
+LOADREF -1 ; offset atributo
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
@@ -101,10 +101,32 @@ RET 1; +1
 
 
 
+lblConstructor@Object:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_String: NOP
 
 .CODE
+
+
+
+lblConstructor@String:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -122,7 +144,7 @@ PUSH 2; apilo los atributos
 PUSH simple_malloc
 CALL
 DUP
-PUSH VT_Main; apilo el comienzo de la vt
+PUSH VT_A; apilo el comienzo de la vt
 STOREREF 0
 DUP
 
@@ -143,7 +165,6 @@ CALL
 RMEM 1 ; guardo lugar para la variable local p2
 LOAD 0
 POP
-PUSH x
 PUSH VT_A
 LOADREF 0
 STORE -1
@@ -169,11 +190,22 @@ RET 0
 
 
 
+lblConstructor@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -278,3 +310,14 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
 
 
+
+
+
+lblConstructor@System:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1

@@ -36,7 +36,7 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 PUSH 1 ; Apila el entero 1
 PUSH 1 ; Apila el entero 1
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen36 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -72,14 +72,14 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse37: NOP
 
 
 
 PUSH 0 ; Apila el entero 0
 PUSH 1 ; Apila el entero 1
 LT
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen38 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -106,14 +106,14 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse39: NOP
 
 
 
 PUSH 1 ; Apila el entero 1
 PUSH 0 ; Apila el entero 0
 GT
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen40 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -140,14 +140,14 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse41: NOP
 
 
 
 PUSH 1 ; Apila el entero 1
 PUSH 1 ; Apila el entero 1
 GE
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen42 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -189,14 +189,14 @@ PUSH 0 ; Apilo terminador
 STOREREF 10
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse43: NOP
 
 
 
 PUSH 1 ; Apila el entero 1
 PUSH 1 ; Apila el entero 1
 LE
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen44 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -238,7 +238,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 10
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse45: NOP
 
 
 
@@ -247,7 +247,7 @@ PUSH 1 ; Apila el entero 1
 SUB
 PUSH 0 ; Apila el entero 0
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen46 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -274,7 +274,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse47: NOP
 
 
 
@@ -283,7 +283,7 @@ PUSH 1 ; Apila el entero 1
 ADD
 PUSH 2 ; Apila el entero 2
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen48 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -304,7 +304,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse49: NOP
 
 
 
@@ -313,7 +313,7 @@ PUSH 1 ; Apila el entero 1
 EQ
 PUSH 1 ; apilo true
 AND
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen50 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -334,7 +334,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse51: NOP
 
 
 
@@ -343,7 +343,7 @@ PUSH 1 ; Apila el entero 1
 NE
 PUSH 1 ; apilo true
 OR
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen52 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -361,12 +361,12 @@ PUSH 0 ; Apilo terminador
 STOREREF 2
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse53: NOP
 
 
 
 PUSH 0 ; apilo false
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen54 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -402,7 +402,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse55: NOP
 
 
 
@@ -411,7 +411,7 @@ PUSH 2 ; Apila el entero 2
 DIV
 PUSH 1 ; Apila el entero 1
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen56 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -432,7 +432,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse57: NOP
 
 
 
@@ -441,7 +441,7 @@ PUSH 2 ; Apila el entero 2
 MOD
 PUSH 0 ; Apila el entero 0
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen58 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -471,7 +471,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 6
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse59: NOP
 
 
 
@@ -480,7 +480,7 @@ PUSH 3 ; Apila el entero 3
 MUL
 PUSH 6 ; Apila el entero 6
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen60 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -501,7 +501,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse61: NOP
 
 
 
@@ -511,7 +511,7 @@ STORE 0
 LOAD 0
 PUSH 0 ; Apila el entero 0
 LT
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen62 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -547,7 +547,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElsenull: NOP
+labelElse63: NOP
 
 
 
@@ -619,7 +619,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

@@ -37,7 +37,7 @@ LOAD 3
 LOADREF 1 ; offset atributo
 PUSH 0 ; apilo null
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen64 ; salta afuera del if si la condicion es falsa
 RMEM 1
 PUSH 2; apilo los atributos
 PUSH simple_malloc
@@ -64,7 +64,7 @@ SWAP
 STOREREF 1
 POP
 FMEM 0
-labelElsenull: NOP
+labelElse65: NOP
 
 
 
@@ -206,7 +206,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

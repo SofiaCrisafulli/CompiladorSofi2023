@@ -10,7 +10,6 @@ public abstract class NodoExpresionBinaria extends NodoExpresionCompuesta {
     Token operador;
 
     public NodoExpresionBinaria(Token operador) {
-        System.out.println("Operador en neb: " + operador.getLexema());
         this.operador = operador;
     }
 

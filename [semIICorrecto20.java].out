@@ -39,7 +39,7 @@ STORE 0
 LOAD 4
 LOAD 5
 GT
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen74 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 5
@@ -48,15 +48,15 @@ CALL
 LOAD 5
 PUSH 0 ; Apila el entero 0
 EQ
-BF labelElsenull ; salta a la condicion else
+BF labelElse77 ; salta a la condicion else
 LOAD 5
 PUSH 1 ; Apila el entero 1
 ADD
 DUP
 STORE 5
 POP
-JUMP labelThennull ; salteo al else
-labelElsenull:
+JUMP labelThen76 ; salteo al else
+labelElse77:
 LOAD 5
 DUP
 STORE 6
@@ -68,7 +68,7 @@ DUP
 STORE 5
 POP
 FMEM 0
-labelThennull: NOP
+labelThen76: NOP
 
 
 
@@ -81,7 +81,7 @@ LOADREF 0 ; Cargo la VT
 LOADREF 0
 CALL
 FMEM 0
-labelElsenull: NOP
+labelElse75: NOP
 
 
 
@@ -212,7 +212,7 @@ STORE 0
 LOAD 0
 PUSH 0 ; Apila el entero 0
 LT
-BF labelElsenull ; salta a la condicion else
+BF labelElse79 ; salta a la condicion else
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -240,12 +240,12 @@ STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
 FMEM 0
-JUMP labelThennull ; salteo al else
-labelElsenull:
+JUMP labelThen78 ; salteo al else
+labelElse79:
 LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
-BF labelElsenull ; salta a la condicion else
+BF labelElse81 ; salta a la condicion else
 RMEM 1 ; guardo lugar para la variable local tipoA
 RMEM 1
 PUSH 1; apilo los atributos
@@ -273,19 +273,19 @@ LOADREF 0 ; cargo la vt
 LOADREF 0
 CALL
 FMEM 1
-JUMP labelThennull ; salteo al else
-labelElsenull:
+JUMP labelThen80 ; salteo al else
+labelElse81:
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
-labelThennull: NOP
+labelThen80: NOP
 
 
 
 FMEM 0
-labelThennull: NOP
+labelThen78: NOP
 
 
 
@@ -357,7 +357,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

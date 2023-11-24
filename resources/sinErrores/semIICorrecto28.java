@@ -13,13 +13,13 @@ interface A extends D{
     void m1();
 }
 
-class C {
+class G {
     void m3(){
         System.printS("HOLAS");
     }
 }
 
-class B extends C {
+class B implements C {
 
     void m1(){
         System.printI(12);
@@ -36,7 +36,6 @@ class Init{
         var a = new B();
         a.m1();
         a.m2();
-        a.m3();
     }
 }
 

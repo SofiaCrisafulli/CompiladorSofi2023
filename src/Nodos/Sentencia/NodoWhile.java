@@ -11,8 +11,8 @@ public class NodoWhile extends NodoSentencia {
     Token tokenWhile;
     NodoExpresion condicion;
     NodoSentencia sentencia;
-    String numEtiquetaSentencia;
-    String numEtiquetaFinWhile;
+    int numEtiquetaSentencia;
+    int numEtiquetaFinWhile;
 
     public NodoWhile(Token token, NodoExpresion ne, NodoSentencia ns) {
         tokenWhile = token;
@@ -48,12 +48,12 @@ public class NodoWhile extends NodoSentencia {
 
     private String nuevaEtiquetaThen() {
         String nuevaEtiquetaThen = "labelThen" + numEtiquetaSentencia;
-        numEtiquetaSentencia = TablaDeSimbolos.instance.getNumeroEtiqueta();
+        numEtiquetaSentencia = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
         return nuevaEtiquetaThen;
     }
     private String nuevaEtiquetaFinWhile() {
         String nuevaEtiquetaFinWhile = "labelFin" + numEtiquetaFinWhile;
-        numEtiquetaFinWhile = TablaDeSimbolos.instance.getNumeroEtiqueta();
+        numEtiquetaFinWhile = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
         return nuevaEtiquetaFinWhile;
     }
 

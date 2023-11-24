@@ -38,9 +38,9 @@ LOADREF 2 ; offset atributo
 LOAD 3
 LOADREF 1 ; offset atributo
 EQ
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen20 ; salta afuera del if si la condicion es falsa
 FMEM 0
-labelElsenull: NOP
+labelElse21: NOP
 
 
 
@@ -98,12 +98,12 @@ LOAD 3
 LOADREF 1 ; offset atributo
 PUSH 0 ; Apila el entero 0
 GT
-BF labelThennull ; salta afuera del if si la condicion es falsa
+BF labelThen22 ; salta afuera del if si la condicion es falsa
 PUSH 1234 ; Apila el entero 1234
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-labelElsenull: NOP
+labelElse23: NOP
 
 
 
@@ -175,7 +175,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

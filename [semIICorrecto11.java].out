@@ -36,11 +36,11 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local b
 PUSH 1 ; Apila el entero 1
 STORE 0
-labelThennull:
+labelThen0:
 LOAD 0
 PUSH 10 ; Apila el entero 10
 LT
-BFlabelFinnull
+BFlabelFin0
 LOAD 0
 PUSH 1 ; Apila el entero 1
 ADD
@@ -48,8 +48,8 @@ DUP
 STORE 0
 POP
 FMEM 0
-JUMPlabelThennull
-labelFinnull: NOP
+JUMPlabelThen0
+labelFin0: NOP
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0
@@ -123,7 +123,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

@@ -8,7 +8,8 @@ class A{
     }
     void m1(int y){
         x=y;
-        debugPrint(x);
+        //debugPrint(x);
+        debugPrint(1);
         x = 33;
         debugPrint(x);
     }

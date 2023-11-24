@@ -67,11 +67,7 @@ public abstract class Clase {
     }
 
     public Constructor getConstructor() {
-        if(constructor == null) {
-            constructor = new Constructor(tokenClase);
-            constructor.setParametros(new ArrayList<Parametro>());
-        }
-        return constructor;
+        return null;
     }
 
     public Token getTipo() {
@@ -105,7 +101,9 @@ public abstract class Clase {
     }
 
 
-    public abstract void generar();
+    public void generar() {
+
+    }
 
 
 }

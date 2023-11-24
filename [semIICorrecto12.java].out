@@ -39,7 +39,7 @@ STORE 0
 LOAD 0
 PUSH 1 ; Apila el entero 1
 LT
-BF labelElsenull ; salta a la condicion else
+BF labelElse27 ; salta a la condicion else
 LOAD 0
 PUSH 1 ; Apila el entero 1
 ADD
@@ -47,15 +47,15 @@ DUP
 STORE 0
 POP
 FMEM 0
-JUMP labelThennull ; salteo al else
-labelElsenull:
+JUMP labelThen26 ; salteo al else
+labelElse27:
 LOAD 0
 PUSH 1 ; Apila el entero 1
 SUB
 DUP
 STORE 0
 POP
-labelThennull: NOP
+labelThen26: NOP
 
 
 
@@ -132,7 +132,7 @@ RET 1
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp

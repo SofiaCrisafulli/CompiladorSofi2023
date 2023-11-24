@@ -72,6 +72,7 @@ public class AnalilzadorSintactico {
         match("{", TipoDeToken.simb_llave_que_abre);
         listaMiembros();
         match("}", TipoDeToken.simb_llave_que_cierra);
+        c.getConstructor();
         TablaDeSimbolos.getInstance().insertarClase(nombre, TablaDeSimbolos.claseActual);
     }
 
@@ -316,15 +317,29 @@ public class AnalilzadorSintactico {
     }
 
     private NodoBloque bloque() throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
-        NodoSentencia ns = null;
+        match("{", TipoDeToken.simb_llave_que_abre);
         NodoBloque nodoBloque = new NodoBloque(tokenActual);
         ArrayList<NodoSentencia> listaS = new ArrayList<>();
-        match("{", TipoDeToken.simb_llave_que_abre);
-        nodoBloque.setListaSentencias(listaS);
-        listaSentencias(listaS);
+        sentenciasBloque(listaS);
         match("}", TipoDeToken.simb_llave_que_cierra);
+        nodoBloque.setListaSentencias(listaS);
         return nodoBloque;
     }
+
+    private void sentenciasBloque(ArrayList<NodoSentencia> listaS) throws ExcepcionLexica, ExcepcionSemantica, IOException, ExcepcionSintactica {
+        if(isSentencia()) {
+            listaS.add(sentencia());
+            sentenciasBloque(listaS);
+        }
+    }
+
+    private boolean isSentencia() {
+        return tokenActual.getTipoDeToken() == TipoDeToken.simb_punto_y_coma || tokenActual.getTipoDeToken() == TipoDeToken.pr_var
+                || tokenActual.getTipoDeToken() == TipoDeToken.pr_return || tokenActual.getTipoDeToken() == TipoDeToken.pr_if
+                || tokenActual.getTipoDeToken() == TipoDeToken.pr_while || tokenActual.getTipoDeToken() == TipoDeToken.simb_llave_que_abre
+                || primerosPrimario();
+    }
+
 
     private NodoSentencia listaSentencias(ArrayList<NodoSentencia> lista) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         NodoSentencia ns = null;
@@ -338,7 +353,7 @@ public class AnalilzadorSintactico {
 
     private boolean primerosSentencia(Token token) {
         return tokenActual.getTipoDeToken() == TipoDeToken.simb_punto_y_coma || primerosOperadorUnario() || isLiteral() ||
-                primerosPrimario(tokenActual) || tokenActual.getTipoDeToken() == TipoDeToken.pr_var || primerosReturn(tokenActual) || primerosReturn(tokenActual)
+                primerosPrimario() || tokenActual.getTipoDeToken() == TipoDeToken.pr_var || primerosReturn(tokenActual) || primerosReturn(tokenActual)
                 || primerosIf(tokenActual) || primerosWhile(tokenActual) || primerosBloque(tokenActual);
     }
 
@@ -347,7 +362,7 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.simb_punto_y_coma) {
             match(";", TipoDeToken.simb_punto_y_coma);
             nodoSentencia = new NodoSentenciaVacia();
-        } else if (primerosOperadorUnario() || isLiteral() || primerosPrimario(tokenActual)) {
+        } else if (primerosOperadorUnario() || isLiteral() || primerosPrimario()) {
             nodoSentencia = asignacionOLlamada();
             match(";", TipoDeToken.simb_punto_y_coma);
         } else if (tokenActual.getTipoDeToken() == TipoDeToken.pr_var) {
@@ -362,7 +377,7 @@ public class AnalilzadorSintactico {
             nodoSentencia = metWhile();
         } else if (primerosBloque(tokenActual)) {
             nodoSentencia = bloque();
-        } else if (primerosPrimario(tokenActual)) {
+        } else if (primerosPrimario()) {
             NodoAcceso nodoAcceso = acceso();
             NodoLlamadaOAsignacion asignacion = asignacionOLlamada();
             if (asignacion == null)
@@ -374,11 +389,15 @@ public class AnalilzadorSintactico {
     }
 
     private boolean primerosOperadorUnario() {
-        return tokenActual.getTipoDeToken() == TipoDeToken.op_mas || tokenActual.getTipoDeToken() == TipoDeToken.op_menos || tokenActual.getTipoDeToken() == TipoDeToken.op_negacion;
+        return tokenActual.getTipoDeToken() == TipoDeToken.op_mas || tokenActual.getTipoDeToken() == TipoDeToken.op_menos ||
+                tokenActual.getTipoDeToken() == TipoDeToken.op_negacion;
     }
 
-    private boolean primerosPrimario(Token token) {
-        return tokenActual.getTipoDeToken() == TipoDeToken.pr_this || tokenActual.getTipoDeToken() == TipoDeToken.id_met_var || tokenActual.getTipoDeToken() == TipoDeToken.pr_new || tokenActual.getTipoDeToken() == TipoDeToken.simb_parentesis_que_abre || tokenActual.getTipoDeToken() == TipoDeToken.id_clase;
+    private boolean primerosPrimario() {
+        return tokenActual.getTipoDeToken() == TipoDeToken.pr_this || tokenActual.getTipoDeToken() == TipoDeToken.id_met_var
+                || tokenActual.getTipoDeToken() == TipoDeToken.pr_new ||
+                tokenActual.getTipoDeToken() == TipoDeToken.simb_parentesis_que_abre ||
+                tokenActual.getTipoDeToken() == TipoDeToken.id_clase;
     }
 
     private boolean primerosReturn(Token token) {
@@ -601,7 +620,7 @@ public class AnalilzadorSintactico {
     }
 
     private ArrayList<NodoExpresion> listaExpsOpcional(ArrayList<NodoExpresion> listaParametros) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
-        if (primerosOperadorUnario() || isLiteral() || primerosPrimario(tokenActual))
+        if (primerosOperadorUnario() || isLiteral() || primerosPrimario())
             listaExps(listaParametros);
         return listaParametros;
     }
@@ -649,7 +668,7 @@ public class AnalilzadorSintactico {
         NodoOperando op;
         if (isLiteral()) {
             op = literal();
-        } else if (primerosPrimario(tokenActual)) {
+        } else if (primerosPrimario()) {
             op = acceso();
         } else
             throw new ExcepcionSintactica(tokenActual, "null | true | false | initLiteral | charLiteral | " +
@@ -664,7 +683,7 @@ public class AnalilzadorSintactico {
             Token token = operadorUnario();
             ne = operando();
             nodoExpresionUnaria = new NodoExpresionUnaria(token, ne);
-        } else if (isLiteral() || primerosPrimario(tokenActual)) {
+        } else if (isLiteral() || primerosPrimario()) {
             ne = operando();
             nodoExpresionUnaria = ne;
         } else
@@ -786,7 +805,7 @@ public class AnalilzadorSintactico {
 
     private NodoExpresion expresionOpcional() throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         NodoExpresion ne = new NodoExpresionVacia();
-        if (isLiteral() || primerosOperadorUnario() || primerosPrimario(tokenActual))
+        if (isLiteral() || primerosOperadorUnario() || primerosPrimario())
             ne = expresion();
         return ne;
     }

@@ -21,9 +21,11 @@ public class Main {
         TablaEstatica.startTabla();
         if (args.length > 0) { //true ||
             fileName = args[0];
-            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\gen-04.java";
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\prueba17.java";
+            //fileName = "C:\\Users\\User\\Desktop\\Materias uni\\Compiladores e Interpretes\\Compilador\\resources\\sinErrores\\prueba.java";
 
             archivoDeSalida = args[1];
+            //archivoDeSalida = "[prueba.java].out";
             //archivoDeSalida = "[gen-04.java].out";
             //archivoDeSalida = "[prueba13.java].out";
             String[] nameIntermedio = fileName.split("/");
@@ -49,7 +51,6 @@ public class Main {
 
 
     private static void crearArchivo(File file) throws IOException {
-        System.out.println("crearArchivo");
         ArrayList<String> instrucciones = TablaDeSimbolos.listaInstrucciones;
         FileWriter fileWriter = new FileWriter(file);
         for (String s : instrucciones)

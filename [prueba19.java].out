@@ -1,7 +1,7 @@
 .CODE
 PUSH simple_heap_init
 CALL
-PUSH main@Main
+PUSH main@Init
 CALL
 HALT
 
@@ -26,16 +26,25 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW getX@A
+VT_A: DW m1$int@A,m2@A
 
 .CODE
-getX@A:
+m1$int@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD 4
+PUSH debugPrint$int@Object ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
+m2@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-LOAD 3
-LOADREF -1
+PUSH 33 ; Apila el entero 33
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
@@ -45,34 +54,168 @@ RET 1
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
-setX$int@A:
+
+
+
+lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD -1
-DUP
-LOAD 3
-SWAP
-STOREREF -1
-POP
+FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
-printX@A:
+
+
+
+.DATA
+VT_B: DW m1$int@A,m2@B,m3$int@B
+
+.CODE
+m2@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 LOAD 3
-LOADREF -1
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
+LOADREF 2 ; offset atributo
+PUSH 0 ; Apila el entero 0
+GT
+BF labelThen12 ; salta afuera del if si la condicion es falsa
 FMEM 0
+LOAD 3
+LOADREF 1 ; offset atributo
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+labelElse13: NOP
+
+
+
+FMEM 0
+LOAD 3
+LOADREF 2 ; offset atributo
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m3$int@B:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local v
+LOAD 3
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 2
+CALL
+STORE 0
+LOAD 3
+LOAD 0
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 0
+CALL
+LOAD 3
+LOAD 4
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 0
+CALL
+PUSH 2 ; Apila el entero 2
+DUP
+STORE 4
+DUP
+STORE 0
+POP
+LOAD 3
+LOAD 0
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 0
+CALL
+LOAD 3
+LOAD 4
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 0
+CALL
+FMEM 1
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
+
+
+
+lblConstructor@B:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 3
+
+
+
+.DATA
+VT_Init: NOP
+
+.CODE
+main@Init:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local x
+RMEM 1
+PUSH 3; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_B; apilo el comienzo de la vt
+STOREREF 0
+DUP
+PUSH 100 ; Apila el entero 100
+SWAP
+PUSH 4 ; Apila el entero 4
+SWAP
+
+
+
+PUSH lblConstructor@B
+CALL
+STORE 0
+LOAD 0
+PUSH 4 ; Apila el entero 4
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 3
+CALL
+RMEM 1 ; guardo lugar para la variable local t
+RMEM 1 ; puntero al String en .HEAP
+PUSH 1
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 0
+STORE -1
+FMEM 2
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
 
 
 
-lblConstructor@A:
+lblConstructor@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -101,6 +244,17 @@ RET 1; +1
 
 
 
+lblConstructor@Object:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
 .DATA
 VT_String: NOP
 
@@ -108,64 +262,14 @@ VT_String: NOP
 
 
 
-.DATA
-VT_Main: NOP
-
-.CODE
-main@Main:
+lblConstructor@String:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local a
-RMEM 1
-PUSH 2; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_Main; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@A
-CALL
-STORE 0
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 2 ; Apila el entero 2
-PUSH setX$int@A; etiqueta
-CALL
-RMEM 1 ; guardo lugar para la variable local p2
-LOAD 0
-POP
-PUSH x
-PUSH VT_A
-LOADREF 0
-STORE -1
-LOAD 0
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-PUSH VT_A
-POP ; como es estatico no me sirve la referencia anterior
-PUSH 3 ; Apila el entero 3
-PUSH setX$int@A; etiqueta
-CALL
-PUSH VT_A
-POP ; como es estatico no me sirve la referencia anterior
-PUSH printX@A; etiqueta
-CALL
-LOAD -1
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-FMEM 2
+FMEM 0
+FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 0
+RET 1
 
 
 
@@ -173,7 +277,7 @@ RET 0
 VT_System: NOP
 
 .CODE
-printC$boolean@System:
+printC$char@System:
 LOADFP
 LOADSP
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -278,3 +382,14 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1; +1
 
 
+
+
+
+lblConstructor@System:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
