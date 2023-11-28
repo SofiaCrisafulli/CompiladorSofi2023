@@ -271,10 +271,6 @@ public class ClaseConcreta extends Clase {
         String labels;
         if (metodosOffset.size() > 0) {
             labels = "VT_" + tokenClase.getLexema() + ": DW ";
-            /*for (int i = 0; i != metodosOffset.size(); i++) {
-                Metodo metodo = metodosOffset.get(i);
-                labels = labels + metodo.stringLabel() + ",";
-            }*/
             for(Metodo m : metodosOffset.values()) {
                 labels = labels + m.stringLabel() + ",";
             }

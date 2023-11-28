@@ -82,7 +82,6 @@ public class NodoAccesoMetodo extends NodoAcceso {
                 Parametro p = iterador.next();
                 NodoExpresion nodoExpresion = nodoExpresionIterator.next();
                 fallo = !(nodoExpresion.chequear().esSubtipo(p.getTipo()));
-                System.out.println("Parametro: " + nodoExpresion);
                 parametrosInvertidos.add(0, nodoExpresion);
             }
         } else
