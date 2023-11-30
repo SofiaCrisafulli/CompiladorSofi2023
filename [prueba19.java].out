@@ -121,12 +121,14 @@ CALL
 STORE 0
 LOAD 3
 LOAD 0
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
 CALL
 LOAD 3
 LOAD 4
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
@@ -139,12 +141,14 @@ STORE 0
 POP
 LOAD 3
 LOAD 0
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
 CALL
 LOAD 3
 LOAD 4
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
@@ -159,13 +163,13 @@ lblConstructor@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD -1
+LOAD 5
 DUP
 LOAD 3 ; apilo el this
 SWAP
 STOREREF 1
 POP
-LOAD -1
+LOAD 4
 DUP
 LOAD 3 ; apilo el this
 SWAP

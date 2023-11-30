@@ -72,7 +72,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
             }
             for (NodoExpresion ne : parametrosInvertidos) {
                 ne.generar();
-                //TablaDeSimbolos.gen("SWAP");
+                TablaDeSimbolos.gen("SWAP");
             }
             TablaDeSimbolos.gen("DUP");
             TablaDeSimbolos.gen("LOADREF 0 ; Cargo la VT");

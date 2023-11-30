@@ -77,6 +77,7 @@ CALL
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 12 ; Apila el entero 12
+NEG ; menos unario
 PUSH 4 ; Apila el entero 4
 ADD
 PUSH printIln$int@System; etiqueta
@@ -131,6 +132,7 @@ CALL
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 PUSH 1 ; apilo true
+NOT ; negacion unaria
 PUSH printBln$boolean@System; etiqueta
 CALL
 PUSH VT_System

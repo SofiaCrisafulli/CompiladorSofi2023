@@ -36,8 +36,9 @@ public class Metodo implements Unidad{
             offsetParametros = 3;
         else
             offsetParametros = 4;
-        for(Parametro p : listaParametros) {
-            p.setOffset(offsetParametros);
+        for(int i = listaParametros.size() -1; i >= 0; i--) {
+            Parametro p1 = listaParametros.get(i);
+            p1.setOffset(offsetParametros);
             offsetParametros++;
         }
     }
@@ -219,6 +220,7 @@ public class Metodo implements Unidad{
     public int getOffset() {
         return offset;
     }
+
 
     public String stringLabel() {
         String labels = tokenMetodo.getLexema() + "$";

@@ -35,9 +35,9 @@ public class NodoExpresionUnaria extends NodoExpresionCompuesta {
 
     public void generar() {
         operando.generar();
-        if (operador.equals("-"))
+        if (operador.getLexema().equals("-"))
             TablaDeSimbolos.gen("NEG ; menos unario");
-        else if (operador.equals("!"))
+        else if (operador.getLexema().equals("!"))
             TablaDeSimbolos.gen("NOT ; negacion unaria");
     }
 

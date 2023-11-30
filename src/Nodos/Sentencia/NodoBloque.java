@@ -45,7 +45,7 @@ public class NodoBloque extends NodoSentencia {
     public void generar() {
         TablaDeSimbolos.addBloqueIni(this);
         for (NodoSentencia nodoSentencia : listaSentencias)
-            nodoSentencia.generar(); //todo en prueba 10 creo que se me carga mal la lista
+            nodoSentencia.generar(); //todo en prueba 10 y 13 creo que se me carga mal la lista
         TablaDeSimbolos.gen("FMEM " + cantVarLocalBloque);
         TablaDeSimbolos.removeBloque();
     }

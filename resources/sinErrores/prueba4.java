@@ -1,4 +1,4 @@
-///16&8&48&3&0&-8&true&false&true&false&true&false&true&false&c&true&hola&exitosamente
+///16&8&48&30&-8&true&false&true&false&true&false&true&false&c&true&hola&exitosamente
 class Init{
     static void main(){
         debugPrint(12+4);

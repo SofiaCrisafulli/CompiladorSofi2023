@@ -26,9 +26,8 @@ public class NodoAccesoThis extends NodoAcceso {
             if (clase == null)
                 throw new ExcepcionSemantica(operador, "la clase no existe");
             if(TablaDeSimbolos.getClaseActual().getMetodoActual() instanceof Constructor) {
-                //todo preguntar si hay que hacer algo
-            }
 
+            }
             else if(TablaDeSimbolos.getClaseActual().getMetodoActual() instanceof Metodo) {
                 if(((Metodo)TablaDeSimbolos.getClaseActual().getMetodoActual()).getMetodoEstatico())
                     throw new ExcepcionSemantica(operador, "no es posible acceder a un this en un metodo estatico");

@@ -124,6 +124,7 @@ LOADREF 1 ; offset atributo
 LOAD 3
 LOADREF 2 ; offset atributo
 SUB
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0
@@ -132,6 +133,7 @@ PUSH printSln$string@System; etiqueta
 CALL
 LOAD 3
 LOADREF 1 ; offset atributo
+NEG ; menos unario
 PUSH 1 ; Apila el entero 1
 ADD
 DUP
@@ -152,13 +154,13 @@ lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD -1
+LOAD 5
 DUP
 LOAD 3 ; apilo el this
 SWAP
 STOREREF 1
 POP
-LOAD -1
+LOAD 4
 DUP
 LOAD 3 ; apilo el this
 SWAP

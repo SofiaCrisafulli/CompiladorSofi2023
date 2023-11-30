@@ -67,12 +67,12 @@ public class NodoAccesoVariable extends NodoAcceso {
             }
         } else if (parametro != null || nodoVarLocal != null) {
             int offset = genOffset();
-            if (!esLadoIzq || nodoEncadenado != null)
+            if (!esLadoIzq || nodoEncadenado != null) {
                 TablaDeSimbolos.gen("LOAD " + offset);
-            else
+                //TablaDeSimbolos.gen("Hola");
+            } else
                 TablaDeSimbolos.gen("STORE " + offset);
         } else if (atributo != null && atributo.getOffset() == -1) {
-            System.out.println("Nodo acceso variable: " + TablaDeSimbolos.getClaseActual().labelVT());
             TablaDeSimbolos.gen("PUSH " + TablaDeSimbolos.getClaseActual().labelVT());
             if (!esLadoIzq || nodoEncadenado != null && nodoVarLocal != null)
                 TablaDeSimbolos.gen("LOAD " + nodoVarLocal.getOffset() + " ; apilo variable local");
@@ -85,6 +85,26 @@ public class NodoAccesoVariable extends NodoAcceso {
         }
     }
 
+    /*private int genOffset() {
+        int i = 0;
+        int tamaño = 0;
+        if (parametro != null) {
+            Unidad m = TablaDeSimbolos.getClaseActual().getMetodoActual();
+            if (m instanceof Metodo) {
+                tamaño = ((Metodo) m).getListaParametros().size();
+                if (((Metodo) m).getMetodoEstatico())
+                    i = tamaño - parametro.getOffset() + 2;
+                else
+                    i = tamaño - parametro.getOffset() + 3;
+            } else {
+                tamaño = ((Constructor) m).getParametros().size();
+                i = tamaño - parametro.getOffset() + 3;
+            }
+        } else if (nodoVarLocal != null)
+            i = nodoVarLocal.getOffset();
+        return i;
+    }*/
+
     private int genOffset() {
         int i = 0;
         if (parametro != null)
@@ -92,6 +112,10 @@ public class NodoAccesoVariable extends NodoAcceso {
         else if (nodoVarLocal != null)
             i = nodoVarLocal.getOffset();
         return i;
+    }
+
+    public void setOffset(int offset) {
+        parametro.setOffset(offset);
     }
 
     @Override

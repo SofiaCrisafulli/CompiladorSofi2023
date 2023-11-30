@@ -12,12 +12,14 @@ public class Constructor implements Unidad{
     private Token tokenConstructor;
     private ArrayList<Parametro> parametros;
     private NodoBloque bloque;
+    private int offset;
 
     public Constructor(Token token) {
         assert token != null;
         tokenConstructor = token;
         parametros = new ArrayList<>();
         bloque = new NodoBloque(new Token(TipoDeToken.simb_llave_que_abre, "{", 0));
+        offset = 4;
     }
 
     public void estaBienDeclarado() throws ExcepcionSemantica {
@@ -28,6 +30,12 @@ public class Constructor implements Unidad{
 
     public void setParametros(ArrayList<Parametro> p) {
         parametros = p;
+        for(int i = parametros.size() -1; i >= 0; i--) {
+        //for(Parametro p1 : parametros) {
+            Parametro p1 = parametros.get(i);
+            p1.setOffset(offset);
+            offset++;
+        }
     }
 
     public ArrayList<Parametro> getParametros() {

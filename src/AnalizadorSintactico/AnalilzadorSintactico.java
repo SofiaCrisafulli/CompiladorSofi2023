@@ -81,7 +81,6 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.pr_extends) {
             match("extends", TipoDeToken.pr_extends);
             nombre = tokenActual;
-            System.out.println("Token heredaDe: " + nombre.getLexema());
             TablaDeSimbolos.getInstance().claseActual.setHereda(new Token(nombre.getTipoDeToken(), nombre.getLexema(), nombre.getNroLinea()));
             match("id_class", TipoDeToken.id_clase);
             TablaDeSimbolos.getInstance().claseActual.setHereda(nombre);
@@ -136,7 +135,6 @@ public class AnalilzadorSintactico {
         if (tokenActual.getTipoDeToken() == TipoDeToken.pr_implements) {
             match("implements", TipoDeToken.pr_implements);
             nombre = tokenActual;
-            System.out.println("Token implementaA: " + nombre.getLexema());
             TablaDeSimbolos.getInstance().claseActual.setImplementa(new Token(nombre.getTipoDeToken(), nombre.getLexema(), nombre.getNroLinea()));
             match("id_class", TipoDeToken.id_clase);
             TablaDeSimbolos.getInstance().claseActual.setImplementa(nombre);
@@ -208,7 +206,6 @@ public class AnalilzadorSintactico {
         Token nombre = tokenActual;
         match("id_met_var", TipoDeToken.id_met_var);
         ArrayList<Parametro> p = argsFormales();
-        System.out.println("Token encabezadoInterfaz: " + tokenActual.getLexema());
         Metodo m = new Metodo(nombre, p, tipo1, false, new Token(tokenActual.getTipoDeToken(), tokenActual.getLexema(), tokenActual.getNroLinea()), TablaDeSimbolos.getClaseActual());
         match(";", TipoDeToken.simb_punto_y_coma);
         if (!TablaDeSimbolos.getInstance().getInterfazActual().addMetodo(m))
@@ -278,11 +275,10 @@ public class AnalilzadorSintactico {
     private ArrayList<Parametro> listaArgsFormales(ArrayList<Parametro> parametros) throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         Parametro p = argFormal();
         for (Parametro p1 : parametros) {
-            System.out.println("Token listaArgsFormales1: " + p1.getTokenParametro().getLexema());
-            System.out.println("Token listaArgsFormales2: " + p.getTokenParametro().getLexema());
             if (p1.getTokenParametro().getLexema().equals(p.getTokenParametro().getLexema()))
                 throw new ExcepcionSemantica(p1.getTokenParametro(), "Ya existe otro parámetro con el mismo nombre");
         }
+        p.setOffset(parametros.size());
         parametros.add(p);
         if (tokenActual.getTipoDeToken() == TipoDeToken.simb_coma) {
             match(",", TipoDeToken.simb_coma);
@@ -291,7 +287,6 @@ public class AnalilzadorSintactico {
             else
                 throw new ExcepcionSintactica(tokenActual, "boolean | char | int | id_clase");
         } else if (tokenActual.getTipoDeToken() != TipoDeToken.simb_parentesis_que_cierra) {
-            System.out.println("Token listaArgsFormales: " + tokenActual.getLexema());
             throw new ExcepcionSintactica(tokenActual, tokenActual.getLexema());
         }
         return parametros;
@@ -317,8 +312,8 @@ public class AnalilzadorSintactico {
     }
 
     private NodoBloque bloque() throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
-        match("{", TipoDeToken.simb_llave_que_abre);
         NodoBloque nodoBloque = new NodoBloque(tokenActual);
+        match("{", TipoDeToken.simb_llave_que_abre);
         ArrayList<NodoSentencia> listaS = new ArrayList<>();
         sentenciasBloque(listaS);
         match("}", TipoDeToken.simb_llave_que_cierra);
@@ -326,11 +321,16 @@ public class AnalilzadorSintactico {
         return nodoBloque;
     }
 
-    private void sentenciasBloque(ArrayList<NodoSentencia> listaS) throws ExcepcionLexica, ExcepcionSemantica, IOException, ExcepcionSintactica {
+    private ArrayList<NodoSentencia> sentenciasBloque(ArrayList<NodoSentencia> listaS) throws ExcepcionLexica, ExcepcionSemantica, IOException, ExcepcionSintactica {
         if(isSentencia()) {
-            listaS.add(sentencia());
-            sentenciasBloque(listaS);
+            NodoSentencia ns = sentencia();
+            listaS.add(ns);
+            return sentenciasBloque(listaS);
         }
+        else if(tokenActual.getTipoDeToken() == simb_llave_que_cierra)
+            return listaS;
+        else
+            throw new ExcepcionSintactica(tokenActual, "token invalido");
     }
 
     private boolean isSentencia() {

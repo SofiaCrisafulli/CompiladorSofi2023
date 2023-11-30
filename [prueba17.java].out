@@ -54,6 +54,7 @@ LOAD 3
 LOAD 4
 PUSH 1 ; Apila el entero 1
 SUB
+SWAP
 DUP
 LOADREF 0 ; Cargo la VT
 LOADREF 0

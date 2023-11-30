@@ -26,7 +26,7 @@ public class NodoReturn extends NodoSentencia {
                 throw new ExcepcionSemantica(tokenReturn, "es un constructor, no deberia tener un retorno");
             //aca tenes que controlar que no tengas expresion en el nodo return;;;
         }
-        else { //luego si es metodo dejas todo como tenias para metodo
+        else {
             if (retorno != null)
                 retorno.setEsAsignacion(true);
             Tipo tipoExpresion = retorno.chequear();

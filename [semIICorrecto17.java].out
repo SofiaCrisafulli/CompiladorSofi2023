@@ -366,6 +366,7 @@ labelThen52: NOP
 
 
 PUSH 0 ; apilo false
+NOT ; negacion unaria
 BF labelThen54 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
@@ -507,6 +508,7 @@ labelThen60: NOP
 
 RMEM 1 ; guardo lugar para la variable local a
 PUSH 2 ; Apila el entero 2
+NEG ; menos unario
 STORE 0
 LOAD 0
 PUSH 0 ; Apila el entero 0
