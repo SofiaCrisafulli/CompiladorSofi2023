@@ -39,21 +39,21 @@ public class NodoWhile extends NodoSentencia {
         String etiquetaFinWhile = nuevaEtiquetaFinWhile();
         TablaDeSimbolos.gen(etiquetaThen + ":");
         condicion.generar();
-        TablaDeSimbolos.gen("BF" + etiquetaFinWhile);
+        TablaDeSimbolos.gen("BF " + etiquetaFinWhile);
         sentencia.generar();
-        TablaDeSimbolos.gen("JUMP" + etiquetaThen);
+        TablaDeSimbolos.gen("JUMP " + etiquetaThen);
         TablaDeSimbolos.gen(etiquetaFinWhile + ": NOP");
 
     }
 
     private String nuevaEtiquetaThen() {
-        String nuevaEtiquetaThen = "labelThen" + numEtiquetaSentencia;
         numEtiquetaSentencia = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
+        String nuevaEtiquetaThen = "labelThen" + numEtiquetaSentencia;
         return nuevaEtiquetaThen;
     }
     private String nuevaEtiquetaFinWhile() {
-        String nuevaEtiquetaFinWhile = "labelFin" + numEtiquetaFinWhile;
         numEtiquetaFinWhile = TablaDeSimbolos.getInstance().getNumeroEtiqueta();
+        String nuevaEtiquetaFinWhile = "labelFin" + numEtiquetaFinWhile;
         return nuevaEtiquetaFinWhile;
     }
 

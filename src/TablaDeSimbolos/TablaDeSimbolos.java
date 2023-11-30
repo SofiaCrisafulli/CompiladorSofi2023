@@ -199,7 +199,11 @@ public class TablaDeSimbolos {
     }
 
     public static void addBloqueIni(NodoBloque b) {
+        int offset = 0;
+        if(bloques.size() > 0)
+            offset = bloques.get(0).getOffset();
         bloques.add(0, b);
+        b.setOffset(offset);
     }
 
     public static void removeBloque() {
@@ -212,6 +216,7 @@ public class TablaDeSimbolos {
             toReturn = bloques.get(0);
         return toReturn;
     }
+
 
     public void eliminarBloque() {
         bloques.remove(0);
@@ -312,7 +317,7 @@ public class TablaDeSimbolos {
         NodoVarLocal nodoVarLocal = getVarLocal(lexema);
 
         if (nodoVarLocal == null) {
-            for (Parametro p : getClaseActual().getMetodoActual().getListaParametros()) {
+            for (Parametro p : ((Metodo)getClaseActual().getMetodoActual()).getListaParametros()) {
                 if (nodoVarLocal == null && lexema.equals(p.getTokenParametro().getLexema()))
                     nodoVarLocal = new NodoVarLocal(p.getTokenParametro(), p.getTipo());
             }

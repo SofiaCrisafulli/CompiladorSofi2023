@@ -174,7 +174,7 @@ public class AnalilzadorSintactico {
             Metodo m = new Metodo(token, parametros, tipo, es, new Token(token.getTipoDeToken(), token.getLexema(), token.getNroLinea()), TablaDeSimbolos.getClaseActual());
             TablaDeSimbolos.getInstance().getClaseActual().setMetodoActual(m);
             NodoBloque bloque = bloque();
-            TablaDeSimbolos.getInstance().getClaseActual().getMetodoActual().setBloque(bloque);
+            ((Metodo)TablaDeSimbolos.getInstance().getClaseActual().getMetodoActual()).setBloque(bloque);
             if (!TablaDeSimbolos.getInstance().getClaseActual().addMetodo(m))
                 throw new ExcepcionSemantica(token, "el método esta repetido");
         } else {
@@ -192,7 +192,7 @@ public class AnalilzadorSintactico {
         TablaDeSimbolos.getInstance().getClaseActual().setConstructor(constructor);
         ArrayList<Parametro> p = argsFormales();
         TablaDeSimbolos.getInstance().getClaseActual().getConstructor().setParametros(p);
-        bloque();
+        constructor.setBloque(bloque());
     }
 
     private void encabezadoMetodo() throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
@@ -360,8 +360,8 @@ public class AnalilzadorSintactico {
     private NodoSentencia sentencia() throws ExcepcionLexica, IOException, ExcepcionSintactica, ExcepcionSemantica {
         NodoSentencia nodoSentencia = null;
         if (tokenActual.getTipoDeToken() == TipoDeToken.simb_punto_y_coma) {
-            match(";", TipoDeToken.simb_punto_y_coma);
             nodoSentencia = new NodoSentenciaVacia();
+            match(";", TipoDeToken.simb_punto_y_coma);
         } else if (primerosOperadorUnario() || isLiteral() || primerosPrimario()) {
             nodoSentencia = asignacionOLlamada();
             match(";", TipoDeToken.simb_punto_y_coma);

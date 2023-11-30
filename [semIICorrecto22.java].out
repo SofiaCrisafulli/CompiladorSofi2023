@@ -36,28 +36,33 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
 PUSH 11 ; Apila el entero 11
 STORE 0
-labelThen0:
+PUSH VT_System
+POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
+PUSH printI$int@System; etiqueta
+CALL
+labelThen68:
 LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
-BFlabelFin0
+BF labelFin69
 RMEM 1 ; guardo lugar para la variable local b
 PUSH 32 ; Apila el entero 32
-STORE 0
+STORE -1
+PUSH VT_System
+POP ; como es estatico no me sirve la referencia anterior
+LOAD 0
+PUSH printI$int@System; etiqueta
+CALL
 LOAD 0
 PUSH 1 ; Apila el entero 1
 SUB
 DUP
 STORE 0
 POP
-PUSH VT_System
-POP ; como es estatico no me sirve la referencia anterior
-LOAD 0
-PUSH printI$int@System; etiqueta
-CALL
 FMEM 1
-JUMPlabelThen0
-labelFin0: NOP
+JUMP labelThen68
+labelFin69: NOP
 FMEM 1
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0

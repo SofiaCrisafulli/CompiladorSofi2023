@@ -29,15 +29,28 @@ public class NodoAccesoMetodo extends NodoAcceso {
             metodo = TablaDeSimbolos.getClaseActual().getMetodo(operador.getLexema());
             if (metodo == null)
                 throw new ExcepcionSemantica(operador, "el metodo no existe");
-            Metodo metodoActual = TablaDeSimbolos.claseActual.getMetodoActual();
-            if (metodoActual.getMetodoEstatico() && !metodo.getMetodoEstatico())
-                throw new ExcepcionSemantica(operador, "no existe el método actual");
-            chequeoParametros(metodo);
-            tipoMetodo = metodo.getTipo();
-            if (nodoEncadenado != null) {
-                nodoEncadenado.setEsAsignacion(esAsignacion);
-                tipoMetodo = nodoEncadenado.chequear(tipoMetodo, operador);
+
+            Unidad metodoOconstructor = TablaDeSimbolos.claseActual.getMetodoActual();
+            if (metodoOconstructor instanceof Metodo){
+                Metodo metodoActual = (Metodo)TablaDeSimbolos.claseActual.getMetodoActual();
+                if (metodoActual.getMetodoEstatico() && !metodo.getMetodoEstatico())
+                    throw new ExcepcionSemantica(operador, "no existe el método actual");
+                chequeoParametros(metodo);
+                tipoMetodo = metodo.getTipo();
+                if (nodoEncadenado != null) {
+                    nodoEncadenado.setEsAsignacion(esAsignacion);
+                    tipoMetodo = nodoEncadenado.chequear(tipoMetodo, operador);
+                }
+            } else if (metodoOconstructor instanceof  Constructor) {
+                Constructor metodoActual = (Constructor)TablaDeSimbolos.claseActual.getMetodoActual();
+                chequeoParametrosConstructor(metodoActual);
+                tipoMetodo = metodo.getTipo();
+                if (nodoEncadenado != null) {
+                    nodoEncadenado.setEsAsignacion(esAsignacion);
+                    tipoMetodo = nodoEncadenado.chequear(tipoMetodo, operador);
+                }
             }
+
         }
         return tipoMetodo;
     }
@@ -88,6 +101,24 @@ public class NodoAccesoMetodo extends NodoAcceso {
             fallo = true;
         if (fallo)
             throw new ExcepcionSemantica(operador, "error en los parámetros del acceso al metodo");
+    }
+
+    private void chequeoParametrosConstructor(Constructor metodo) throws ExcepcionSemantica {
+        boolean fallo = false;
+        ArrayList<Parametro> listaParametros = metodo.getParametros();
+        if (listaParametros.size() == parametros.size()) {
+            Iterator<Parametro> iterador = listaParametros.iterator();
+            Iterator<NodoExpresion> nodoExpresionIterator = parametros.iterator();
+            while (iterador.hasNext() && nodoExpresionIterator.hasNext() && !fallo) {
+                Parametro p = iterador.next();
+                NodoExpresion nodoExpresion = nodoExpresionIterator.next();
+                fallo = !(nodoExpresion.chequear().esSubtipo(p.getTipo()));
+                parametrosInvertidos.add(0, nodoExpresion);
+            }
+        } else
+            fallo = true;
+        if (fallo)
+            throw new ExcepcionSemantica(operador, "error en los parámetros del constructor del metodo");
     }
 
     public void setListaParametros(ArrayList<NodoExpresion> args) {

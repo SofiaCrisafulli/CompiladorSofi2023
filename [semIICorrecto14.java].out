@@ -39,9 +39,9 @@ STORE 0
 RMEM 1 ; guardo lugar para la variable local e
 PUSH 0 ; Apila el entero 0
 STORE -1
-labelThen0:
+labelThen30:
 LOAD 0
-BFlabelFin0
+BF labelFin31
 LOAD 0
 BF labelElse33 ; salta a la condicion else
 LOAD -1
@@ -92,13 +92,13 @@ DUP
 STORE 0
 POP
 FMEM 0
-labelElse35: NOP
+labelThen34: NOP
 
 
 
 FMEM 0
-JUMPlabelThen0
-labelFin0: NOP
+JUMP labelThen30
+labelFin31: NOP
 FMEM 2
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0

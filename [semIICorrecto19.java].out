@@ -39,7 +39,7 @@ STORE 0
 LOAD 3
 LOAD 4
 GT
-BF labelThen66 ; salta afuera del if si la condicion es falsa
+BF labelThen60 ; salta afuera del if si la condicion es falsa
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 4
@@ -48,15 +48,15 @@ CALL
 LOAD 4
 PUSH 0 ; Apila el entero 0
 EQ
-BF labelElse69 ; salta a la condicion else
+BF labelElse63 ; salta a la condicion else
 LOAD 4
 PUSH 1 ; Apila el entero 1
 ADD
 DUP
 STORE 4
 POP
-JUMP labelThen68 ; salteo al else
-labelElse69:
+JUMP labelThen62 ; salteo al else
+labelElse63:
 LOAD 4
 DUP
 STORE 5
@@ -68,7 +68,7 @@ DUP
 STORE 4
 POP
 FMEM 0
-labelThen68: NOP
+labelThen62: NOP
 
 
 
@@ -78,7 +78,7 @@ LOAD 3
 PUSH fibonacci$int$int$int@A ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-labelElse67: NOP
+labelThen60: NOP
 
 
 
@@ -209,7 +209,7 @@ STORE 0
 LOAD 0
 PUSH 0 ; Apila el entero 0
 LT
-BF labelElse71 ; salta a la condicion else
+BF labelElse65 ; salta a la condicion else
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -237,12 +237,12 @@ STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
 FMEM 0
-JUMP labelThen70 ; salteo al else
-labelElse71:
+JUMP labelThen64 ; salteo al else
+labelElse65:
 LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
-BF labelElse73 ; salta a la condicion else
+BF labelElse67 ; salta a la condicion else
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 RMEM 1 ; puntero al String en .HEAP
@@ -301,19 +301,19 @@ LOAD 0
 PUSH fibonacci$int$int$int@A; etiqueta
 CALL
 FMEM 0
-JUMP labelThen72 ; salteo al else
-labelElse73:
+JUMP labelThen66 ; salteo al else
+labelElse67:
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
-labelThen72: NOP
+labelThen66: NOP
 
 
 
 FMEM 0
-labelThen70: NOP
+labelThen64: NOP
 
 
 

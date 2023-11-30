@@ -72,7 +72,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse37: NOP
+labelThen36: NOP
 
 
 
@@ -106,7 +106,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse39: NOP
+labelThen38: NOP
 
 
 
@@ -140,7 +140,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse41: NOP
+labelThen40: NOP
 
 
 
@@ -189,7 +189,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 10
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse43: NOP
+labelThen42: NOP
 
 
 
@@ -238,7 +238,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 10
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse45: NOP
+labelThen44: NOP
 
 
 
@@ -274,7 +274,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 5
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse47: NOP
+labelThen46: NOP
 
 
 
@@ -304,7 +304,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse49: NOP
+labelThen48: NOP
 
 
 
@@ -334,7 +334,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse51: NOP
+labelThen50: NOP
 
 
 
@@ -361,7 +361,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 2
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse53: NOP
+labelThen52: NOP
 
 
 
@@ -402,7 +402,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse55: NOP
+labelThen54: NOP
 
 
 
@@ -432,7 +432,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse57: NOP
+labelThen56: NOP
 
 
 
@@ -471,7 +471,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 6
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse59: NOP
+labelThen58: NOP
 
 
 
@@ -501,7 +501,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 3
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse61: NOP
+labelThen60: NOP
 
 
 
@@ -547,7 +547,7 @@ PUSH 0 ; Apilo terminador
 STOREREF 8
 PUSH printSln$string@System; etiqueta
 CALL
-labelElse63: NOP
+labelThen62: NOP
 
 
 

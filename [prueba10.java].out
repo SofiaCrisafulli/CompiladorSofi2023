@@ -39,6 +39,10 @@ LOAD 3
 SWAP
 STOREREF 1
 POP
+LOAD 3
+LOADREF 1 ; offset atributo
+PUSH debugPrint$int@Object ; Apila el método 
+CALL ; Llama al método en el tope de la pila
 PUSH 1 ; Apila el entero 1
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
@@ -62,6 +66,12 @@ lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD 3
+LOAD -1
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 0
+CALL
 FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp

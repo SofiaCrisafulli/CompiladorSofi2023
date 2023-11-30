@@ -40,6 +40,8 @@ public class Main {
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
                 System.out.println("ERROR: no se encontró el archivo");
+            } catch (ExcepcionSemantica e1) {
+                System.out.println(e1.getMessage());
             }
         }
     }

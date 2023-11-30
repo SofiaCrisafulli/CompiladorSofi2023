@@ -68,7 +68,7 @@ POP ; como es estatico no me sirve la referencia anterior
 LOAD -1
 PUSH printS$string@System; etiqueta
 CALL
-labelElse7: NOP
+labelThen6: NOP
 
 
 
@@ -93,7 +93,7 @@ POP ; como es estatico no me sirve la referencia anterior
 LOAD -1
 PUSH printS$string@System; etiqueta
 CALL
-labelElse9: NOP
+labelThen8: NOP
 
 
 

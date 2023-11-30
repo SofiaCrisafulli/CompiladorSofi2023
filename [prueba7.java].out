@@ -40,7 +40,7 @@ LOADREF 1 ; offset atributo
 EQ
 BF labelThen20 ; salta afuera del if si la condicion es falsa
 FMEM 0
-labelElse21: NOP
+labelThen20: NOP
 
 
 
@@ -103,7 +103,7 @@ PUSH 1234 ; Apila el entero 1234
 PUSH debugPrint$int@Object ; Apila el método 
 CALL ; Llama al método en el tope de la pila
 FMEM 0
-labelElse23: NOP
+labelThen22: NOP
 
 
 

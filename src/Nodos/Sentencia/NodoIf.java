@@ -42,7 +42,7 @@ public class NodoIf extends NodoSentencia {
         if(sentenciaElse == null) {
             TablaDeSimbolos.gen("BF " + etiquetaThen + " ; salta afuera del if si la condicion es falsa");
             sentenciaThen.generar();
-            TablaDeSimbolos.gen(etiquetaElse + ": NOP");
+            TablaDeSimbolos.gen(etiquetaThen + ": NOP");
         }
         else {
             TablaDeSimbolos.gen("BF " + etiquetaElse + " ; salta a la condicion else");

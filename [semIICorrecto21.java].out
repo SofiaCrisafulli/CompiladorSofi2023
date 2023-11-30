@@ -39,7 +39,7 @@ STORE 0
 LOAD 0
 PUSH 0 ; Apila el entero 0
 NE
-BF labelElse83 ; salta a la condicion else
+BF labelElse67 ; salta a la condicion else
 RMEM 1 ; guardo lugar para la variable local b
 PUSH 12 ; Apila el entero 12
 STORE -1
@@ -49,14 +49,14 @@ LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
 FMEM 1
-JUMP labelThen82 ; salteo al else
-labelElse83:
+JUMP labelThen66 ; salteo al else
+labelElse67:
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 0
 PUSH printI$int@System; etiqueta
 CALL
-labelThen82: NOP
+labelThen66: NOP
 
 
 

@@ -3,7 +3,7 @@ package Nodos.Expresion.Operando.NodosAccesos;
 import AnalilzadorLexico.Token;
 import AnalizadorSemantico.ExcepcionSemantica;
 import TablaDeSimbolos.Clase;
-import TablaDeSimbolos.TablaDeSimbolos;
+import TablaDeSimbolos.*;
 import Tipo.*;
 
 public class NodoAccesoThis extends NodoAcceso {
@@ -25,8 +25,15 @@ public class NodoAccesoThis extends NodoAcceso {
                 clase = TablaDeSimbolos.getInstance().getClaseActual();
             if (clase == null)
                 throw new ExcepcionSemantica(operador, "la clase no existe");
-            if(TablaDeSimbolos.getClaseActual().getMetodoActual().getMetodoEstatico())
-                throw new ExcepcionSemantica(operador, "no es posible acceder a un this en un metodo estatico");
+            if(TablaDeSimbolos.getClaseActual().getMetodoActual() instanceof Constructor) {
+                //todo preguntar si hay que hacer algo
+            }
+
+            else if(TablaDeSimbolos.getClaseActual().getMetodoActual() instanceof Metodo) {
+                if(((Metodo)TablaDeSimbolos.getClaseActual().getMetodoActual()).getMetodoEstatico())
+                    throw new ExcepcionSemantica(operador, "no es posible acceder a un this en un metodo estatico");
+            }
+
             tipo = new TipoClase(operador);
             if (nodoEncadenado != null) {
                 nodoEncadenado.setEsAsignacion(esAsignacion);

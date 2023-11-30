@@ -14,7 +14,7 @@ public class NodoVarLocal extends NodoSentencia {
     public NodoVarLocal(Token token, NodoExpresion nodoExpresion) {
         tokenSentencia = token;
         this.nodoExpresion = nodoExpresion;
-        offset = -1;
+        offset = 0;
     }
 
     public NodoVarLocal(Token token, Tipo t) {

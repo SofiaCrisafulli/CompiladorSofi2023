@@ -34,12 +34,17 @@ public class NodoAccesoVariable extends NodoAcceso {
                     atributo = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema()).getAtributos().get(operador.getLexema());
                     if (atributo != null) {
                         ClaseConcreta clase = TablaDeSimbolos.getClase(TablaDeSimbolos.getClaseActual().getToken().getLexema());
-                        if (clase.getMetodoActual().getMetodoEstatico() && !atributo.isEsEstatico())
-                            throw new ExcepcionSemantica(operador, "no es posible acceder a una variable de instancia en un metodo estatico");
-                        tipo = atributo.getTipo();
-                    } else
-                        throw new ExcepcionSemantica(operador, "la variable local " + operador.getLexema() + " no existe");
+                        if (clase.getMetodoActual() instanceof Metodo) {
+                            if (((Metodo) clase.getMetodoActual()).getMetodoEstatico() && !atributo.isEsEstatico())
+                                throw new ExcepcionSemantica(operador, "no es posible acceder a una variable de instancia en un metodo estatico");
+                            tipo = atributo.getTipo();
+                        } else if (clase.getMetodoActual() instanceof Constructor) {
+                            tipo = atributo.getTipo();
+                        } else
+                            throw new ExcepcionSemantica(operador, "la variable local " + operador.getLexema() + " no existe");
+                    }
                 }
+
             }
 
             if (nodoEncadenado != null) {
@@ -111,6 +116,5 @@ public class NodoAccesoVariable extends NodoAcceso {
     public boolean esAsignacion() {
         return false;
     }
-
 
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Metodo {
+public class Metodo implements Unidad{
 
     private Token tokenMetodo;
     private Tipo tipoRetorno;
@@ -172,6 +172,7 @@ public class Metodo {
     }
 
     public void chequeoSentencias() throws ExcepcionSemantica {
+        TablaDeSimbolos.getClaseActual().setMetodoActual(this);
         Clase clase = TablaDeSimbolos.getInstance().getClaseActual();
         if (miClase == clase)
             bloque.chequear();

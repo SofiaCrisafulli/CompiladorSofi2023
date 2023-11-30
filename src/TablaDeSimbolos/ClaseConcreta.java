@@ -30,7 +30,6 @@ public class ClaseConcreta extends Clase {
         parametros = new HashMap<String, Parametro>();
         atributos = new HashMap<>();
         hereda = new Token(TipoDeToken.id_clase, tokenClase.getLexema(), tokenClase.getNroLinea());
-        //constructor = new Constructor(tokenClase);
         hayHerenciaCircular = false;
         atributoOffset = new HashMap<Integer, Atributo>();
         metodosOffset = new HashMap<>();
@@ -166,7 +165,7 @@ public class ClaseConcreta extends Clase {
                     throw new ExcepcionSemantica(metodos.get(metodoHeredado.getTokenMetodo().getLexema()).getTokenMetodo(), "El metodo " + metodoHeredado.getTokenMetodo().getLexema() + " no coincide con el metodo de tu padre");
                 else {
                     Metodo metodo = metodos.get(metodoHeredado.getTokenMetodo().getLexema());
-                    metodo.setOffset(metodoActual.getOffset());
+                    metodo.setOffset(((Metodo)metodoActual).getOffset());
                 }
             }
         }

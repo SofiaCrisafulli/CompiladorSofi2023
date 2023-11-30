@@ -64,7 +64,7 @@ SWAP
 STOREREF 1
 POP
 FMEM 0
-labelElse65: NOP
+labelThen64: NOP
 
 
 

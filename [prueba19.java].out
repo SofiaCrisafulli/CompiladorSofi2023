@@ -90,7 +90,7 @@ RET 1
 
 
 
-labelElse13: NOP
+labelThen12: NOP
 
 
 
@@ -159,6 +159,18 @@ lblConstructor@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD -1
+DUP
+LOAD 3 ; apilo el this
+SWAP
+STOREREF 1
+POP
+LOAD -1
+DUP
+LOAD 3 ; apilo el this
+SWAP
+STOREREF 2
+POP
 FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp

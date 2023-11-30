@@ -33,6 +33,7 @@ public class NodoBloque extends NodoSentencia {
         TablaDeSimbolos.getInstance().eliminarBloque();
     }
 
+
     private void establecerOffset() {
         if(TablaDeSimbolos.getInstance().getBloqueActual() == null)
             offset = 0;
@@ -44,7 +45,7 @@ public class NodoBloque extends NodoSentencia {
     public void generar() {
         TablaDeSimbolos.addBloqueIni(this);
         for (NodoSentencia nodoSentencia : listaSentencias)
-            nodoSentencia.generar(); //
+            nodoSentencia.generar(); //todo en prueba 10 creo que se me carga mal la lista
         TablaDeSimbolos.gen("FMEM " + cantVarLocalBloque);
         TablaDeSimbolos.removeBloque();
     }
@@ -75,5 +76,13 @@ public class NodoBloque extends NodoSentencia {
 
     public Map<String, NodoVarLocal> getVarLocales() {
         return varLocales;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

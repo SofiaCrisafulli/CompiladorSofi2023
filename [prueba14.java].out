@@ -105,7 +105,7 @@ imprimir@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-labelThen0:
+labelThen2:
 LOAD 3
 LOADREF 1 ; offset atributo
 LOAD 3
@@ -113,7 +113,7 @@ LOADREF 2 ; offset atributo
 SUB
 PUSH 0 ; Apila el entero 0
 GT
-BFlabelFin0
+BF labelFin3
 PUSH VT_System
 POP ; como es estatico no me sirve la referencia anterior
 LOAD 3
@@ -140,8 +140,8 @@ SWAP
 STOREREF 1
 POP
 FMEM 0
-JUMPlabelThen0
-labelFin0: NOP
+JUMP labelThen2
+labelFin3: NOP
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
@@ -152,6 +152,18 @@ lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD -1
+DUP
+LOAD 3 ; apilo el this
+SWAP
+STOREREF 1
+POP
+LOAD -1
+DUP
+LOAD 3 ; apilo el this
+SWAP
+STOREREF 2
+POP
 FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp

@@ -157,7 +157,7 @@ PUSH'e'; apilo caracter
 PUSH printC$char@System; etiqueta
 CALL
 FMEM 0
-labelElse29: NOP
+labelThen28: NOP
 
 
 

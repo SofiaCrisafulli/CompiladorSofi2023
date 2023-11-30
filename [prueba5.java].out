@@ -58,7 +58,7 @@ PUSH 1 ; apilo true
 AND
 BF labelThen16 ; salta afuera del if si la condicion es falsa
 FMEM 0
-labelElse17: NOP
+labelThen16: NOP
 
 
 

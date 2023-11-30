@@ -76,6 +76,12 @@ lblConstructor@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
+PUSH 1 ; Apila el entero 1
+DUP
+LOAD 3
+SWAP
+STOREREF -1
+POP
 FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp

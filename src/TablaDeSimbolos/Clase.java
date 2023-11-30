@@ -15,7 +15,7 @@ public abstract class Clase {
     protected Map<String, Metodo> metodos;
 
     protected Map<String, Atributo> atributos;
-    protected Metodo metodoActual;
+    protected Unidad metodoActual;
     protected Metodo metodoChequeado;
     protected boolean hayHerenciaCircualar;
 
@@ -49,13 +49,13 @@ public abstract class Clase {
             throw new ExcepcionSemantica(a.getToken(), "el atributo ya existe");
     }
 
-    public Metodo getMetodoActual() {
+    public Unidad getMetodoActual() {
         return metodoActual;
     }
 
     public abstract ArrayList<String> ancestros() throws ExcepcionSemantica;
 
-    public void setMetodoActual(Metodo m) {
+    public void setMetodoActual(Unidad m) {
         metodoActual = m;
     }
 
