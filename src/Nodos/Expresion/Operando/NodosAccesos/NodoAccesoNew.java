@@ -9,6 +9,7 @@ import Tipo.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 public class NodoAccesoNew extends NodoAcceso {
 
@@ -54,7 +55,7 @@ public class NodoAccesoNew extends NodoAcceso {
             TablaDeSimbolos.gen("PUSH " + label);
         } else {
             TablaDeSimbolos.gen("RMEM 1");
-            TablaDeSimbolos.gen("PUSH " + (TablaDeSimbolos.getClase(operador.getLexema()).getAtributos().size() + 1)  + "; apilo los atributos");
+            TablaDeSimbolos.gen("PUSH " + (TablaDeSimbolos.getClase(operador.getLexema()).cantidadAtributosDinamicos() + 1)  + "; apilo los atributos");
             TablaDeSimbolos.gen("PUSH simple_malloc");
             TablaDeSimbolos.gen("CALL");
             TablaDeSimbolos.gen("DUP");

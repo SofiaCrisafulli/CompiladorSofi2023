@@ -26,89 +26,6 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
-
-.CODE
-m@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1
-PUSH 1; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_G; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@G
-CALL
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
-FMEM 0
-labelThen0: NOP
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
-VT_G: DW b@G
-
-.CODE
-b@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-PUSH 1 ; apilo true
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
 VT_Object: NOP
 
 .CODE
@@ -156,7 +73,7 @@ RET 1
 
 
 .DATA
-VT_Main: NOP
+VT_Main: DW m@Main
 
 .CODE
 main@Main:
@@ -166,6 +83,34 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
+m@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local x1
+LOAD 3
+LOADREF 2 ; offset atributo
+LOAD 3
+LOADREF 2 ; offset atributo
+EQ
+STORE 0
+RMEM 1 ; guardo lugar para la variable local x2
+LOAD 3
+LOADREF 3 ; offset atributo
+LOAD 3
+LOADREF 2 ; offset atributo
+EQ
+STORE -1
+RMEM 1 ; guardo lugar para la variable local x3
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD 3
+LOADREF 2 ; offset atributo
+EQ
+STORE -2
+FMEM 3
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 

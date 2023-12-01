@@ -26,41 +26,9 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
+VT_A: NOP
 
 .CODE
-m@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1
-PUSH 1; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_G; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@G
-CALL
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
-FMEM 0
-labelThen0: NOP
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
 
 
 
@@ -76,15 +44,34 @@ RET 1
 
 
 .DATA
-VT_G: DW b@G
+VT_B: NOP
 
 .CODE
-b@G:
+
+
+
+lblConstructor@B:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-PUSH 1 ; apilo true
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
+VT_C: DW b@C
+
+.CODE
+b@C:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+LOAD 3
+LOADREF 1 ; offset atributo
 STORE 4
 STOREFP ; Almacena el tope de la pila en el registro fp
 RET 1
@@ -97,7 +84,58 @@ RET 1
 
 
 
-lblConstructor@G:
+lblConstructor@C:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
+VT_D: DW m@D
+
+.CODE
+m@D:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local x
+RMEM 1
+PUSH 2; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_C; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@C
+CALL
+STORE 0
+RMEM 1 ; guardo lugar para la variable local e
+LOAD 0
+RMEM 1 ; reservo lugar para el return
+SWAP
+DUP ; no perder el this
+LOADREF 0 ; cargo la vt
+LOADREF 0
+CALL
+LOADREF 1
+LOADREF 1
+STORE -1
+FMEM 2
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+lblConstructor@D:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp

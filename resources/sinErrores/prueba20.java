@@ -1,13 +1,16 @@
-///
-
-
+///1&2&exitosamente
+class A {
+    public A(int x, int y) {
+        debugPrint(x);
+        debugPrint(y);
+    }
+}
 
 
 
 class Init {
     A a;
-    B b;
-    static void main {
-
+    static void main() {
+        new A(1,2);
     }
 }

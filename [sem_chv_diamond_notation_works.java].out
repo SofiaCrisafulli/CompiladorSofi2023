@@ -26,9 +26,43 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
+VT_A: DW g2@A,g3$G@A,m@A
 
 .CODE
+g2@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@G
+CALL
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+g3$G@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
 m@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
@@ -46,19 +80,108 @@ DUP
 
 PUSH lblConstructor@G
 CALL
-RMEM 1 ; reservo lugar para el return
+DUP
+LOAD 3
 SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
+STOREREF 1
+POP
+LOAD 3
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
 CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
-FMEM 0
-labelThen0: NOP
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
 
 
 
-FMEM 0
+PUSH lblConstructor@G
+CALL
+SWAP
+DUP
+LOADREF 0 ; Cargo la VT
+LOADREF 1
+CALL
+RMEM 1 ; guardo lugar para la variable local g4
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@G
+CALL
+STORE 0
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@G
+CALL
+DUP
+STORE 0
+POP
+PUSH VT_Estatica
+POP ; como es estatico no me sirve la referencia anterior
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@G
+CALL
+PUSH metodo$G@Estatica; etiqueta
+CALL
+RMEM 1 ; guardo lugar para la variable local c
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_Constructor; apilo el comienzo de la vt
+STOREREF 0
+DUP
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_G; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@G
+CALL
+SWAP
+
+
+
+PUSH lblConstructor@Constructor
+CALL
+STORE -1
+FMEM 2
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
@@ -76,24 +199,52 @@ RET 1
 
 
 .DATA
-VT_G: DW b@G
+VT_Estatica: NOP
 
 .CODE
-b@G:
+metodo$G@Estatica:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-PUSH 1 ; apilo true
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
+STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
 
 
+lblConstructor@Estatica:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
+
+
+
+.DATA
+VT_Constructor: NOP
+
+.CODE
+
+
+
+lblConstructor@Constructor:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 2
+
+
+
+.DATA
+VT_G: NOP
+
+.CODE
 
 
 

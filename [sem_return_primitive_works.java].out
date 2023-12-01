@@ -26,89 +26,6 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
-
-.CODE
-m@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1
-PUSH 1; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_G; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@G
-CALL
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
-FMEM 0
-labelThen0: NOP
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
-VT_G: DW b@G
-
-.CODE
-b@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-PUSH 1 ; apilo true
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
 VT_Object: NOP
 
 .CODE
@@ -156,9 +73,114 @@ RET 1
 
 
 .DATA
-VT_Main: NOP
+VT_Main: DW m1@Main,m2@Main,m3@Main,m4@Main,m5@Main,m6@Main,m7@Main,m8@Main
 
 .CODE
+m1@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+RMEM 1 ; puntero al String en .HEAP
+PUSH 4
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH '3' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH '.' 
+STOREREF 1 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH '0' 
+STOREREF 2 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 3
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m2@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH'c'; apilo caracter
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m3@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH 3 ; Apila el entero 3
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m4@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH 3 ; Apila el entero 3
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m5@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH'3'; apilo caracter
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m6@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH'3'; apilo caracter
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 main@Main:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
@@ -166,6 +188,34 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
+m7@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+PUSH 1 ; apilo true
+STORE 4
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+m8@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 

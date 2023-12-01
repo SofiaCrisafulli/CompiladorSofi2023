@@ -97,7 +97,7 @@ public class Interface extends Clase {
         return ancestros;
     }
 
-    @Override
+
     public void generar() {
 
     }

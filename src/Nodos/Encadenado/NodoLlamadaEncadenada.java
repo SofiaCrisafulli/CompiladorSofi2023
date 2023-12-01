@@ -34,8 +34,8 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
         Tipo tipo;
         if (!esAsignacion && esAsignacion())
             throw new ExcepcionSemantica(getUltimoToken(), "no es posible tener una asignacion en una llamada encadenada");
-        if (esAsignable() && !esAsignacion())
-            throw new ExcepcionSemantica(new Token(TipoDeToken.op_asignacion, "=", nombre.getNroLinea()), "no es posible hacer una asignacion");
+        if (!esAsignable() && esAsignacion())
+           throw new ExcepcionSemantica(new Token(TipoDeToken.op_asignacion, "=", nombre.getNroLinea()), "no es posible hacer una asignacion");
         clase = TablaDeSimbolos.getClase(t.getNombreTipo());
         if (clase == null)
             clase = TablaDeSimbolos.getInterface(t.getNombreTipo());

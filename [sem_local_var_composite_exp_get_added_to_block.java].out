@@ -26,78 +26,28 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
+VT_A: NOP
 
 .CODE
-m@A:
+a@A:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1
-PUSH 1; apilo los atributos
-PUSH simple_malloc
-CALL
-DUP
-PUSH VT_G; apilo el comienzo de la vt
-STOREREF 0
-DUP
-
-
-
-PUSH lblConstructor@G
-CALL
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
-CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
 FMEM 0
-labelThen0: NOP
+PUSH 3 ; Apila el entero 3
+STORE 3
+STOREFP ; Almacena el tope de la pila en el registro fp
+RET 0
 
 
 
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
+RET 0
 
 
 
 lblConstructor@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
-VT_G: DW b@G
-
-.CODE
-b@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-PUSH 1 ; apilo true
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@G:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -156,7 +106,7 @@ RET 1
 
 
 .DATA
-VT_Main: NOP
+VT_Main: DW m@Main
 
 .CODE
 main@Main:
@@ -166,6 +116,46 @@ STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 0
+m@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local x1
+PUSH 3 ; Apila el entero 3
+PUSH 3 ; Apila el entero 3
+PUSH 3 ; Apila el entero 3
+ADD
+ADD
+STORE 0
+RMEM 1 ; guardo lugar para la variable local x2
+PUSH 3 ; Apila el entero 3
+PUSH 1 ; Apila el entero 1
+NEG ; menos unario
+ADD
+STORE -1
+RMEM 1 ; guardo lugar para la variable local x3
+PUSH 1 ; apilo true
+PUSH 1 ; Apila el entero 1
+PUSH 2 ; Apila el entero 2
+GT
+OR
+STORE -2
+RMEM 1 ; guardo lugar para la variable local x4
+PUSH VT_A
+POP ; como es estatico no me sirve la referencia anterior
+RMEM 1 ; reservo lugar para el return
+PUSH a@A; etiqueta
+CALL
+PUSH 4 ; Apila el entero 4
+PUSH 5 ; Apila el entero 5
+PUSH 3 ; Apila el entero 3
+SUB
+ADD
+MUL
+STORE -3
+FMEM 4
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 

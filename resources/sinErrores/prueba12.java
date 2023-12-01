@@ -4,7 +4,6 @@ class A {
 
     public A(int init) {
         x = init;
-        return ;
     }
 
     void setX(int newX) {

@@ -100,10 +100,13 @@ public abstract class Clase {
         constructor.chequeoSentencias();
     }
 
-
-    public void generar() {
-
+    public int cantidadAtributosDinamicos(){
+        int resultado = 0;
+        for(Atributo a: atributos.values()){
+            if(!a.isEsEstatico())
+                resultado++;
+        }
+        return resultado;
     }
-
 
 }

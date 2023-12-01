@@ -1,7 +1,7 @@
 .CODE
 PUSH simple_heap_init
 CALL
-PUSH main@Main
+PUSH main@Init
 CALL
 HALT
 
@@ -26,10 +26,34 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW m@A
+VT_A: NOP
 
 .CODE
-m@A:
+
+
+
+lblConstructor@A:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+LOAD 5
+PUSH debugPrint$int@Object ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+LOAD 4
+PUSH debugPrint$int@Object ; Apila el método 
+CALL ; Llama al método en el tope de la pila
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 3
+
+
+
+.DATA
+VT_Init: NOP
+
+.CODE
+main@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -38,66 +62,26 @@ PUSH 1; apilo los atributos
 PUSH simple_malloc
 CALL
 DUP
-PUSH VT_G; apilo el comienzo de la vt
+PUSH VT_A; apilo el comienzo de la vt
 STOREREF 0
 DUP
-
-
-
-PUSH lblConstructor@G
-CALL
-RMEM 1 ; reservo lugar para el return
+PUSH 1 ; Apila el entero 1
 SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
+PUSH 2 ; Apila el entero 2
+SWAP
+
+
+
+PUSH lblConstructor@A
 CALL
-BF labelThen0 ; salta afuera del if si la condicion es falsa
-FMEM 0
-labelThen0: NOP
-
-
-
+POP
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
+RET 0
 
 
 
-lblConstructor@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
-VT_G: DW b@G
-
-.CODE
-b@G:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-PUSH 1 ; apilo true
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-lblConstructor@G:
+lblConstructor@Init:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
@@ -145,31 +129,6 @@ VT_String: NOP
 
 
 lblConstructor@String:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-.DATA
-VT_Main: NOP
-
-.CODE
-main@Main:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 0
-
-
-
-lblConstructor@Main:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp

@@ -26,66 +26,92 @@ RET 1 ; Retorna eliminando el parámetro
 
 
 .DATA
-VT_A: DW getX@A,setX$int@A,printX@A
+VT_Abuelo: NOP
 
 .CODE
-getX@A:
+
+
+
+lblConstructor@Abuelo:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 FMEM 0
-LOAD 3
-LOADREF 1 ; offset atributo
-STORE 4
-STOREFP ; Almacena el tope de la pila en el registro fp
-RET 1
-
-
-
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 1
-setX$int@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 4
-DUP
-LOAD 3
-SWAP
-STOREREF 1
-POP
-FMEM 0
-STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 2
-printX@A:
-LOADFP ; Apila el valor del registro fp
-LOADSP ; Apila el valor del registro sp
-STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 3
-LOADREF 1 ; offset atributo
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
 RET 1
 
 
 
-lblConstructor@A:
+.DATA
+VT_Padre: NOP
+
+.CODE
+
+
+
+lblConstructor@Padre:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-LOAD 4
-DUP
-LOAD 3
-SWAP
-STOREREF 1
-POP
 FMEM 0
 FMEM 0
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 2
+RET 1
+
+
+
+.DATA
+VT_AbueloI: NOP
+
+.CODE
+
+
+
+lblConstructor@AbueloI:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
+VT_HijaI: NOP
+
+.CODE
+
+
+
+lblConstructor@HijaI:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
+VT_TioI: NOP
+
+.CODE
+
+
+
+lblConstructor@TioI:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
 
 
 
@@ -119,6 +145,42 @@ RET 1
 
 
 .DATA
+VT_PadreI: NOP
+
+.CODE
+
+
+
+lblConstructor@PadreI:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
+VT_Hija: NOP
+
+.CODE
+
+
+
+lblConstructor@Hija:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+FMEM 0
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 1
+
+
+
+.DATA
 VT_String: NOP
 
 .CODE
@@ -137,79 +199,252 @@ RET 1
 
 
 .DATA
-VT_Main: NOP
+VT_Main: DW m@Main
 
 .CODE
 main@Main:
 LOADFP ; Apila el valor del registro fp
 LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
-RMEM 1 ; guardo lugar para la variable local a
+FMEM 0
+STOREFP ;AF Almacena el tope de la pila en el registro fp
+RET 0
+m@Main:
+LOADFP ; Apila el valor del registro fp
+LOADSP ; Apila el valor del registro sp
+STOREFP ; Almacena el tope de la pila en el registro fp
+RMEM 1 ; guardo lugar para la variable local ai
 RMEM 1
-PUSH 2; apilo los atributos
+PUSH 1; apilo los atributos
 PUSH simple_malloc
 CALL
 DUP
-PUSH VT_A; apilo el comienzo de la vt
+PUSH VT_AbueloI; apilo el comienzo de la vt
 STOREREF 0
 DUP
-PUSH 1 ; Apila el entero 1
-SWAP
 
 
 
-PUSH lblConstructor@A
+PUSH lblConstructor@AbueloI
 CALL
 STORE 0
-RMEM 1 ; guardo lugar para la variable local p1
-LOAD 0
-RMEM 1 ; reservo lugar para el return
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 0
+RMEM 1 ; guardo lugar para la variable local pi
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_PadreI; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@PadreI
 CALL
 STORE -1
-LOAD 0
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 2
+RMEM 1 ; guardo lugar para la variable local ti
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
 CALL
-LOAD 0
-PUSH 2 ; Apila el entero 2
-SWAP
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 1
-CALL
-RMEM 1 ; guardo lugar para la variable local p2
-LOAD 0
-LOADREF 1
-STORE -2
-LOAD 0
-DUP ; no perder el this
-LOADREF 0 ; cargo la vt
-LOADREF 2
-CALL
-LOAD -1
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-LOAD -2
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-PUSH 3 ; Apila el entero 3
 DUP
-LOAD 0
-SWAP
+PUSH VT_TioI; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@TioI
+CALL
+STORE -2
+RMEM 1 ; guardo lugar para la variable local hi
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_HijaI; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@HijaI
+CALL
+STORE -3
+RMEM 1 ; guardo lugar para la variable local a
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_Abuelo; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@Abuelo
+CALL
+STORE -4
+RMEM 1 ; guardo lugar para la variable local p
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_Padre; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@Padre
+CALL
+STORE -5
+RMEM 1 ; guardo lugar para la variable local h
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_Hija; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@Hija
+CALL
+STORE -6
+RMEM 1 ; guardo lugar para la variable local o
+RMEM 1
+PUSH 1; apilo los atributos
+PUSH simple_malloc
+CALL
+DUP
+PUSH VT_Object; apilo el comienzo de la vt
+STOREREF 0
+DUP
+
+
+
+PUSH lblConstructor@Object
+CALL
+STORE -7
+RMEM 1 ; guardo lugar para la variable local x1
+RMEM 1 ; puntero al String en .HEAP
+PUSH 2
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 's' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
 STOREREF 1
-POP
+RMEM 1 ; puntero al String en .HEAP
+PUSH 2
+PUSH simple_malloc
+CALL
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 's' 
+STOREREF 0 ; Guardo la letra apilada
+DUP ; Duplico la referencia del comienzo del String ya que STOREREF la consume
+PUSH 0 ; Apilo terminador
+STOREREF 1
+EQ
+STORE -8
+RMEM 1 ; guardo lugar para la variable local y14
+PUSH 0 ; apilo null
 LOAD 0
-LOADREF 1
-PUSH debugPrint$int@Object ; Apila el método 
-CALL ; Llama al método en el tope de la pila
-FMEM 3
+EQ
+STORE -9
+RMEM 1 ; guardo lugar para la variable local y15
+PUSH 0 ; apilo null
+LOAD -1
+EQ
+STORE -10
+RMEM 1 ; guardo lugar para la variable local y16
+PUSH 0 ; apilo null
+LOAD -2
+EQ
+STORE -11
+RMEM 1 ; guardo lugar para la variable local y17
+PUSH 0 ; apilo null
+LOAD -3
+EQ
+STORE -12
+RMEM 1 ; guardo lugar para la variable local y18
+PUSH 0 ; apilo null
+LOAD -4
+EQ
+STORE -13
+RMEM 1 ; guardo lugar para la variable local y19
+PUSH 0 ; apilo null
+LOAD -5
+EQ
+STORE -14
+RMEM 1 ; guardo lugar para la variable local y20
+PUSH 0 ; apilo null
+LOAD -6
+EQ
+STORE -15
+RMEM 1 ; guardo lugar para la variable local x21
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD 3
+LOADREF 1 ; offset atributo
+EQ
+STORE -16
+RMEM 1 ; guardo lugar para la variable local x22
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD 0
+EQ
+STORE -17
+RMEM 1 ; guardo lugar para la variable local x23
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD -1
+EQ
+STORE -18
+RMEM 1 ; guardo lugar para la variable local x24
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD -2
+EQ
+STORE -19
+RMEM 1 ; guardo lugar para la variable local x25
+LOAD 3
+LOADREF 1 ; offset atributo
+LOAD -3
+EQ
+STORE -20
+RMEM 1 ; guardo lugar para la variable local x26
+LOAD 0
+LOAD 0
+EQ
+STORE -21
+RMEM 1 ; guardo lugar para la variable local x27
+LOAD 0
+LOAD -1
+EQ
+STORE -22
+RMEM 1 ; guardo lugar para la variable local x28
+LOAD 0
+LOAD -2
+EQ
+STORE -23
+RMEM 1 ; guardo lugar para la variable local x29
+LOAD 0
+LOAD -3
+EQ
+STORE -24
+FMEM 25
 STOREFP ;AF Almacena el tope de la pila en el registro fp
-RET 0
+RET 1
 
 
 

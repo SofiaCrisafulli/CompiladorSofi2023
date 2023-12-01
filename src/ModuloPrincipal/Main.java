@@ -19,9 +19,8 @@ public class Main {
         String fileName;
         String archivoDeSalida;
         TablaEstatica.startTabla();
-        if (args.length > 0) { //true ||
+        if (args.length > 0) {
             fileName = args[0];
-
             archivoDeSalida = args[1];
             String[] nameIntermedio = fileName.split("/");
             String name = "Compilado_" + nameIntermedio[nameIntermedio.length - 1];

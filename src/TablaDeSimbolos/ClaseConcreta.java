@@ -263,7 +263,7 @@ public class ClaseConcreta extends Clase {
         return offsetCiR;
     }
 
-    @Override
+
     public void generar() {
         TablaDeSimbolos.gen("\n\n");
         TablaDeSimbolos.gen(".DATA");

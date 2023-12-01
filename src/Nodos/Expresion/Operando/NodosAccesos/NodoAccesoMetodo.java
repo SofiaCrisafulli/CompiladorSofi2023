@@ -43,7 +43,7 @@ public class NodoAccesoMetodo extends NodoAcceso {
                 }
             } else if (metodoOconstructor instanceof  Constructor) {
                 Constructor metodoActual = (Constructor)TablaDeSimbolos.claseActual.getMetodoActual();
-                chequeoParametrosConstructor(metodoActual);
+                chequeoParametros(metodo);
                 tipoMetodo = metodo.getTipo();
                 if (nodoEncadenado != null) {
                     nodoEncadenado.setEsAsignacion(esAsignacion);
@@ -103,23 +103,6 @@ public class NodoAccesoMetodo extends NodoAcceso {
             throw new ExcepcionSemantica(operador, "error en los parámetros del acceso al metodo");
     }
 
-    private void chequeoParametrosConstructor(Constructor metodo) throws ExcepcionSemantica {
-        boolean fallo = false;
-        ArrayList<Parametro> listaParametros = metodo.getParametros();
-        if (listaParametros.size() == parametros.size()) {
-            Iterator<Parametro> iterador = listaParametros.iterator();
-            Iterator<NodoExpresion> nodoExpresionIterator = parametros.iterator();
-            while (iterador.hasNext() && nodoExpresionIterator.hasNext() && !fallo) {
-                Parametro p = iterador.next();
-                NodoExpresion nodoExpresion = nodoExpresionIterator.next();
-                fallo = !(nodoExpresion.chequear().esSubtipo(p.getTipo()));
-                parametrosInvertidos.add(0, nodoExpresion);
-            }
-        } else
-            fallo = true;
-        if (fallo)
-            throw new ExcepcionSemantica(operador, "error en los parámetros del constructor del metodo");
-    }
 
     public void setListaParametros(ArrayList<NodoExpresion> args) {
         parametros = args;

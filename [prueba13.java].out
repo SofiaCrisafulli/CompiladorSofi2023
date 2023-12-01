@@ -146,7 +146,7 @@ LOADSP ; Apila el valor del registro sp
 STOREFP ; Almacena el tope de la pila en el registro fp
 RMEM 1 ; guardo lugar para la variable local a
 RMEM 1
-PUSH 2; apilo los atributos
+PUSH 1; apilo los atributos
 PUSH simple_malloc
 CALL
 DUP

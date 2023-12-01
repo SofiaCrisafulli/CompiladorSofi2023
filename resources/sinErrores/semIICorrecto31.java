@@ -1,4 +1,4 @@
-///exitosamente
+///Hola&k&10&xd&k&10&jjj&k&20exitosamente
 class A extends System {
     static void main(){
         var v0 = "Hola";
